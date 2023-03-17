@@ -2,10 +2,12 @@ package GUI.Models;
 
 import BLL.AdminManager;
 
+import java.io.IOException;
+
 public class ModelsHandeler {
     private AdminModel adminModel;
 
-    public ModelsHandeler(){
+    public ModelsHandeler() throws IOException {
         adminModel = new AdminModel();
     }
 
