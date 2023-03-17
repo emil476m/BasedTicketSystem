@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.Controllers.LoginViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <GridPane layoutX="178.0" layoutY="154.0" prefHeight="91.0" prefWidth="250.0" AnchorPane.bottomAnchor="155.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="154.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="TxtUsername" promptText="Username" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
+                  <TextField fx:id="TxtPassWord" promptText="Password" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+                  <Button fx:id="BtnLogin" mnemonicParsing="false" text="Login" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
+                     <GridPane.margin>
+                        <Insets left="100.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            <Button fx:id="BtnClose" layoutX="376.0" layoutY="245.0" mnemonicParsing="false" text="Close" AnchorPane.bottomAnchor="129.4" AnchorPane.leftAnchor="376.0" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="245.0" />
+            <Label alignment="CENTER" layoutX="250.0" layoutY="83.0" prefHeight="54.0" prefWidth="106.0" text="Login" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="263.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="83.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
