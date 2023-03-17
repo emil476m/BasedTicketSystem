@@ -51,7 +51,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
-        String sql = "INSERT INTO Event_Coordinator (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO Event_Coordinators (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
 
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -86,7 +86,7 @@ public class AdminDAO_DB implements IAdminDAO {
         if (user.getClass().getName() == Admin.class.getName())
             tableName = "Admins";
         else
-            tableName = "Event_Coordinator";
+            tableName = "Event_Coordinators";
 
 
         String sql = "DELETE FROM " + tableName + " WHERE Id = ?;";
@@ -100,6 +100,31 @@ public class AdminDAO_DB implements IAdminDAO {
         catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed to remove " + user.getClass().getName(), e);
+        }
+    }
+
+
+    public void updateUser(User user) throws Exception {
+        String tableName = "";
+        if (user.getClass().getName() == Admin.class.getName())
+            tableName = "Admins";
+        else
+            tableName = "Event_Coordinators";
+
+        String sql = "UPDATE " + tableName + " SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, user.getPassWord());
+            statement.setString(2, user.getMail());
+            statement.setString(3, user.getName());
+            statement.setInt(4, user.getUserID());
+            //Run the specified SQL Statement
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to update playlist", e);
         }
     }
 }
