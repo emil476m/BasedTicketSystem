@@ -1,13 +1,15 @@
 package GUI.Controllers;
 
-public abstract class BaseController {
-    private ModelsHandler modelsHandler;
+import GUI.Models.ModelsHandeler;
 
-    public void setModel(ModelsHandler modelsHandler) {
+public abstract class BaseController {
+    private ModelsHandeler modelsHandler;
+
+    public void setModel(ModelsHandeler modelsHandler) {
         this.modelsHandler = modelsHandler;
     }
 
-    public ModelsHandler getModelsHandler() {
+    public ModelsHandeler getModelsHandler() {
         return modelsHandler;
     }
 
