@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+.root
+{
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-background-color: #009FE3;
+}
+
+.pane
+{
+    -fx-background-color: #FBB92C;
+}
+.imageView
+{
+    -fx-background-image: url(/GUI/Images/EASV.png);
+}
+
+.label
+{
+    -fx-font-size: 16;
+    -fx-text-background-color: #009FE3;
+}
+
+.button
+{
+    -fx-text-fill: #f5f5f5;
+    -fx-background-color: #071E22;
+}
+
+.text-field
+{
+    -fx-text-fill: #071E22;
+}
