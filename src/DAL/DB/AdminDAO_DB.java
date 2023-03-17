@@ -2,6 +2,7 @@ package DAL.DB;
 
 import BE.Admin;
 import BE.Event_Coordinator;
+import BE.User;
 import DAL.DatabaseConnector;
 import DAL.Interfaces.IAdminDAO;
 
@@ -17,6 +18,7 @@ public class AdminDAO_DB implements IAdminDAO {
     }
 
 
+    @Override
     public Admin createAdmin(Admin admin) throws Exception{
         String sql = "INSERT INTO Admins (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
 
@@ -47,6 +49,7 @@ public class AdminDAO_DB implements IAdminDAO {
         }
     }
 
+    @Override
     public Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
         String sql = "INSERT INTO Event_Coordinator (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
 
@@ -74,6 +77,29 @@ public class AdminDAO_DB implements IAdminDAO {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed to create Event_Coordinator", e);
+        }
+    }
+
+    @Override
+    public void deleteUser(User user) throws Exception {
+        String tableName = "";
+        if (user.getClass().getName() == Admin.class.getName())
+            tableName = "Admins";
+        else
+            tableName = "Event_Coordinator";
+
+
+        String sql = "DELETE FROM " + tableName + " WHERE Id = ?;";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, user.getUserID());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove " + user.getClass().getName(), e);
         }
     }
 }
