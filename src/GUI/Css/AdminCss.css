@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+.root
+{
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-background-color: #FFFFFF;
+}
+.cdeu-button
+{
+    -fx-background-color: #FBB92C;
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-text-fill: #071E22;
+    -fx-font-size: 24;
+    -fx-border-radius: 25px;
+}
+
+.events-label
+{
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-text-fill: #071E22;
+    -fx-font-size: 48;
+}
+
+/* NavBar
+ */
+.split-pane-divider {
+    -fx-background-color: transparent;
+}
+.nav-bar-top
+{
+    -fx-background-color: #071E22;
+}
+.nav-bar-bottom
+{
+    -fx-background-color: #009FE3;
+}
+.nav-bar-label
+{
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 45;
+}
+.nav-bar-image
+{
+    -fx-background-image: url(/GUI/Images/EA.png);
+}
