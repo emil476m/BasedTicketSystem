@@ -7,6 +7,8 @@ import BLL.AdminManager;
 import BLL.Interfaces.IAdminManager;
 import DAL.DB.AdminDAO_DB;
 import DAL.Interfaces.IAdminDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 
@@ -14,8 +16,15 @@ public class AdminModel {
 
     private IAdminManager adminManager;
 
+    private ObservableList<User> userObservableList;
+
     public AdminModel() throws IOException {
         adminManager = new AdminManager();
+        userObservableList = FXCollections.observableArrayList();
+    }
+
+    public ObservableList<User> getUserObservableList() {
+        return userObservableList;
     }
 
     public Admin createAdmin(Admin admin) throws Exception{
@@ -27,6 +36,7 @@ public class AdminModel {
     }
 
     public void deleteUser(User user) throws Exception{
+        userObservableList.remove(user);
         adminManager.deleteUser(user);
     }
 }
