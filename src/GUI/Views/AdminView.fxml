@@ -64,12 +64,28 @@
          <center>
                 <AnchorPane prefHeight="774.0" prefWidth="494.0" BorderPane.alignment="CENTER">
                <children>
-                        <Button fx:id="btnCreateUser" layoutX="-42.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Users" />
-                        <Button fx:id="btnEditUser" layoutX="82.0" layoutY="421.0" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit Users" />
-                        <Button fx:id="btnDeleteUser" layoutX="82.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Users" />
-                  <Button fx:id="btnDeleteEvent" layoutX="192.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Events" />
                   <ListView fx:id="ListVUsers" layoutX="382.0" layoutY="94.0" prefHeight="679.0" prefWidth="417.0" />
                   <Label layoutX="382.0" layoutY="14.0" styleClass="events-label" text="Users" AnchorPane.leftAnchor="382.0" AnchorPane.topAnchor="14.0" />
+                  <VBox layoutX="105.0" layoutY="245.0" prefHeight="282.0" prefWidth="186.0">
+                     <children>
+                              <Button fx:id="btnCreateUser" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Users" />
+                        <Button fx:id="btnDeleteEvent" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Events">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Button>
+                              <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Users">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Button>
+                              <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit Users">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children></AnchorPane>
          </center>
         </BorderPane>
