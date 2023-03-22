@@ -1,5 +1,6 @@
 package GUI.Controllers;
 
+import BE.User;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -14,14 +15,17 @@ public class AdminController extends BaseController {
     public Button btnEditUser;
     public Button btnDeleteUser;
     public Button btnDeleteEvent;
-    public ListView ListVUsers;
+    public ListView<User> ListVUsers;
 
     @Override
     public void setup() {
-
+        try {
+            getModelsHandler().getAdminModel().getAllUsers();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         ListVUsers.setItems(getModelsHandler().getAdminModel().getUserObservableList());
 
-        //.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     }
 

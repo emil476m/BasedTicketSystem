@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 public class DatabaseConnector {
-    private static final String PROP_FILE = "config/database.settings";
+    private static final String PROP_FILE = ".idea/Config/DataBase.Settings";
     private SQLServerDataSource ds;
 
     public DatabaseConnector() throws IOException {

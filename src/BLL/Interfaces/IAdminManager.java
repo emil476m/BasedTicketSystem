@@ -4,6 +4,8 @@ import BE.Admin;
 import BE.Event_Coordinator;
 import BE.User;
 
+import java.util.List;
+
 public interface IAdminManager {
 
     Admin createAdmin(Admin admin) throws Exception;
@@ -11,4 +13,6 @@ public interface IAdminManager {
     Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception;
 
     public void deleteUser(User user) throws Exception;
+
+    List<User> getAllUsers(Class userType) throws Exception;
 }

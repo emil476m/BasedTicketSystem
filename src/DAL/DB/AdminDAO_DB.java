@@ -8,6 +8,8 @@ import DAL.Interfaces.IAdminDAO;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDAO_DB implements IAdminDAO {
 
@@ -125,6 +127,45 @@ public class AdminDAO_DB implements IAdminDAO {
         catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed to update playlist", e);
+        }
+    }
+
+    public List<User> getAllUsers(Class userType) throws Exception {
+        if (userType == Admin.class){
+            return getUserList("Admins", Admin.class);
+        } else if (userType == Event_Coordinator.class) {
+            return getUserList("Event_Coordinators", Event_Coordinator.class);
+        }
+        return null;
+    }
+
+    private List<User> getUserList(String userType, Class classType) throws Exception {
+        String sql = "SELECT * FROM " + userType + ";";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            List<User> userList = new ArrayList<>();
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                String passWord = resultSet.getString("PassWord");
+                String userName = resultSet.getString("UserName");
+                String mail = resultSet.getString("Mail");
+                String name = resultSet.getString("Name");
+
+                if (classType == Admin.class){
+                    userList.add(new Admin(id, passWord, userName, mail, name));
+                } else if (classType == Event_Coordinator.class) {
+                    userList.add(new Event_Coordinator(id, passWord, userName, mail, name));
+                }
+            }
+            return userList;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve Users", e);
         }
     }
 }

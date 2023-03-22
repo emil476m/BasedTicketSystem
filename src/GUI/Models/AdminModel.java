@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AdminModel {
 
@@ -38,5 +39,12 @@ public class AdminModel {
     public void deleteUser(User user) throws Exception{
         userObservableList.remove(user);
         adminManager.deleteUser(user);
+    }
+
+    public void getAllUsers() throws Exception{
+        List<User> eventCoordinatorList = adminManager.getAllUsers(Event_Coordinator.class);
+        List<User> adminList = adminManager.getAllUsers(Admin.class);
+        userObservableList.addAll(eventCoordinatorList);
+        userObservableList.addAll(adminList);
     }
 }

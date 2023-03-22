@@ -8,6 +8,7 @@ import DAL.DB.AdminDAO_DB;
 import DAL.Interfaces.IAdminDAO;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AdminManager implements IAdminManager {
 
@@ -30,5 +31,10 @@ public class AdminManager implements IAdminManager {
     @Override
     public void deleteUser(User user) throws Exception{
         databaseAcces.deleteUser(user);
+    }
+
+    @Override
+    public List<User> getAllUsers(Class userType) throws Exception {
+        return databaseAcces.getAllUsers(userType);
     }
 }
