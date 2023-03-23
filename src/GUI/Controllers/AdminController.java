@@ -61,6 +61,7 @@ public class AdminController extends BaseController {
 
     @FXML
     public void handleCreateUser(ActionEvent actionEvent) {
+        openUserInfo();
     }
 
     @FXML
@@ -93,12 +94,13 @@ public class AdminController extends BaseController {
 
     }
 
-    private boolean shouldEditUser(){
-        if (listVUsers.getSelectionModel().getSelectedItem() != null){
-            return true;
+    private User getSelectedUser(){
+        User user = listVUsers.getSelectionModel().getSelectedItem();
+        if (user != null){
+            return user;
         }
         else
-            return false;
+            return null;
     }
 
     private void openUserInfo(){
@@ -122,7 +124,7 @@ public class AdminController extends BaseController {
         controller.setModel(getModelsHandler());
 
         //checks if user wants to create a new user or edit existing user.
-        controller.setCreateUser(shouldEditUser());
+        controller.setCreateUser(getSelectedUser());
         controller.setup();
 
 

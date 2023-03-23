@@ -25,7 +25,7 @@
             </padding>
             <children>
             <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Exit" />
-            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete User" />
+            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="210.0" styleClass="cdeu-button" text="Delete User" />
                 <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit User">
                     <HBox.margin>
                         <Insets />
@@ -72,16 +72,16 @@
             <Text layoutX="499.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserId:" wrappingWidth="142.13671875" />
             <MenuBar layoutX="645.0" layoutY="104.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Change Acces Level">
+                <Menu fx:id="mAccessLevel" mnemonicParsing="false" text="Change Access Level">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Admin" />
-                        <MenuItem mnemonicParsing="false" text="Event Coordinator" />
+                    <MenuItem fx:id="menuItemAdmin" mnemonicParsing="false" onAction="#handleMenuItemAdmin" text="Admin" />
+                        <MenuItem fx:id="menuItemEventCoordinator" mnemonicParsing="false" onAction="#handleMenuItemEventCoordinator" text="Event Coordinator" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <TextField fx:id="txtfAcceslevel" layoutX="496.0" layoutY="104.0" />
-            <Text layoutX="496.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acces Level:" wrappingWidth="88.333984375" />
+            <Text layoutX="496.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Access Level:" wrappingWidth="88.333984375" />
          </children>
         </AnchorPane>
     </center>

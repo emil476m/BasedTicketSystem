@@ -101,7 +101,7 @@ public class AdminDAO_DB implements IAdminDAO {
         }
         catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Failed to remove " + user.getClass().getName(), e);
+            throw new Exception("Failed to remove " + user.getClass().getSimpleName(), e);
         }
     }
 
