@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,16 +13,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <AnchorPane prefHeight="1024.0" prefWidth="1440.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
    <children>
       <BorderPane layoutX="686.0" layoutY="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Events" />
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit Events" />
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Button" />
+                  <Button fx:id="btnCreateEvents" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Events" />
+                  <Button fx:id="btnEditEvents" mnemonicParsing="false" onAction="#handleEditEvents" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit Events" />
+                  <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Open" />
                </children>
                <BorderPane.margin>
                   <Insets />
@@ -31,26 +32,28 @@
             </HBox>
          </bottom>
          <left>
-            <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="txtEventName" layoutX="113.0" layoutY="153.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
+                  <Label layoutX="136.0" layoutY="57.0" text="Event Name" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="60.0" />
+                  <TextField fx:id="txtDate" layoutX="123.0" layoutY="163.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
+                  <Label layoutX="146.0" layoutY="67.0" text="Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0" />
+                  <TextField fx:id="txtLocation" layoutX="50.0" layoutY="284.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0" />
+                  <Label layoutX="61.0" layoutY="258.0" text="Location" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
+                  <TextArea fx:id="txaDescription" layoutX="548.0" layoutY="330.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0" />
+                  <Label layoutX="500.0" layoutY="269.0" text="Event Descrirption" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0" />
+                  <TextField fx:id="txtTicketAmount" layoutX="60.0" layoutY="310.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="400.0" />
+                  <Label layoutX="50.0" layoutY="357.0" text="Ticket Amoumt" />
+                  <ImageView fitHeight="300.0" fitWidth="400.0" layoutX="500.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" styleClass="events-image" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="100.0" />
+                  <Button fx:id="btnImageChooseFile" layoutX="654.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleImageChooseFile" text="Choose Image" />
+               </children></AnchorPane>
          </left>
-         <right>
-            <ScrollPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="440.0">
-                     <children>
-                        <Label styleClass="events-label" text="Events" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <VBox prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-         </right>
          <top>
             <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
                <top>
                 <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
                      <children>
-                        <Button layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
+                        <Button fx:id="btnLogOut" layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="log-out-btn" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
                      </children>
                   </AnchorPane>
                </top>
@@ -58,7 +61,7 @@
                 <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
                      <children>
                         <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Coordinator" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
-                        <Label layoutX="156.0" layoutY="21.0" prefHeight="54.0" prefWidth="281.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                        <Label layoutX="156.0" layoutY="21.0" prefHeight="54.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
                         <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
                            <image>
                               <Image url="@../Images/EA.png" />
@@ -69,6 +72,30 @@
                </bottom>
             </BorderPane>
          </top>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="77.0" layoutY="39.0" styleClass="events-label" text="Events" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+                  <ScrollPane hbarPolicy="NEVER" layoutX="110.0" layoutY="223.0" prefHeight="200.0" prefWidth="200.0" styleClass="ScrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="440.0">
+                           <padding>
+                              <Insets left="20.0" right="20.0" />
+                           </padding>
+                           <children>
+                              <VBox layoutX="183.0" layoutY="24.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+                                 <children>
+                                    <ImageView fx:id="imgEvent" fitHeight="150.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label fx:id="lblEventName" layoutX="10.0" layoutY="160.0" prefHeight="50.0" prefWidth="380.0" text="Default Event Name" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>

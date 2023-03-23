@@ -12,12 +12,27 @@
     -fx-font-size: 24;
     -fx-border-radius: 25px;
 }
-
+.label
+{
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-text-fill: #071E22;
+    -fx-font-size: 20;
+}
 .events-label
 {
     -fx-font-family: 'Russo One', sans-serif;;
     -fx-text-fill: #071E22;
     -fx-font-size: 48;
+}
+
+.log-out-btn
+{
+    -fx-background-color: transparent;
+    -fx-text-fill: #009FE3;
+}
+.log-out-btn:hover
+{
+    -fx-text-fill: #FBB92C;
 }
 
 /* NavBar
@@ -42,4 +57,13 @@
 .nav-bar-image
 {
     -fx-background-image: url(/GUI/Images/EA.png);
+}
+/* ScrollPane
+ */
+.ScrollPane
+{
+    -fx-background-color: #FFFFFF;
+}
+
+.events-image {
 }
