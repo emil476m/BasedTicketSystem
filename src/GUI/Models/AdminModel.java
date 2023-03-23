@@ -26,12 +26,12 @@ public class AdminModel {
         return userObservableList;
     }
 
-    public Admin createAdmin(Admin admin) throws Exception{
-        return adminManager.createAdmin(admin);
+    public void createAdmin(Admin admin) throws Exception{
+        userObservableList.add(adminManager.createAdmin(admin));
     }
 
-    public Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
-        return adminManager.createEvent_Coordinator(event_coordinator);
+    public void createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
+        userObservableList.add(adminManager.createEvent_Coordinator(event_coordinator));
     }
 
     public void deleteUser(User user) throws Exception{

@@ -69,7 +69,7 @@
             <TextField fx:id="txtfName" layoutX="314.0" layoutY="188.0" />
             <Text layoutX="317.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="142.13671875" />
             <TextField fx:id="txtfUserId" layoutX="496.0" layoutY="188.0" />
-            <Text layoutX="499.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserId:" wrappingWidth="142.13671875" />
+            <Text fx:id="txtUserId" layoutX="499.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserId:" wrappingWidth="142.13671875" />
             <MenuBar layoutX="645.0" layoutY="104.0">
               <menus>
                 <Menu fx:id="mAccessLevel" mnemonicParsing="false" text="Change Access Level">
