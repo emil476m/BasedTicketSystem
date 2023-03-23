@@ -7,7 +7,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class EventCoordinatorMain {
+public class EventCoordinatorMain extends BaseController {
+    @Override
+    public void setup() {
+
+    }
     public TextField txtEventName;
     public TextField txtDate;
     public TextField txtLocation;
