@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -79,6 +80,7 @@ public class LoginViewController extends BaseController {
 
         stage.setScene(new Scene(root));
         stage.setTitle("Event Master (Admin)");
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 
@@ -93,7 +95,8 @@ public class LoginViewController extends BaseController {
         controller.setup();
 
         stage.setScene(new Scene(root));
-        stage.setTitle("Event Master (Admin)");
+        stage.setTitle("Event Master (Coordinator)");
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
     }
 }
