@@ -29,6 +29,7 @@
 {
     -fx-background-color: transparent;
     -fx-text-fill: #009FE3;
+    -fx-font-size: 16;
 }
 .log-out-btn:hover
 {
@@ -65,5 +66,12 @@
     -fx-background-color: #FFFFFF;
 }
 
-.events-image {
+.events-image
+{
+
+}
+
+.pane-in-my-ass
+{
+    -fx-background-color: #D9D9D9;
 }
