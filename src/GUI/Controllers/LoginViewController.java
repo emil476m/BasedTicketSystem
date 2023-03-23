@@ -36,6 +36,10 @@ public class LoginViewController extends BaseController {
         stage.close();
     }
 
+    /**
+     * handles the login action
+     * @param event
+     */
     public void handleLogin(ActionEvent event) {
         try{
             String username = TxtUsername.getText();
@@ -68,6 +72,10 @@ public class LoginViewController extends BaseController {
         }
     }
 
+    /**
+     * opens the AdminView when called
+     * @throws IOException
+     */
     private void openAdminView() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/AdminView.fxml"));
 
@@ -84,6 +92,10 @@ public class LoginViewController extends BaseController {
         stage.show();
     }
 
+    /**
+     * opens the EventCoordinatorView when called
+     * @throws IOException
+     */
     private void openEventCoordinatorView() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/EventCoordinatorView.fxml"));
 

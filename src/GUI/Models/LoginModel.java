@@ -16,6 +16,12 @@ public class LoginModel {
         loginManager = new LoginManager();
     }
 
+    /**
+     * takes in two strings and gets either an Admin object or an Event_Coordinator object in return.
+     * @param Username
+     * @param Password
+     * @throws Exception
+     */
     public void loginAction(String Username, String Password) throws Exception
     {
         Admin admin = loginManager.adminLogin(Username,Password);

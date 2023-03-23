@@ -18,7 +18,14 @@ public LoginDAO_DB() throws IOException {
     dbConnector = new DatabaseConnector();
 }
 
-@Override
+    /**
+     * Finds and returns an Admin object that contains text matching that of text from the String parameters
+     * @param userName
+     * @param passWord
+     * @return returns an Admin object which matches username and password
+     * @throws Exception
+     */
+    @Override
 public Admin loginAdmin(String userName, String passWord) throws Exception {
     String sql = "SELECT * FROM Admins WHERE UserName=? AND PassWord =?;";
     Admin admin = null;
@@ -52,7 +59,14 @@ public Admin loginAdmin(String userName, String passWord) throws Exception {
     }
 }
 
-@Override
+    /**
+     * Finds and returns an Event_Coordinator object that contains text matching that of text from the String parameters
+     * @param userName
+     * @param passWord
+     * @return returns an Event_Coordinator object which matches username and password
+     * @throws Exception
+     */
+    @Override
 public Event_Coordinator loginEventCoordinator(String userName, String passWord) throws Exception {
  String sql = "SELECT * FROM Event_Coordinators WHERE UserName=? AND PassWord=?";
     Event_Coordinator eventCoordinator = null;
