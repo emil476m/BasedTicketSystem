@@ -47,4 +47,10 @@ public class User {
     public String getPassWord(){
         return passWord;
     }
+
+    @Override
+    public String toString() {
+        return
+                userID + "\t" + name + " " + "\t" + this.getClass().getSimpleName();
+    }
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPaneUserInfo" onMouseClicked="#dragScreen" prefHeight="500.0" prefWidth="900.0" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.UserInfoController">
+    <bottom>
+        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+            <padding>
+                <Insets left="50.0" />
+            </padding>
+            <children>
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Exit" />
+            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete User" />
+                <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit User">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Confirm">
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin></Button>
+            </children>
+        </HBox>
+    </bottom>
+    <top>
+        <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
+            <top>
+                <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER" />
+            </top>
+            <bottom>
+                <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="156.0" layoutY="21.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                        <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
+                            <image>
+                                <Image url="@../Images/EA.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </top>
+    <center>
+        <AnchorPane prefHeight="774.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtfUsername" layoutX="97.0" layoutY="104.0" />
+            <Text layoutX="100.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="142.13671875" />
+            <TextField fx:id="txtfPassword" layoutX="97.0" layoutY="188.0" />
+            <Text layoutX="100.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="142.13671875" />
+            <TextField fx:id="txtfMail" layoutX="314.0" layoutY="104.0" />
+            <Text layoutX="317.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail:" wrappingWidth="142.13671875" />
+            <TextField fx:id="txtfName" layoutX="314.0" layoutY="188.0" />
+            <Text layoutX="317.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="142.13671875" />
+            <TextField fx:id="txtfUserId" layoutX="496.0" layoutY="188.0" />
+            <Text layoutX="499.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserId:" wrappingWidth="142.13671875" />
+            <MenuBar layoutX="645.0" layoutY="104.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Change Acces Level">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Admin" />
+                        <MenuItem mnemonicParsing="false" text="Event Coordinator" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <TextField fx:id="txtfAcceslevel" layoutX="496.0" layoutY="104.0" />
+            <Text layoutX="496.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Acces Level:" wrappingWidth="88.333984375" />
+         </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

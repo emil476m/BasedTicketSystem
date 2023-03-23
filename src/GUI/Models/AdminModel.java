@@ -5,8 +5,6 @@ import BE.Event_Coordinator;
 import BE.User;
 import BLL.AdminManager;
 import BLL.Interfaces.IAdminManager;
-import DAL.DB.AdminDAO_DB;
-import DAL.Interfaces.IAdminDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

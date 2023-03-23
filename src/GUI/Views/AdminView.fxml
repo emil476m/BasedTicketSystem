@@ -12,82 +12,67 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="1024.0" prefWidth="1440.0" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
-    <children>
-        <BorderPane layoutX="686.0" layoutY="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <bottom>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
-                    <BorderPane.margin>
-                        <Insets />
-                    </BorderPane.margin>
-                    <padding>
-                        <Insets left="50.0" />
-                    </padding>
-                </HBox>
-            </bottom>
-            <right>
-                <ScrollPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="440.0">
-                            <children>
-                                <Label styleClass="events-label" text="Events" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                <VBox fx:id="ScrollPaneEvent" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </ScrollPane>
-            </right>
-            <top>
-                <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
-                    <top>
-                        <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
-                            <children>
-                                <Button layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
-                            </children>
-                        </AnchorPane>
-                    </top>
-                    <bottom>
-                        <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
-                            <children>
-                                <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Admin" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
-                                <Label layoutX="156.0" layoutY="21.0" prefHeight="54.0" prefWidth="281.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
-                                <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
-                                    <image>
-                                        <Image url="@../Images/EA.png" />
-                                    </image>
-                                </ImageView>
-                            </children>
-                        </AnchorPane>
-                    </bottom>
-                </BorderPane>
-            </top>
-         <center>
-                <AnchorPane prefHeight="774.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+<BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
+   <bottom>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="50.0" />
+         </padding>
+         <children>
+            <Button fx:id="btnCreateUser" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Users">
+               <HBox.margin>
+                  <Insets left="440.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Open" />
+         </children>
+      </HBox>
+   </bottom>
+   <right>
+      <ScrollPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="440.0">
                <children>
-                  <ListView fx:id="ListVUsers" layoutX="382.0" layoutY="94.0" prefHeight="679.0" prefWidth="417.0" />
-                  <Label layoutX="382.0" layoutY="14.0" styleClass="events-label" text="Users" AnchorPane.leftAnchor="382.0" AnchorPane.topAnchor="14.0" />
-                  <VBox layoutX="105.0" layoutY="245.0" prefHeight="282.0" prefWidth="186.0">
-                     <children>
-                              <Button fx:id="btnCreateUser" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Users" />
-                        <Button fx:id="btnDeleteEvent" mnemonicParsing="false" onAction="#handleDeleteEvent" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Events">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                        </Button>
-                              <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Delete Users">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                        </Button>
-                              <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit Users">
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-         </center>
-        </BorderPane>
-    </children>
-</AnchorPane>
+                  <Label styleClass="events-label" text="Events" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <VBox fx:id="ScrollPaneEvent" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </right>
+   <top>
+      <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
+         <top>
+            <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnLogout" layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
+               </children>
+            </AnchorPane>
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Admin" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
+                  <Label layoutX="156.0" layoutY="21.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                  <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
+                     <image>
+                        <Image url="@../Images/EA.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="774.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+         <children>
+            <ListView fx:id="listVUsers" layoutX="382.0" layoutY="94.0" onMouseClicked="#clickOnUser" prefHeight="679.0" prefWidth="417.0" />
+            <Label layoutX="382.0" layoutY="14.0" styleClass="events-label" text="Users" AnchorPane.leftAnchor="382.0" AnchorPane.topAnchor="14.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
