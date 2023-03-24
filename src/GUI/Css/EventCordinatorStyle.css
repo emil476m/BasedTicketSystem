@@ -66,9 +66,22 @@
     -fx-background-color: #FFFFFF;
 }
 
+.borderPane
+{
+    -fx-border-color: #071E22;
+    -fx-border-width: 5px 5px 5px 5px;
+}
+.events-button-image
+{
+    -fx-background-color: transparent;
+    -fx-border-color: #009FE3;
+    -fx-border-width: 0px 0px 40px 0px;
+}
+
 .events-image
 {
-
+    -fx-border-color: #071E22;
+    -fx-border-width: 5px 5px 5px 5px;
 }
 
 .pane-in-my-ass

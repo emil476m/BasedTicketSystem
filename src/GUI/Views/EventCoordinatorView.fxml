@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -13,22 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
-   <bottom>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnCreateEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" styleClass="cdeu-button" text="Create Events" />
-            <Button fx:id="btnEditEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleEditEvents" prefHeight="50.0" styleClass="cdeu-button" text="Edit Events" />
-            <Button fx:id="btnOpen" minWidth="200.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" styleClass="cdeu-button" text="Open" />
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets left="50.0" />
-         </padding>
-      </HBox>
-   </bottom>
+<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" prefHeight="1024.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -38,12 +24,21 @@
             <Label layoutX="146.0" layoutY="67.0" text="Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0" />
             <TextField fx:id="txtLocation" layoutX="50.0" layoutY="284.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0" />
             <Label layoutX="61.0" layoutY="258.0" text="Location" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
-            <TextArea fx:id="txaDescription" layoutX="548.0" layoutY="330.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0" />
-            <Label layoutX="500.0" layoutY="269.0" text="Event Descrirption" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0" />
+            <TextArea fx:id="txaDescription" layoutX="548.0" layoutY="330.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="100.0" />
+            <Label layoutX="500.0" layoutY="269.0" text="Event Descrirption" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="60.0" />
             <TextField fx:id="txtTicketAmount" layoutX="60.0" layoutY="310.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="400.0" />
             <Label layoutX="50.0" layoutY="357.0" text="Ticket Amoumt" />
-            <ImageView fitHeight="300.0" fitWidth="400.0" layoutX="500.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" styleClass="events-image" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="100.0" />
-            <Button fx:id="btnImageChooseFile" layoutX="654.0" layoutY="238.0" mnemonicParsing="false" onAction="#handleImageChooseFile" text="Choose Image" />
+            <HBox alignment="CENTER" layoutX="71.0" layoutY="534.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button fx:id="btnCreateEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" styleClass="cdeu-button" text="Create Events" />
+                  <Button fx:id="btnOpen" minWidth="200.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" styleClass="cdeu-button" text="Open" />
+               </children>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </HBox>
+            <TextField fx:id="txtSpecialTicketAmount" layoutX="60.0" layoutY="410.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0" />
+            <Label layoutX="60.0" layoutY="367.0" text="Special Ticket Amoumt" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0" />
          </children>
       </AnchorPane>
    </left>
@@ -82,10 +77,44 @@
                         <Insets left="20.0" right="20.0" />
                      </padding>
                      <children>
-                        <VBox layoutX="183.0" layoutY="24.0" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+                        <VBox layoutX="183.0" layoutY="24.0" prefHeight="200.0" prefWidth="400.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
                            <children>
-                              <ImageView fx:id="imgEvent" fitHeight="150.0" fitWidth="380.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label fx:id="lblEventName" layoutX="10.0" layoutY="160.0" prefHeight="50.0" prefWidth="380.0" text="Default Event Name" />
+                              <Button alignment="BOTTOM_LEFT" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="400.0" styleClass="events-button-image">
+                                 <graphic>
+                                    <ImageView fitHeight="190.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BOTTOM_LEFT" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="400.0" styleClass="events-button-image">
+                                 <graphic>
+                                    <ImageView fitHeight="190.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BOTTOM_LEFT" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="10.0" layoutY="208.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="400.0" styleClass="events-button-image">
+                                 <graphic>
+                                    <ImageView fitHeight="190.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button alignment="BOTTOM_LEFT" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="10.0" layoutY="406.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="400.0" styleClass="events-button-image">
+                                 <graphic>
+                                    <ImageView fitHeight="190.0" fitWidth="360.0" pickOnBounds="true" preserveRatio="true">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </VBox>
                      </children>

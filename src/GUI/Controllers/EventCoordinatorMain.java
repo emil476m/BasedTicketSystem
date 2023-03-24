@@ -8,30 +8,46 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class EventCoordinatorMain extends BaseController{
-    public TextField txtEventName;
-    public TextField txtDate;
-    public TextField txtLocation;
-    public TextArea txaDescription;
-    public TextField txtTicketAmount;
-    public Button btnImageChooseFile;
-    public ImageView imgEvent;
-    public Label lblEventName;
-    public Button btnLogOut;
-    public BorderPane borderPaneEventCoordinator;
+    @FXML
+    private TextField txtEventName;
+    @FXML
+    private TextField txtDate;
+    @FXML
+    private TextField txtLocation;
+    @FXML
+    private TextArea txaDescription;
+    @FXML
+    private TextField txtTicketAmount,txtSpecialTicketAmount;
+    @FXML
+    private ImageView imgEvent;
+    @FXML
+    private Label lblEventName;
+    @FXML
+    private Button btnLogOut;
+    @FXML
+    private BorderPane borderPaneEventCoordinator;
 
     public void handleCreateEvents(ActionEvent event) {
-    }
 
-    public void handleEditEvents(ActionEvent event) {
+        String name = txtEventName.getText();
+        String date = txtDate.getText();
+        String location = txtLocation.getText();
+        String Creator = txtEventName.getText();
+        String Description = txaDescription.getText();
+        int tickets = Integer.parseInt(txtTicketAmount.getText());
+        int Specialtickets = Integer.parseInt(txtSpecialTicketAmount.getText());
+
+
     }
 
     public void handleOpen(ActionEvent event) {
-    }
-
-    public void handleImageChooseFile(ActionEvent event) {
+        //checkSelectedItemType();
     }
 
     public void handleLogOut(ActionEvent event) {

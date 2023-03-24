@@ -1,5 +1,6 @@
 package GUI.Controllers;
 
+import BE.Event_Coordinator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,22 +12,38 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class EventsController extends BaseController{
-    public BorderPane borderPaneEvent;
-    public Label lblClass;
-    public Button btnAssignCoordinator;
-    public TextField txtCustomerName;
-    public TextField txtCustomerEmail;
-    public Button btnPrintTicket;
-    public Label lblTicketSold;
-    public Label lblTicketLift;
-    public ImageView imgEvent;
-    public ListView lvAssignCoordinator;
-    public Label lblEventName;
-    public Label lblEventDate;
-    public Label lblEventCreator;
-    public Label lblEventLocation;
-    public Button btnLogOut;
-    public Button btnReturn;
+    @FXML
+    private BorderPane borderPaneEvent;
+    @FXML
+    private Label lblClass;
+    @FXML
+    private Button btnAssignCoordinator;
+    @FXML
+    private TextField txtCustomerName;
+    @FXML
+    private TextField txtCustomerEmail;
+    @FXML
+    private Button btnPrintTicket;
+    @FXML
+    private Label lblTicketSold;
+    @FXML
+    private Label lblTicketLift;
+    @FXML
+    private ImageView imgEvent;
+    @FXML
+    private ListView<Event_Coordinator> lvAssignCoordinator;
+    @FXML
+    private Label lblEventName;
+    @FXML
+    private Label lblEventDate;
+    @FXML
+    private Label lblEventCreator;
+    @FXML
+    private Label lblEventLocation;
+    @FXML
+    private Button btnLogOut;
+    @FXML
+    private Button btnReturn;
 
     @Override
     public void setup() {
@@ -42,9 +59,13 @@ public class EventsController extends BaseController{
     }
 
     public void handleAssignCoordinator(ActionEvent event) {
+
     }
 
     public void handleReturn(ActionEvent event) {
+        Stage stage = (Stage) btnReturn.getScene().getWindow();
+        stage.close();
+
     }
 
     @FXML
