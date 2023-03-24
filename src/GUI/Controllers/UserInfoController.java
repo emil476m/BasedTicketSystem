@@ -69,17 +69,17 @@ public class UserInfoController extends BaseController {
     }
 
     private void setUpUserInfo(){
+        setEditAbleUser(false);
         if (!checkShouldEdit()){
             btnDeleteUser.setDisable(true);
             btnDeleteUser.setVisible(false);
             btnEditUser.setDisable(true);
             btnEditUser.setVisible(false);
-            setEditAbleUser(true);
             txtUserId.setVisible(false);
             txtfUserId.setVisible(false);
+            setEditAbleUser(true);
         }
         else if (checkShouldEdit()) {
-            setEditAbleUser(true);
             setUserInfoInTxtf();
         }
 
@@ -99,10 +99,20 @@ public class UserInfoController extends BaseController {
             txtfAcceslevel.setEditable(false);
             txtfUserId.setEditable(false);
 
+            mAccessLevel.setDisable(false);
+            txtfUsername.setEditable(true);
+            txtfPassword.setEditable(true);
+            txtfName.setEditable(true);
+            txtfMail.setEditable(true);
+
         } else if (!ableToEdit) {
             mAccessLevel.setDisable(true);
             txtfAcceslevel.setEditable(false);
             txtfUserId.setEditable(false);
+            txtfUsername.setEditable(false);
+            txtfPassword.setEditable(false);
+            txtfName.setEditable(false);
+            txtfMail.setEditable(false);
         }
 
     }
@@ -119,6 +129,7 @@ public class UserInfoController extends BaseController {
     }
 
     public void handleEditUser(ActionEvent actionEvent) {
+        setEditAbleUser(true);
     }
 
     public void handleConfirm(ActionEvent actionEvent) {
@@ -126,36 +137,119 @@ public class UserInfoController extends BaseController {
             createUser();
         }
         else if (checkShouldEdit()) {
-
+            editUser();
         }
     }
 
     private void createUser(){
-        String passWord = txtfPassword.getText();
-        String userName = txtfUsername.getText();
-        String mail = txtfMail.getText();
-        String name = txtfName.getText();
+        if (checkTextFieldsNotNull()) {
+            String passWord = txtfPassword.getText();
+            String userName = txtfUsername.getText();
+            String mail = txtfMail.getText();
+            String name = txtfName.getText();
 
-        try {
-            if(txtfAcceslevel.getText().equals(Admin.class.getSimpleName())){
-                Admin admin = new Admin(passWord, userName, mail, name);
-                getModelsHandler().getAdminModel().createAdmin(admin);
+            User newUser = null;
+
+            try {
+                if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
+                    newUser = new Admin(passWord, userName, mail, name);
+                } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
+                    newUser = new Event_Coordinator(passWord, userName, mail, name);
+                }
+                getModelsHandler().getAdminModel().createUser(newUser);
                 handleExit();
-
-            } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
-                 Event_Coordinator event_coordinator = new Event_Coordinator(passWord, userName, mail, name);
-                 getModelsHandler().getAdminModel().createEvent_Coordinator(event_coordinator);
-                 handleExit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
-
     }
 
-    private boolean checkTextFieldNotNull(){
-        //TODO IMPLEMENT THIS NOW!!!!!!!!!! EMIL IM TALKING TO YOU
-        return false;
+    private void editUser(){
+        if (checkTextFieldsNotNull()) {
+            String passWord = txtfPassword.getText();
+            String userName = txtfUsername.getText();
+            String mail = txtfMail.getText();
+            String name = txtfName.getText();
+            int userId = Integer.parseInt(txtfUserId.getText());
+
+            User user = null;
+
+            try {
+                if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
+                    user = new Admin(userId, passWord, userName, mail, name);
+
+                } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
+                    user = new Event_Coordinator(userId, passWord, userName, mail, name);
+                }
+                if (user.equals(selectedUser)) {
+                    handleExit();
+                } else {
+                    if (user.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName())){
+                        getModelsHandler().getAdminModel().updateUser(user, selectedUser);
+                    }
+                    else {
+                        getModelsHandler().getAdminModel().deleteUser(selectedUser);
+                        if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
+                            user = new Admin(userId, passWord, userName, mail, name);
+
+                        } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
+                            user = new Event_Coordinator(userId, passWord, userName, mail, name);
+                        }
+                    }
+                    getModelsHandler().getAdminModel().createUser(user);
+                    handleExit();
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private boolean checkTextFieldsNotNull(){
+        if (checktxtfName() && checktxtfUserName() && checktxtfPassword()){
+            if (checktxtfMail() && checktxtfAccessLevel() && checktxtfUserId())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    private boolean checktxtfName(){
+        if (!txtfName.getText().isEmpty() && txtfName.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtfUserName(){
+        if (!txtfUsername.getText().isEmpty() && txtfUsername.getText() != null)
+            return true;
+        else
+            return false;
+    }
+    private boolean checktxtfPassword(){
+        if (!txtfPassword.getText().isEmpty() && txtfPassword.getText() != null)
+            return true;
+        else
+            return false;
+    }
+    private boolean checktxtfMail(){
+        if (!txtfMail.getText().isEmpty() && txtfMail.getText() != null)
+            return true;
+        else
+            return false;
+    }
+    private boolean checktxtfAccessLevel(){
+        if (!txtfAcceslevel.getText().isEmpty() && txtfAcceslevel.getText() != null)
+            return true;
+        else
+            return false;
+    }
+    private boolean checktxtfUserId(){
+        if (!txtfUserId.getText().isEmpty() && txtUserId.getText() != null)
+            return true;
+        else
+            return false;
     }
 
     @FXML

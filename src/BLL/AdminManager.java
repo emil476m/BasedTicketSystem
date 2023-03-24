@@ -19,13 +19,8 @@ public class AdminManager implements IAdminManager {
     }
 
     @Override
-    public Admin createAdmin(Admin admin) throws Exception{
-        return databaseAcces.createAdmin(admin);
-    }
-
-    @Override
-    public Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
-        return databaseAcces.createEvent_Coordinator(event_coordinator);
+    public User createUser(User user) throws Exception{
+        return databaseAcces.createUser(user);
     }
 
     @Override
@@ -36,5 +31,9 @@ public class AdminManager implements IAdminManager {
     @Override
     public List<User> getAllUsers(Class userType) throws Exception {
         return databaseAcces.getAllUsers(userType);
+    }
+    @Override
+    public void updateUser(User user) throws Exception{
+        databaseAcces.updateUser(user);
     }
 }

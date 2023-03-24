@@ -26,12 +26,8 @@ public class AdminModel {
         return userObservableList;
     }
 
-    public void createAdmin(Admin admin) throws Exception{
-        userObservableList.add(adminManager.createAdmin(admin));
-    }
-
-    public void createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
-        userObservableList.add(adminManager.createEvent_Coordinator(event_coordinator));
+    public void createUser(User user) throws Exception{
+        userObservableList.add(adminManager.createUser(user));
     }
 
     public void deleteUser(User user) throws Exception{
@@ -44,5 +40,11 @@ public class AdminModel {
         List<User> adminList = adminManager.getAllUsers(Admin.class);
         userObservableList.addAll(eventCoordinatorList);
         userObservableList.addAll(adminList);
+    }
+
+    public void updateUser(User updatedUser, User oldUser) throws Exception{
+        userObservableList.remove(oldUser);
+        adminManager.updateUser(updatedUser);
+        userObservableList.add(updatedUser);
     }
 }

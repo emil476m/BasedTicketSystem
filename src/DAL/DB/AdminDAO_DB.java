@@ -19,19 +19,24 @@ public class AdminDAO_DB implements IAdminDAO {
         dbConnector = new DatabaseConnector();
     }
 
-
     @Override
-    public Admin createAdmin(Admin admin) throws Exception{
-        String sql = "INSERT INTO Admins (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
+    public User createUser(User user) throws Exception{
+        String tableName = "";
+        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
+            tableName = "Admins";
+        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
+            tableName = "Event_Coordinators";
+
+        String sql = "INSERT INTO " + tableName + " (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
 
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
 
-            statement.setString(1, admin.getPassWord());
-            statement.setString(2, admin.getUserName());
-            statement.setString(3, admin.getMail());
-            statement.setString(4, admin.getName());
+            statement.setString(1, user.getPassWord());
+            statement.setString(2, user.getUserName());
+            statement.setString(3, user.getMail());
+            statement.setString(4, user.getName());
             statement.executeUpdate();
 
             //Get the generated Id from the DB
@@ -42,52 +47,27 @@ public class AdminDAO_DB implements IAdminDAO {
                 id = rs.getInt(1);
             }
 
-            Admin newAdmin = new Admin(id, admin.getPassWord(), admin.getUserName(), admin.getMail(), admin.getName());
-            return newAdmin;
+            User newUser = null;
+
+            if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
+                newUser = new Admin(id, user.getPassWord(), user.getUserName(), user.getMail(), user.getName());
+            else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
+                newUser = new Event_Coordinator(id, user.getPassWord(), user.getUserName(), user.getMail(), user.getName());
+
+            return newUser;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Failed to create Admin", e);
-        }
-    }
-
-    @Override
-    public Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception{
-        String sql = "INSERT INTO Event_Coordinators (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
-
-        try(Connection connection = dbConnector.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-
-
-            statement.setString(1, event_coordinator.getPassWord());
-            statement.setString(2, event_coordinator.getUserName());
-            statement.setString(3, event_coordinator.getMail());
-            statement.setString(4, event_coordinator.getName());
-            statement.executeUpdate();
-
-            //Get the generated Id from the DB
-            ResultSet rs = statement.getGeneratedKeys();
-            int id = 0;
-
-            if(rs.next()){
-                id = rs.getInt(1);
-            }
-
-            Event_Coordinator newEvent_Coordinator = new Event_Coordinator(id, event_coordinator.getPassWord(), event_coordinator.getUserName(), event_coordinator.getMail(), event_coordinator.getName());
-            return newEvent_Coordinator;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Failed to create Event_Coordinator", e);
+            throw new Exception("Failed to create User", e);
         }
     }
 
     @Override
     public void deleteUser(User user) throws Exception {
         String tableName = "";
-        if (user.getClass().getName() == Admin.class.getName())
+        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
             tableName = "Admins";
-        else
+        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
             tableName = "Event_Coordinators";
 
 
@@ -106,11 +86,12 @@ public class AdminDAO_DB implements IAdminDAO {
     }
 
 
+    @Override
     public void updateUser(User user) throws Exception {
         String tableName = "";
-        if (user.getClass().getName() == Admin.class.getName())
+        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
             tableName = "Admins";
-        else
+        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
             tableName = "Event_Coordinators";
 
         String sql = "UPDATE " + tableName + " SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
@@ -130,6 +111,7 @@ public class AdminDAO_DB implements IAdminDAO {
         }
     }
 
+    @Override
     public List<User> getAllUsers(Class userType) throws Exception {
         if (userType == Admin.class){
             return getUserList("Admins", Admin.class);

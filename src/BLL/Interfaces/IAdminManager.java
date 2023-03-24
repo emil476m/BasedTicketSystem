@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface IAdminManager {
 
-    Admin createAdmin(Admin admin) throws Exception;
-
-    Event_Coordinator createEvent_Coordinator(Event_Coordinator event_coordinator) throws Exception;
+    User createUser(User user) throws Exception;
 
     public void deleteUser(User user) throws Exception;
 
     List<User> getAllUsers(Class userType) throws Exception;
+
+    void updateUser(User user) throws Exception;
 }

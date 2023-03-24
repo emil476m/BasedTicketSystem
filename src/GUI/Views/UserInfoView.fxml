@@ -75,7 +75,7 @@
                 <Menu fx:id="mAccessLevel" mnemonicParsing="false" text="Change Access Level">
                   <items>
                     <MenuItem fx:id="menuItemAdmin" mnemonicParsing="false" onAction="#handleMenuItemAdmin" text="Admin" />
-                        <MenuItem fx:id="menuItemEventCoordinator" mnemonicParsing="false" onAction="#handleMenuItemEventCoordinator" text="Event Coordinator" />
+                        <MenuItem fx:id="menuItemEventCoordinator" mnemonicParsing="false" onAction="#handleMenuItemEventCoordinator" text="Event_Coordinator" />
                   </items>
                 </Menu>
               </menus>
