@@ -12,7 +12,7 @@ import java.util.List;
 public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
     private DatabaseConnector dbConnector;
 
-    private EventCoordinatorDAO_DB() throws IOException {
+    public EventCoordinatorDAO_DB() throws IOException {
         dbConnector = new DatabaseConnector();
     }
     /**
