@@ -69,7 +69,6 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             statement.setString(5, event.getEventLocation());
             statement.setString(6, event.getEventDescription());
             statement.setString(7,event.getEventCreator());
-
             ResultSet rs = statement.getGeneratedKeys();
             int id = 0;
             if(rs.next())

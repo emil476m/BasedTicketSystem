@@ -2,7 +2,7 @@
 .root
 {
     -fx-font-family: 'Russo One', sans-serif;;
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #d0d3d4;
 }
 .cdeu-button
 {
@@ -42,4 +42,15 @@
 .nav-bar-image
 {
     -fx-background-image: url(/GUI/Images/EA.png);
+}
+
+.scroll-pane > .viewport {
+    -fx-border-color: transparent;
+    -fx-background-color: #d0d3d4;
+}
+
+.scroll-pane
+{
+    -fx-border-color: transparent;
+    -fx-background-color: #d0d3d4;
 }
