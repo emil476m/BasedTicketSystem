@@ -8,9 +8,10 @@ public class Event {
     private String eventDescription;
     private String eventLocation;
     private String eventDate;
+    private String eventCreator;
 
 
-    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate) {
+    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate, String eventCreator) {
         this.id = id;
         this.tickets = tickets;
         this.specialTickets = specialTickets;
@@ -18,15 +19,17 @@ public class Event {
         this.eventDescription = eventDescription;
         this.eventLocation = eventLocation;
         this.eventDate = eventDate;
+        this.eventCreator = eventCreator;
     }
 
-    public Event(int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate) {
+    public Event(int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate, String eventCreator) {
         this.tickets = tickets;
         this.specialTickets = specialTickets;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventLocation = eventLocation;
         this.eventDate = eventDate;
+        this.eventCreator = eventCreator;
     }
 
     public int getId() {
@@ -57,6 +60,9 @@ public class Event {
         return eventDate;
     }
 
+    public String getEventCreator() {
+        return eventCreator;
+    }
     public void setTickets(int tickets) {
         this.tickets = tickets;
     }
@@ -80,4 +86,5 @@ public class Event {
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
+
 }
