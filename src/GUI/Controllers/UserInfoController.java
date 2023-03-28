@@ -183,6 +183,7 @@ public class UserInfoController extends BaseController {
                 }
                 if (user.equals(selectedUser)) {
                     handleExit();
+                    //TODO fix this it dosnt work
                 } else {
                     if (user.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName())){
                         getModelsHandler().getAdminModel().updateUser(user, selectedUser);
@@ -195,8 +196,9 @@ public class UserInfoController extends BaseController {
                         } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
                             user = new Event_Coordinator(userId, passWord, userName, mail, name);
                         }
+                        getModelsHandler().getAdminModel().createUser(user);
                     }
-                    getModelsHandler().getAdminModel().createUser(user);
+
                     handleExit();
                 }
             } catch (Exception e) {
