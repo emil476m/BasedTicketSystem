@@ -1,19 +1,27 @@
 package GUI.Controllers;
 
+import BE.Event;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Observable;
+import java.util.Optional;
 
 public class EventCoordinatorMain extends BaseController{
+    public GridPane menuGridPane;
     @FXML
     private TextField txtEventName;
     @FXML
@@ -32,6 +40,10 @@ public class EventCoordinatorMain extends BaseController{
     private Button btnLogOut;
     @FXML
     private BorderPane borderPaneEventCoordinator;
+    private ObservableList<Event> eventObservableList;
+
+
+    private Alert alert;
 
     public void handleCreateEvents(ActionEvent event) {
 
@@ -46,13 +58,68 @@ public class EventCoordinatorMain extends BaseController{
 
     }
 
+    public void EventDisplayCard(){
+        eventObservableList.clear();
+        eventObservableList.addAll();
+
+        int row = 0;
+        int column = 0;
+
+        menuGridPane.getRowConstraints().clear();
+        menuGridPane.getColumnConstraints().clear();
+
+        for (int i = 0; i < eventObservableList.size(); i++) {
+
+            try {
+                FXMLLoader load = new FXMLLoader();
+                load.setLocation(getClass().getResource("src/GUI/Views/EventsCard.fxml"));
+                AnchorPane pane = load.load();
+                EventsCardController ecc = load.getController();
+                ecc.setEvent(eventObservableList.get(i));
+
+                if (column == 1) {
+                    column = 0;
+                    row += 1;
+                }
+
+                menuGridPane.add(pane, column, row++);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void handleOpen(ActionEvent event) {
         //checkSelectedItemType();
     }
 
     public void handleLogOut(ActionEvent event) {
-        Stage stage = (Stage) btnLogOut.getScene().getWindow();
-        stage.close();
+        try{
+
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure want to logout?");
+            Optional<ButtonType> option = alert.showAndWait();
+
+            if (option.get().equals(ButtonType.OK)){
+
+                // To hide EventCoordinator Main
+                btnLogOut.getScene().getWindow().hide();
+
+                // Link your login form and show it
+                Parent root = FXMLLoader.load(getClass().getResource("src/GUI/Views/LoginView.fxml"));
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+
+                stage.setTitle("EventMaster");
+
+                stage.setScene(scene);
+                stage.show();
+            }
+
+        } catch (Exception e) {e.printStackTrace();}
 
     }
     @FXML
@@ -67,6 +134,12 @@ public class EventCoordinatorMain extends BaseController{
 
     @Override
     public void setup() {
-
+        try {
+            getModelsHandler().getEventCoordinatorModel().getEventObservableList();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //EventDisplayCard();
+        dragScreen();
     }
 }

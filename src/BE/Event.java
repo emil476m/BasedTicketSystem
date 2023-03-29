@@ -10,6 +10,8 @@ public class Event {
     private String eventDate;
     private String eventCreator;
 
+    private String image;
+
 
     public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate, String eventCreator) {
         this.id = id;
@@ -30,6 +32,11 @@ public class Event {
         this.eventLocation = eventLocation;
         this.eventDate = eventDate;
         this.eventCreator = eventCreator;
+    }
+    // Constructor to EventCard
+    public Event(String eventName, String image){
+        this.eventName = eventName;
+        this.image = image;
     }
 
     public int getId() {
@@ -62,6 +69,10 @@ public class Event {
 
     public String getEventCreator() {
         return eventCreator;
+    }
+
+    public String getImage() {
+        return image;
     }
     public void setTickets(int tickets) {
         this.tickets = tickets;
