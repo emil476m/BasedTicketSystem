@@ -29,4 +29,5 @@ public interface IEvent_CoordinatorManager {
      * @param event
      */
     void DeleteEvent(Event event) throws Exception;
+    // ???
 }

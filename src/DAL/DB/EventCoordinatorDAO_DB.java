@@ -6,11 +6,14 @@ import DAL.Interfaces.IEvent_CoordinatorDAO;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
     private DatabaseConnector dbConnector;
+    private LocalDate LocalDate;
 
     public EventCoordinatorDAO_DB() throws IOException {
         dbConnector = new DatabaseConnector();
@@ -34,7 +37,7 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
                 String name = rs.getString("Name");
                 int ticketAmount = rs.getInt("TicketAmount");
                 int specialticketAmount = rs.getInt("SpecialTicketAmount");
-                String date = rs.getString("EventDate");
+                LocalDate date = rs.getDate("EventDate").toLocalDate();
                 String eventLocation = rs.getString("EventLocation");
                 String eventDescription = rs.getString(" EventDescription");
                 String eventCreator = rs.getString("EventCreator");
@@ -65,10 +68,12 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             statement.setString(1,event.getEventName());
             statement.setInt(2,event.getTickets());
             statement.setInt(3,event.getSpecialTickets());
-            statement.setString(4, event.getEventDate());
+            statement.setDate(4, (java.sql.Date.valueOf(LocalDate)));
             statement.setString(5, event.getEventLocation());
             statement.setString(6, event.getEventDescription());
             statement.setString(7,event.getEventCreator());
+            statement.executeQuery();
+
             ResultSet rs = statement.getGeneratedKeys();
             int id = 0;
             if(rs.next())
@@ -76,7 +81,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
                 id = rs.getInt(1);
             }
 
-            Event event1 = new Event(id, event.getTickets(),event.getSpecialTickets(),event.getEventName(),event.getEventDescription(),event.getEventLocation(), event.getEventDate(), event.getEventCreator());
+            Event event1 = new Event(id, event.getTickets(),event.getSpecialTickets(),event.getEventName()
+                    ,event.getEventDescription(),event.getEventLocation(), event.getEventDate(), event.getEventCreator());
             return event1;
         }
         catch (SQLException e)
@@ -99,7 +105,7 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             statement.setString(1,event.getEventName());
             statement.setInt(2,event.getTickets());
             statement.setInt(3,event.getSpecialTickets());
-            statement.setString(4,event.getEventDate());
+            statement.setDate(4, (java.sql.Date.valueOf(LocalDate)));
             statement.setString(5,event.getEventLocation());
             statement.setString(6,event.getEventDescription());
             statement.setInt(7,event.getId());
