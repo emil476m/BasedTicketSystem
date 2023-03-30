@@ -1,6 +1,7 @@
 package GUI.Controllers;
 
 import BE.User;
+import GUI.Models.ModelsHandler;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,8 +70,7 @@ public class AdminController extends BaseController {
         openUserInfo();
     }
 
-    @FXML
-    public void handleLogOut(ActionEvent actionEvent) {
+    public void handleLogOut(ActionEvent event) {
         try{
 
             alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -80,10 +80,15 @@ public class AdminController extends BaseController {
 
             if (option.get().equals(ButtonType.OK)){
                 // Link your login form and show it
-                Parent root = FXMLLoader.load(getClass().getResource("/GUI/Views/LoginView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/LoginView.fxml"));
+                Parent root = loader.load();
 
                 Stage stage1 = new Stage();
                 Scene scene = new Scene(root);
+
+                BaseController controller = loader.getController();
+                controller.setModel(new ModelsHandler());
+                controller.setup();
 
                 stage1.setTitle("EventMaster");
                 stage1.initStyle(StageStyle.UNDECORATED);
@@ -96,6 +101,7 @@ public class AdminController extends BaseController {
             }
 
         } catch (Exception e) {e.printStackTrace();}
+
     }
 
     @FXML

@@ -1,5 +1,8 @@
 package BE;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Event {
     private int id;
     private int tickets;
@@ -7,13 +10,13 @@ public class Event {
     private String eventName;
     private String eventDescription;
     private String eventLocation;
-    private String eventDate;
+    private LocalDate eventDate;
     private String eventCreator;
 
     private String image;
 
 
-    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate, String eventCreator) {
+    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, LocalDate eventDate, String eventCreator) {
         this.id = id;
         this.tickets = tickets;
         this.specialTickets = specialTickets;
@@ -24,14 +27,14 @@ public class Event {
         this.eventCreator = eventCreator;
     }
 
-    public Event(int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, String eventDate, String eventCreator) {
+    public Event(String eventName, LocalDate eventDate, String eventLocation, String eventCreator, String eventDescription, int tickets, int specialTickets){
+        this.eventName = eventName;
+        this.eventDate = eventDate;
+        this.eventLocation = eventLocation;
+        this.eventCreator = eventCreator;
+        this.eventDescription = eventDescription;
         this.tickets = tickets;
         this.specialTickets = specialTickets;
-        this.eventName = eventName;
-        this.eventDescription = eventDescription;
-        this.eventLocation = eventLocation;
-        this.eventDate = eventDate;
-        this.eventCreator = eventCreator;
     }
     // Constructor to EventCard
     public Event(String eventName, String image){
@@ -63,7 +66,7 @@ public class Event {
         return eventLocation;
     }
 
-    public String getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
@@ -94,7 +97,7 @@ public class Event {
         this.eventLocation = eventLocation;
     }
 
-    public void setEventDate(String eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 

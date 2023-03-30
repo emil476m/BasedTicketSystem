@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
@@ -21,7 +22,6 @@
          <children>
             <TextField fx:id="txtEventName" layoutX="113.0" layoutY="153.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="136.0" layoutY="57.0" text="Event Name" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="60.0" />
-            <TextField fx:id="txtDate" layoutX="123.0" layoutY="163.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
             <Label layoutX="146.0" layoutY="67.0" text="Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="160.0" />
             <TextField fx:id="txtLocation" layoutX="50.0" layoutY="284.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0" />
             <Label layoutX="61.0" layoutY="258.0" text="Location" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0" />
@@ -40,6 +40,7 @@
             </HBox>
             <TextField fx:id="txtSpecialTicketAmount" layoutX="60.0" layoutY="410.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0" />
             <Label layoutX="60.0" layoutY="367.0" text="Special Ticket Amoumt" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0" />
+            <DatePicker fx:id="txtDate" layoutX="424.0" layoutY="425.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
          </children>
       </AnchorPane>
    </left>

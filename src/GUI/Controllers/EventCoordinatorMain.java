@@ -1,6 +1,7 @@
 package GUI.Controllers;
 
 import BE.Event;
+import GUI.Models.ModelsHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,13 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Observable;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 public class EventCoordinatorMain extends BaseController{
@@ -27,7 +27,7 @@ public class EventCoordinatorMain extends BaseController{
     @FXML
     private TextField txtEventName;
     @FXML
-    private TextField txtDate;
+    private DatePicker txtDate;
     @FXML
     private TextField txtLocation;
     @FXML
@@ -44,20 +44,73 @@ public class EventCoordinatorMain extends BaseController{
     private BorderPane borderPaneEventCoordinator;
     private ObservableList<Event> eventObservableList;
 
-
     private Alert alert;
 
     public void handleCreateEvents(ActionEvent event) {
 
-        String name = txtEventName.getText();
-        String date = txtDate.getText();
-        String location = txtLocation.getText();
-        String Creator = txtEventName.getText();
-        String Description = txaDescription.getText();
-        int tickets = Integer.parseInt(txtTicketAmount.getText());
-        int Specialtickets = Integer.parseInt(txtSpecialTicketAmount.getText());
+        if (checkTextFieldsNotNull()) {
+            String name = txtEventName.getText();
+            LocalDate date = txtDate.getValue();
+            String location = txtLocation.getText();
+            String creator = getModelsHandler().getLoginModel().getLoggedinECoordinator().getName();
+            String description = txaDescription.getText();
+            int tickets = Integer.parseInt(txtTicketAmount.getText());
+            int specialTickets = Integer.parseInt(txtSpecialTicketAmount.getText());
+
+            Event newEvent = null;
+
+            try {
+                    newEvent = new Event(name, date, location, creator, description, tickets, specialTickets);
+                getModelsHandler().getEventCoordinatorModel().createEvent(newEvent);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
 
 
+
+    private boolean checkTextFieldsNotNull(){
+        if (checktxtEventName() && checktxtDate() && checktxtLocation()){
+            if (checktxaDescription() && checktxtTicketAmount() && checktxtSpecialTicketAmount())
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    private boolean checktxtEventName() {
+        if (!txtEventName.getText().isEmpty() && txtEventName.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtDate() {
+        if (!txtDate.getValue().equals("") && txtDate.getValue() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtLocation() {
+        if (!txtLocation.getText().isEmpty() && txtLocation.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxaDescription() {
+        if (!txaDescription.getText().isEmpty() && txaDescription.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtTicketAmount() {
+        if (!txtTicketAmount.getText().isEmpty() && txtTicketAmount.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtSpecialTicketAmount() {
+        if (!txtSpecialTicketAmount.getText().isEmpty() && txtSpecialTicketAmount.getText() != null) return true;
+        else
+            return false;
     }
 
     public void EventDisplayCard(){
@@ -105,10 +158,15 @@ public class EventCoordinatorMain extends BaseController{
 
             if (option.get().equals(ButtonType.OK)){
                 // Link your login form and show it
-                Parent root = FXMLLoader.load(getClass().getResource("/GUI/Views/LoginView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/LoginView.fxml"));
+                Parent root = loader.load();
 
                 Stage stage1 = new Stage();
                 Scene scene = new Scene(root);
+
+                BaseController controller = loader.getController();
+                controller.setModel(new ModelsHandler());
+                controller.setup();
 
                 stage1.setTitle("EventMaster");
                 stage1.initStyle(StageStyle.UNDECORATED);
