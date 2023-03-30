@@ -16,4 +16,6 @@ public interface IAdminDAO {
 
     void updateUser(User user) throws Exception;
 
+    boolean checkUserName(String userName) throws Exception;
+
 }

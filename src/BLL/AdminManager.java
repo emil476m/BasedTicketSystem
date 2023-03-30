@@ -36,4 +36,9 @@ public class AdminManager implements IAdminManager {
     public void updateUser(User user) throws Exception{
         databaseAcces.updateUser(user);
     }
+
+    @Override
+    public boolean checkUserName(String userName) throws Exception{
+        return databaseAcces.checkUserName(userName);
+    }
 }

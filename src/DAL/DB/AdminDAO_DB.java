@@ -150,4 +150,28 @@ public class AdminDAO_DB implements IAdminDAO {
             throw new Exception("Failed to retrieve Users", e);
         }
     }
+
+    @Override
+    public boolean checkUserName(String userName) throws Exception {
+        String sql = "SELECT UserName FROM (SELECT UserName FROM Admins UNION ALL SELECT UserName FROM Event_Coordinators) a WHERE UserName = ?;";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, userName);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String userName1 = resultSet.getString("UserName");
+                if (userName1.equals(userName))
+                    return false;
+            }
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to check userName", e);
+        }
+    }
 }

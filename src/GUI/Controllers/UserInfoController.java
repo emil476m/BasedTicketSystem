@@ -3,6 +3,7 @@ package GUI.Controllers;
 import BE.Admin;
 import BE.Event_Coordinator;
 import BE.User;
+import GUI.Util.AlertOpener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -133,80 +134,123 @@ public class UserInfoController extends BaseController {
     }
 
     public void handleConfirm(ActionEvent actionEvent) {
-        if (!checkShouldEdit()){
-            createUser();
+        if (checkTextFieldsNotNull()) {
+            if (!checkShouldEdit()) {
+                createUser();
+            } else if (checkShouldEdit()) {
+                editUser();
+            }
         }
-        else if (checkShouldEdit()) {
-            editUser();
-        }
+        else
+            AlertOpener.validationError("Missing Input!");
     }
 
     private void createUser(){
-        if (checkTextFieldsNotNull()) {
-            String passWord = txtfPassword.getText();
-            String userName = txtfUsername.getText();
-            String mail = txtfMail.getText();
-            String name = txtfName.getText();
 
-            User newUser = null;
+        String passWord = txtfPassword.getText();
+        String userName = txtfUsername.getText();
+        String mail = txtfMail.getText();
+        String name = txtfName.getText();
 
-            try {
+        User newUser = null;
+
+        try {
+            if (getModelsHandler().getAdminModel().checkUserName(userName)) {
+                System.out.println("username is not the same");
                 if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
                     newUser = new Admin(passWord, userName, mail, name);
                 } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
                     newUser = new Event_Coordinator(passWord, userName, mail, name);
                 }
-                if (newUser != null){
+                if (newUser != null) {
                     getModelsHandler().getAdminModel().createUser(newUser);
                     handleExit();
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
+            else {
+                AlertOpener.validationError("Username is already taken!");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     private void editUser(){
-        if (checkTextFieldsNotNull()) {
-            String passWord = txtfPassword.getText();
-            String userName = txtfUsername.getText();
-            String mail = txtfMail.getText();
-            String name = txtfName.getText();
-            int userId = Integer.parseInt(txtfUserId.getText());
+        String passWord = txtfPassword.getText();
+        String userName = txtfUsername.getText();
+        String mail = txtfMail.getText();
+        String name = txtfName.getText();
+        int userId = Integer.parseInt(txtfUserId.getText());
 
-            User user = null;
+        User user = null;
 
-            try {
-                if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
-                    user = new Admin(userId, passWord, userName, mail, name);
+        try {
+            if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
+                user = new Admin(userId, passWord, userName, mail, name);
 
-                } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
-                    user = new Event_Coordinator(userId, passWord, userName, mail, name);
-                }
-                if (user.equals(selectedUser)) {
-                    handleExit();
-                    //TODO fix this it dosnt work
-                } else {
-                    if (user.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName())){
+            } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
+                user = new Event_Coordinator(userId, passWord, userName, mail, name);
+            }
+            if (checkIfTwoUserAreSame(user)) {
+                handleExit();
+            }
+            else {
+                if (checkUsernameIsSame(user)){
+                    if (user.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName())) {
                         getModelsHandler().getAdminModel().updateUser(user, selectedUser);
+                        handleExit();
+                    }else {
+                        getModelsHandler().getAdminModel().deleteUser(selectedUser);
+                        getModelsHandler().getAdminModel().createUser(user);
+                        handleExit();
+                    }
+                } else if (getModelsHandler().getAdminModel().checkUserName(user.getUserName())) {
+                    if (user.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName())) {
+                        getModelsHandler().getAdminModel().updateUser(user, selectedUser);
+                        handleExit();
                     }
                     else {
                         getModelsHandler().getAdminModel().deleteUser(selectedUser);
-                        if (txtfAcceslevel.getText().equals(Admin.class.getSimpleName())) {
-                            user = new Admin(userId, passWord, userName, mail, name);
-
-                        } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
-                            user = new Event_Coordinator(userId, passWord, userName, mail, name);
-                        }
                         getModelsHandler().getAdminModel().createUser(user);
+                        handleExit();
                     }
-
-                    handleExit();
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                else
+                    AlertOpener.validationError("username is already taken!");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * returns true if the two users are the same.
+     * @param user1
+     * @return
+     */
+    private boolean checkIfTwoUserAreSame(User user1){
+        if (user1.getUserID() == selectedUser.getUserID()){
+            if (user1.getClass().getSimpleName().equals(selectedUser.getClass().getSimpleName()))
+                if (user1.getName().equals(selectedUser.getName()))
+                    if (user1.getUserName().equals(selectedUser.getUserName()))
+                        if (user1.getPassWord().equals(selectedUser.getPassWord()))
+                            if (user1.getMail().equals(selectedUser.getMail()))
+                                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the 2 usernames are the same else returns false
+     * @param
+     * @return
+     */
+   private boolean checkUsernameIsSame(User user1){
+        if (user1.getUserName().equals(selectedUser.getUserName())){
+            return true;
+        }
+        else
+            return false;
     }
 
     private boolean checkTextFieldsNotNull(){

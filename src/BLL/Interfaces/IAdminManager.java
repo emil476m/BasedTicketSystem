@@ -15,4 +15,6 @@ public interface IAdminManager {
     List<User> getAllUsers(Class userType) throws Exception;
 
     void updateUser(User user) throws Exception;
+
+    boolean checkUserName(String userName) throws Exception;
 }

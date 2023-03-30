@@ -47,4 +47,8 @@ public class AdminModel {
         adminManager.updateUser(updatedUser);
         userObservableList.add(updatedUser);
     }
+
+    public boolean checkUserName(String userName) throws Exception{
+        return adminManager.checkUserName(userName);
+    }
 }
