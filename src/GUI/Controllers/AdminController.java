@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -19,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class AdminController extends BaseController {
 
@@ -37,6 +40,7 @@ public class AdminController extends BaseController {
     private Button btnLogout;
 
     private String lastSelectedItemType;
+    private Alert alert;
 
     @Override
     public void setup() {
@@ -67,8 +71,31 @@ public class AdminController extends BaseController {
 
     @FXML
     public void handleLogOut(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnLogout.getScene().getWindow();
-        stage.close();
+        try{
+
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error Message");
+            alert.setContentText("Are you sure want to logout?");
+            Optional<ButtonType> option = alert.showAndWait();
+
+            if (option.get().equals(ButtonType.OK)){
+                // Link your login form and show it
+                Parent root = FXMLLoader.load(getClass().getResource("/GUI/Views/LoginView.fxml"));
+
+                Stage stage1 = new Stage();
+                Scene scene = new Scene(root);
+
+                stage1.setTitle("EventMaster");
+                stage1.initStyle(StageStyle.UNDECORATED);
+                stage1.getIcons().add(new Image("/GUI/Images/EA.png"));
+                stage1.setScene(scene);
+                stage1.show();
+
+                Stage stage = (Stage) btnLogout.getScene().getWindow();
+                stage.close();
+            }
+
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     @FXML

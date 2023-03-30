@@ -8,12 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,25 +100,24 @@ public class EventCoordinatorMain extends BaseController{
 
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Error Message");
-            alert.setHeaderText(null);
             alert.setContentText("Are you sure want to logout?");
             Optional<ButtonType> option = alert.showAndWait();
 
             if (option.get().equals(ButtonType.OK)){
-
-                // To hide EventCoordinator Main
-                btnLogOut.getScene().getWindow().hide();
-
                 // Link your login form and show it
-                Parent root = FXMLLoader.load(getClass().getResource("src/GUI/Views/LoginView.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/GUI/Views/LoginView.fxml"));
 
-                Stage stage = new Stage();
+                Stage stage1 = new Stage();
                 Scene scene = new Scene(root);
 
-                stage.setTitle("EventMaster");
+                stage1.setTitle("EventMaster");
+                stage1.initStyle(StageStyle.UNDECORATED);
+                stage1.getIcons().add(new Image("/GUI/Images/EA.png"));
+                stage1.setScene(scene);
+                stage1.show();
 
-                stage.setScene(scene);
-                stage.show();
+                Stage stage = (Stage) btnLogOut.getScene().getWindow();
+                stage.close();
             }
 
         } catch (Exception e) {e.printStackTrace();}

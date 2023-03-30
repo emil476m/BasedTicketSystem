@@ -48,7 +48,7 @@
          <top>
             <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnLogout" layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="btnLogout" layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="log-out-btn" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
                </children>
             </AnchorPane>
          </top>
