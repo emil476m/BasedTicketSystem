@@ -156,8 +156,10 @@ public class UserInfoController extends BaseController {
                 } else if (txtfAcceslevel.getText().equals(Event_Coordinator.class.getSimpleName())) {
                     newUser = new Event_Coordinator(passWord, userName, mail, name);
                 }
-                getModelsHandler().getAdminModel().createUser(newUser);
-                handleExit();
+                if (newUser != null){
+                    getModelsHandler().getAdminModel().createUser(newUser);
+                    handleExit();
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -209,7 +211,7 @@ public class UserInfoController extends BaseController {
 
     private boolean checkTextFieldsNotNull(){
         if (checktxtfName() && checktxtfUserName() && checktxtfPassword()){
-            if (checktxtfMail() && checktxtfAccessLevel() && checktxtfUserId())
+            if (checktxtfMail() && checktxtfAccessLevel())
                 return true;
             else
                 return false;
@@ -243,12 +245,6 @@ public class UserInfoController extends BaseController {
     }
     private boolean checktxtfAccessLevel(){
         if (!txtfAcceslevel.getText().isEmpty() && txtfAcceslevel.getText() != null)
-            return true;
-        else
-            return false;
-    }
-    private boolean checktxtfUserId(){
-        if (!txtfUserId.getText().isEmpty() && txtUserId.getText() != null)
             return true;
         else
             return false;
