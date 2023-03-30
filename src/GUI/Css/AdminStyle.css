@@ -54,6 +54,11 @@
     -fx-border-color: transparent;
     -fx-background-color: #d0d3d4;
 }
+.border-pane
+{
+    -fx-border-color: BLACK;
+    -fx-border-width: 1px;
+}
 .log-out-btn
 {
     -fx-background-color: transparent;

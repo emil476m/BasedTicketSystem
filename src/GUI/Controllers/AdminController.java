@@ -8,11 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +25,10 @@ import java.util.Optional;
 public class AdminController extends BaseController {
 
 
+    @FXML
+    private TextField txtfSearch;
+    @FXML
+    private Button btnSearch;
     @FXML
     private BorderPane borderPaneAdmin;
     @FXML
@@ -173,5 +175,20 @@ public class AdminController extends BaseController {
                 borderPaneAdmin.getScene().getWindow().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
             });
         });
+    }
+
+    private void search() {
+        String search = txtfSearch.getText().toLowerCase();
+
+        if(search != null)
+            getModelsHandler().getAdminModel().searchUsers(search);
+        else if (search == null){
+            getModelsHandler().getAdminModel().clearSearch();
+        }
+    }
+
+    @FXML
+    private void searchOnButtonPress(KeyEvent keyEvent) {
+        search();
     }
 }
