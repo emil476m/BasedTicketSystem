@@ -1,6 +1,7 @@
 package BLL;
 
 import BE.Event;
+import BE.Event_Coordinator;
 import BLL.Interfaces.IEvent_CoordinatorManager;
 import DAL.DB.EventCoordinatorDAO_DB;
 import DAL.Interfaces.IEvent_CoordinatorDAO;
@@ -31,8 +32,8 @@ public class Event_CoordinatorManager implements IEvent_CoordinatorManager {
      * @throws Exception
      */
     @Override
-    public Event createEvent(Event event) throws Exception {
-     return  eventCoordinatorDAO.createEvent(event);
+    public Event createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception {
+     return  eventCoordinatorDAO.createEvent(event, eventCoordinator);
     }
 
     /**

@@ -1,6 +1,7 @@
 package DAL.DB;
 
 import BE.Event;
+import BE.Event_Coordinator;
 import DAL.DatabaseConnector;
 import DAL.Interfaces.IEvent_CoordinatorDAO;
 
@@ -60,19 +61,18 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
      * @return
      */
     @Override
-    public Event createEvent(Event event) throws Exception {
+    public Event createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception {
         String sql = "INSERT INTO Events(Name,TicketAmount,SpecialTicketAmount,EventDate,EventLocation,EventDescription,EventCreator) VALUES(?,?,?,?,?,?,?);";
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+        try (Connection connection = dbConnector.getConnection(); PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             statement.setString(1,event.getEventName());
             statement.setInt(2,event.getTickets());
             statement.setInt(3,event.getSpecialTickets());
-            statement.setDate(4, (java.sql.Date.valueOf(LocalDate)));
+            statement.setDate(4, (java.sql.Date.valueOf(event.getEventDate())));
             statement.setString(5, event.getEventLocation());
             statement.setString(6, event.getEventDescription());
-            statement.setString(7,event.getEventCreator());
-            statement.executeQuery();
+            statement.setInt(7, eventCoordinator.getUserID());
+            statement.executeUpdate();
 
             ResultSet rs = statement.getGeneratedKeys();
             int id = 0;
@@ -88,7 +88,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
         catch (SQLException e)
         {
             e.printStackTrace();
-            throw new Exception("failed to create event");
+            //throw new Exception("failed to create event");
+            return null;
         }
     }
 
@@ -105,7 +106,7 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             statement.setString(1,event.getEventName());
             statement.setInt(2,event.getTickets());
             statement.setInt(3,event.getSpecialTickets());
-            statement.setDate(4, (java.sql.Date.valueOf(LocalDate)));
+            statement.setDate(4, (java.sql.Date.valueOf(LocalDate.toString())));
             statement.setString(5,event.getEventLocation());
             statement.setString(6,event.getEventDescription());
             statement.setInt(7,event.getId());

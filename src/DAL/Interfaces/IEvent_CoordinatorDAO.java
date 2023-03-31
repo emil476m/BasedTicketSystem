@@ -1,6 +1,7 @@
 package DAL.Interfaces;
 
 import BE.Event;
+import BE.Event_Coordinator;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface IEvent_CoordinatorDAO {
      * @param event
      * @return
      */
-    Event createEvent(Event event) throws Exception;
+    Event createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception;
 
     /**
      * updates an event in the database

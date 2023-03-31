@@ -1,6 +1,7 @@
 package GUI.Controllers;
 
 import BE.Event;
+import BE.Event_Coordinator;
 import GUI.Models.ModelsHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,21 +23,18 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class EventCoordinatorMain extends BaseController{
-    public GridPane menuGridPane;
+    @FXML
+    private GridPane menuGridPane;
     @FXML
     private TextField txtEventName;
     @FXML
     private DatePicker txtDate;
     @FXML
-    private TextField txtLocation;
-    @FXML
     private TextArea txaDescription;
     @FXML
-    private TextField txtTicketAmount,txtSpecialTicketAmount;
+    private TextField txtTicketAmount, txtSpecialTicketAmount, txtLocation;
     @FXML
     private ImageView imgEvent;
-    @FXML
-    private Label lblEventName;
     @FXML
     private Button btnLogOut;
     @FXML
@@ -57,10 +55,13 @@ public class EventCoordinatorMain extends BaseController{
             int specialTickets = Integer.parseInt(txtSpecialTicketAmount.getText());
 
             Event newEvent = null;
+            Event_Coordinator newEC = null;
 
             try {
                     newEvent = new Event(name, date, location, creator, description, tickets, specialTickets);
-                getModelsHandler().getEventCoordinatorModel().createEvent(newEvent);
+                    newEC = getModelsHandler().getLoginModel().getLoggedinECoordinator();
+
+                getModelsHandler().getEventCoordinatorModel().createEvent(newEvent, newEC);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

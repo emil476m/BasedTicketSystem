@@ -1,6 +1,7 @@
 package GUI.Models;
 
 import BE.Event;
+import BE.Event_Coordinator;
 import BLL.Event_CoordinatorManager;
 import BLL.Interfaces.IEvent_CoordinatorManager;
 import javafx.collections.FXCollections;
@@ -23,8 +24,8 @@ public class EventCoordinatorModel {
     public ObservableList<Event> getEventObservableList() {
         return eventObservableList;
     }
-    public void createEvent(Event event) throws Exception {
-        eventObservableList.add(eventCoordinatorManager.createEvent(event));
+    public void createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception {
+        eventObservableList.add(eventCoordinatorManager.createEvent(event, eventCoordinator));
     }
 
     public void getAllEvents(Event event) throws Exception {

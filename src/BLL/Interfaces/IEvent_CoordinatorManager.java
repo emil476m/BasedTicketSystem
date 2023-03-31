@@ -1,6 +1,7 @@
 package BLL.Interfaces;
 
 import BE.Event;
+import BE.Event_Coordinator;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface IEvent_CoordinatorManager {
      * @param event
      * @return
      */
-    Event createEvent(Event event) throws Exception;
+    Event createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception;
 
     /**
      * updates an event to the database to get updated

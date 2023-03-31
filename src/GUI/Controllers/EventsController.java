@@ -1,15 +1,20 @@
 package GUI.Controllers;
 
 import BE.Event_Coordinator;
+import GUI.Models.ModelsHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.util.Optional;
 
 public class EventsController extends BaseController{
     @FXML
@@ -45,14 +50,44 @@ public class EventsController extends BaseController{
     @FXML
     private Button btnReturn;
 
+    private Alert alert;
+
     @Override
     public void setup() {
 
     }
 
     public void handleLogOut(ActionEvent event) {
-        Stage stage = (Stage) btnLogOut.getScene().getWindow();
-        stage.close();
+        try{
+
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error Message");
+            alert.setContentText("Are you sure want to logout?");
+            Optional<ButtonType> option = alert.showAndWait();
+
+            if (option.get().equals(ButtonType.OK)){
+                // Link your login form and show it
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/LoginView.fxml"));
+                Parent root = loader.load();
+
+                Stage stage1 = new Stage();
+                Scene scene = new Scene(root);
+
+                BaseController controller = loader.getController();
+                controller.setModel(new ModelsHandler());
+                controller.setup();
+
+                stage1.setTitle("EventMaster");
+                stage1.initStyle(StageStyle.UNDECORATED);
+                stage1.getIcons().add(new Image("/GUI/Images/EA.png"));
+                stage1.setScene(scene);
+                stage1.show();
+
+                Stage stage = (Stage) btnLogOut.getScene().getWindow();
+                stage.close();
+            }
+
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public void handlePrintTicket(ActionEvent event) {
