@@ -2,6 +2,7 @@ package GUI.Models;
 
 import BE.Admin;
 import BE.Event_Coordinator;
+import BE.User;
 import BLL.LoginManager;
 
 import java.io.IOException;
@@ -24,13 +25,14 @@ public class LoginModel {
      */
     public void loginAction(String Username, String Password) throws Exception
     {
-        Admin admin = loginManager.adminLogin(Username,Password);
-        if(admin != null)
-        {
-         loggedInAdmin = admin;
-        } else if (loginManager.eventCoordinatorLogin(Username, Password) != null) {
-            loggedinECoordinator = loginManager.eventCoordinatorLogin(Username, Password);
-        }
+      User user = loginManager.LoginUser(Username,Password);
+      if(user.getUserType() == 1)
+      {
+          loggedInAdmin = new Admin(user.getUserID(),user.getPassWord(),user.getUserName(),user.getMail(), user.getName());
+      } else if (user.getUserType()==2)
+      {
+        loggedinECoordinator = new Event_Coordinator(user.getUserID(),user.getPassWord(),user.getUserName(),user.getMail(), user.getName());
+      }
     }
 
     public Admin getLoggedInAdmin(){return loggedInAdmin;}
