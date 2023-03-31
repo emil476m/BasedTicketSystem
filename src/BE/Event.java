@@ -11,12 +11,12 @@ public class Event {
     private String eventDescription;
     private String eventLocation;
     private LocalDate eventDate;
-    private String eventCreator;
+    private int eventCreator;
 
     private String image;
 
 
-    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, LocalDate eventDate, String eventCreator) {
+    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, LocalDate eventDate, int eventCreator) {
         this.id = id;
         this.tickets = tickets;
         this.specialTickets = specialTickets;
@@ -27,7 +27,7 @@ public class Event {
         this.eventCreator = eventCreator;
     }
 
-    public Event(String eventName, LocalDate eventDate, String eventLocation, String eventCreator, String eventDescription, int tickets, int specialTickets){
+    public Event(String eventName, LocalDate eventDate, String eventLocation, int eventCreator, String eventDescription, int tickets, int specialTickets){
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.eventLocation = eventLocation;
@@ -70,7 +70,7 @@ public class Event {
         return eventDate;
     }
 
-    public String getEventCreator() {
+    public int getEventCreator() {
         return eventCreator;
     }
 

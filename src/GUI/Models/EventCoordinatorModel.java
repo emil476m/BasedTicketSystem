@@ -28,7 +28,7 @@ public class EventCoordinatorModel {
         eventObservableList.add(eventCoordinatorManager.createEvent(event, eventCoordinator));
     }
 
-    public void getAllEvents(Event event) throws Exception {
+    public void getAllEvents() throws Exception {
         List<Event> eventList = eventCoordinatorManager.getAllevents();
         eventObservableList.addAll(eventList);
     }

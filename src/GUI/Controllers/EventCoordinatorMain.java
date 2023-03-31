@@ -49,7 +49,7 @@ public class EventCoordinatorMain extends BaseController{
             String name = txtEventName.getText();
             LocalDate date = txtDate.getValue();
             String location = txtLocation.getText();
-            String creator = getModelsHandler().getLoginModel().getLoggedinECoordinator().getName();
+            int creator = getModelsHandler().getLoginModel().getLoggedinECoordinator().getUserID();
             String description = txaDescription.getText();
             int tickets = Integer.parseInt(txtTicketAmount.getText());
             int specialTickets = Integer.parseInt(txtSpecialTicketAmount.getText());
@@ -113,35 +113,18 @@ public class EventCoordinatorMain extends BaseController{
             return false;
     }
 
-    public void EventDisplayCard(){
-        eventObservableList.clear();
-        eventObservableList.addAll();
-
-        int row = 0;
-        int column = 0;
-
-        menuGridPane.getRowConstraints().clear();
-        menuGridPane.getColumnConstraints().clear();
-
-        for (int i = 0; i < eventObservableList.size(); i++) {
-
-            try {
-                FXMLLoader load = new FXMLLoader();
-                load.setLocation(getClass().getResource("src/GUI/Views/EventsCard.fxml"));
-                AnchorPane pane = load.load();
-                EventsCardController ecc = load.getController();
-                ecc.setEvent(eventObservableList.get(i));
-
-                if (column == 1) {
-                    column = 0;
-                    row += 1;
-                }
-
-                menuGridPane.add(pane, column, row++);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void eventDisplayCard(){
+        for (Event e : eventObservableList) {
+            menuGridPane.getChildren().addAll(createEventAnchorPane(e));
         }
+
+    }
+    private AnchorPane createEventAnchorPane(Event event)
+    {
+        AnchorPane ev = new AnchorPane();
+        ev.getChildren().add(new ImageView());
+        ev.getChildren().add(new Label(event.getEventName()));
+        return ev;
     }
 
     public void handleOpen(ActionEvent event) {
@@ -194,11 +177,12 @@ public class EventCoordinatorMain extends BaseController{
     @Override
     public void setup() {
         try {
-            getModelsHandler().getEventCoordinatorModel().getEventObservableList();
+            getModelsHandler().getEventCoordinatorModel().getAllEvents();
+            eventObservableList = getModelsHandler().getEventCoordinatorModel().getEventObservableList();
+            eventDisplayCard();
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //EventDisplayCard();
         dragScreen();
     }
 }

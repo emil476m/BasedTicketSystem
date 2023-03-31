@@ -25,7 +25,7 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
      */
     @Override
     public List<Event> getAllevents() throws Exception {
-        String sql = "SELECT * FROM Events";
+        String sql = "SELECT * FROM Event";
         try(Connection conn = dbConnector.getConnection())
         {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -35,13 +35,13 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             while (rs.next())
             {
                 int id = rs.getInt("Id");
-                String name = rs.getString("Name");
+                String name = rs.getString("EventName");
                 int ticketAmount = rs.getInt("TicketAmount");
                 int specialticketAmount = rs.getInt("SpecialTicketAmount");
                 LocalDate date = rs.getDate("EventDate").toLocalDate();
                 String eventLocation = rs.getString("EventLocation");
-                String eventDescription = rs.getString(" EventDescription");
-                String eventCreator = rs.getString("EventCreator");
+                String eventDescription = rs.getString("EventDescription");
+                int eventCreator = rs.getInt("EventCreator");
                 Event evnet = new Event(id,ticketAmount,specialticketAmount,name,eventDescription,eventLocation,date,eventCreator);
                 events.add(evnet);
             }
@@ -62,7 +62,7 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
      */
     @Override
     public Event createEvent(Event event, Event_Coordinator eventCoordinator) throws Exception {
-        String sql = "INSERT INTO Events(Name,TicketAmount,SpecialTicketAmount,EventDate,EventLocation,EventDescription,EventCreator) VALUES(?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO Event(EventName,TicketAmount,SpecialTicketAmount,EventDate,EventLocation,EventDescription,EventCreator) VALUES(?,?,?,?,?,?,?);";
         try (Connection connection = dbConnector.getConnection(); PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             statement.setString(1,event.getEventName());
