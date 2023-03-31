@@ -2,6 +2,7 @@ package BLL;
 
 import BE.Event;
 import BE.User;
+import BE.UserType;
 import BLL.Interfaces.IAdminManager;
 import DAL.DB.AdminDAO_DB;
 import DAL.Interfaces.IAdminDAO;
@@ -28,8 +29,8 @@ public class AdminManager implements IAdminManager {
     }
 
     @Override
-    public List<User> getAllUsers(Class userType) throws Exception {
-        return databaseAcces.getAllUsers(userType);
+    public List<User> getAllUsers() throws Exception {
+        return databaseAcces.getAllUsers();
     }
     @Override
     public void updateUser(User user) throws Exception{
@@ -44,5 +45,10 @@ public class AdminManager implements IAdminManager {
     @Override
     public void assignEventToUser(User user, Event event) throws Exception{
         databaseAcces.assignEventToUser(user, event);
+    }
+
+    @Override
+    public List<UserType> getAllUserTypes() throws Exception{
+        return databaseAcces.getAllUserTypes();
     }
 }

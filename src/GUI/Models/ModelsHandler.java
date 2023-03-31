@@ -1,16 +1,21 @@
 package GUI.Models;
 
-import java.io.IOException;
+import BE.UserType;
+
+import java.util.List;
 
 public class ModelsHandler {
     private AdminModel adminModel;
     private EventCoordinatorModel eventCoordinatorModel;
     private LoginModel loginModel;
 
-    public ModelsHandler() throws IOException {
+    private List<UserType> userTypeList;
+
+    public ModelsHandler() throws Exception {
         adminModel = new AdminModel();
         loginModel = new LoginModel();
         eventCoordinatorModel = new EventCoordinatorModel();
+        userTypeList = adminModel.getAllUserTypes();
     }
 
     public AdminModel getAdminModel() {
@@ -21,5 +26,9 @@ public class ModelsHandler {
 
     public EventCoordinatorModel getEventCoordinatorModel() {
         return eventCoordinatorModel;
+    }
+
+    public List<UserType> getUserTypeList() {
+        return userTypeList;
     }
 }

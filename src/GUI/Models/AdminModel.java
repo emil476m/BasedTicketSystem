@@ -1,8 +1,7 @@
 package GUI.Models;
 
-import BE.Admin;
-import BE.Event_Coordinator;
 import BE.User;
+import BE.UserType;
 import BLL.AdminManager;
 import BLL.Interfaces.IAdminManager;
 import javafx.collections.FXCollections;
@@ -43,10 +42,8 @@ public class AdminModel {
     }
 
     public void getAllUsers() throws Exception{
-        List<User> eventCoordinatorList = adminManager.getAllUsers(Event_Coordinator.class);
-        List<User> adminList = adminManager.getAllUsers(Admin.class);
+        List<User> eventCoordinatorList = adminManager.getAllUsers();
         userObservableList.addAll(eventCoordinatorList);
-        userObservableList.addAll(adminList);
         allUsers.addAll(userObservableList);
     }
 
@@ -89,5 +86,9 @@ public class AdminModel {
     public void clearSearch() {
         userObservableList.clear();
         userObservableList.addAll(allUsers);
+    }
+
+    public List<UserType> getAllUserTypes() throws Exception{
+        return adminManager.getAllUserTypes();
     }
 }

@@ -1,9 +1,8 @@
 package BLL.Interfaces;
 
-import BE.Admin;
 import BE.Event;
-import BE.Event_Coordinator;
 import BE.User;
+import BE.UserType;
 
 import java.util.List;
 
@@ -13,11 +12,13 @@ public interface IAdminManager {
 
     public void deleteUser(User user) throws Exception;
 
-    List<User> getAllUsers(Class userType) throws Exception;
+    List<User> getAllUsers() throws Exception;
 
     void updateUser(User user) throws Exception;
 
     boolean checkUserName(String userName) throws Exception;
 
     void assignEventToUser(User user, Event event) throws Exception;
+
+    List<UserType> getAllUserTypes() throws Exception;
 }
