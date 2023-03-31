@@ -14,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,15 +26,13 @@ public class AdminController extends BaseController {
 
 
     @FXML
-    private TextField txtfSearch;
+    private GridPane menuGridPane;
     @FXML
-    private Button btnSearch;
+    private TextField txtfSearch;
     @FXML
     private BorderPane borderPaneAdmin;
     @FXML
     private Button btnOpen;
-    @FXML
-    private VBox ScrollPaneEvent;
     @FXML
     private Button btnCreateUser;
     @FXML
@@ -163,7 +161,6 @@ public class AdminController extends BaseController {
         //checks if user wants to create a new user or edit existing user.
         controller.setCreateUser(getSelectedUser());
         controller.setup();
-
 
         stage.showAndWait();
     }

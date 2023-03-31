@@ -1,7 +1,6 @@
 package BLL;
 
-import BE.Admin;
-import BE.Event_Coordinator;
+import BE.Event;
 import BE.User;
 import BLL.Interfaces.IAdminManager;
 import DAL.DB.AdminDAO_DB;
@@ -40,5 +39,10 @@ public class AdminManager implements IAdminManager {
     @Override
     public boolean checkUserName(String userName) throws Exception{
         return databaseAcces.checkUserName(userName);
+    }
+
+    @Override
+    public void assignEventToUser(User user, Event event) throws Exception{
+        databaseAcces.assignEventToUser(user, event);
     }
 }

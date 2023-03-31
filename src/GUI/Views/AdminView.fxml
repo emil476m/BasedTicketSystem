@@ -10,8 +10,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
    <bottom>
@@ -32,18 +34,6 @@
          </children>
       </HBox>
    </bottom>
-   <right>
-      <ScrollPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="440.0">
-               <children>
-                  <Label styleClass="events-label" text="Events" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                  <VBox fx:id="ScrollPaneEvent" prefHeight="200.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
-               </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
-   </right>
    <top>
       <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
          <top>
@@ -77,4 +67,26 @@
          </children>
       </AnchorPane>
    </center>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="77.0" layoutY="39.0" styleClass="events-label" text="Events" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+            <ScrollPane hbarPolicy="NEVER" layoutX="110.0" layoutY="223.0" prefHeight="200.0" prefWidth="200.0" styleClass="ScrollPane" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <GridPane fx:id="menuGridPane" prefWidth="440.0" vgap="20.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <padding>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </right>
 </BorderPane>

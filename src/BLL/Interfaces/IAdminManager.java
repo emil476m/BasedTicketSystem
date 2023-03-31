@@ -1,6 +1,7 @@
 package BLL.Interfaces;
 
 import BE.Admin;
+import BE.Event;
 import BE.Event_Coordinator;
 import BE.User;
 
@@ -17,4 +18,6 @@ public interface IAdminManager {
     void updateUser(User user) throws Exception;
 
     boolean checkUserName(String userName) throws Exception;
+
+    void assignEventToUser(User user, Event event) throws Exception;
 }

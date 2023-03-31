@@ -1,6 +1,7 @@
 package DAL.DB;
 
 import BE.Admin;
+import BE.Event;
 import BE.Event_Coordinator;
 import BE.User;
 import DAL.DatabaseConnector;
@@ -72,6 +73,40 @@ public class AdminDAO_DB implements IAdminDAO {
 
 
         String sql = "DELETE FROM " + tableName + " WHERE Id = ?;";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, user.getUserID());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove " + user.getClass().getSimpleName(), e);
+        }
+        if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
+            deleteFromWorkingOnEvent(user);
+    }
+
+    @Override
+    public void assignEventToUser(User user, Event event) throws Exception {
+        String sql = "INSERT INTO WorkingOnEvent (EventId, Event_CoordinatorId) VALUES (?, ?);";
+
+        try(Connection connection = dbConnector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+
+            statement.setInt(1, event.getId());
+            statement.setInt(2, user.getUserID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to create Event_Coordinator relations", e);
+        }
+    }
+
+    private void deleteFromWorkingOnEvent(User user) throws Exception {
+
+        String sql = "DELETE FROM WorkingOnEvent WHERE Event_CoordinatorId = ?;";
 
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
