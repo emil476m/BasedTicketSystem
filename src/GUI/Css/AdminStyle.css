@@ -12,6 +12,10 @@
     -fx-font-size: 24;
     -fx-border-radius: 25px;
 }
+.cdeu-button:hover
+{
+    -fx-background-color: #009FE3;
+}
 
 .events-label
 {

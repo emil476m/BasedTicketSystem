@@ -19,7 +19,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 public class EventCoordinatorMain extends BaseController{

@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="borderPaneUserInfo" onMouseClicked="#dragScreen" prefHeight="500.0" prefWidth="900.0" styleClass="border-pane" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.UserInfoController">
+<BorderPane fx:id="borderPaneUserInfo" onMouseClicked="#dragScreen" prefHeight="500.0" prefWidth="900.0" styleClass="border-pane" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.UserInfoController">
     <bottom>
-        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>
@@ -24,14 +24,14 @@
                 <Insets left="50.0" />
             </padding>
             <children>
-            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Exit" />
-            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" prefWidth="210.0" styleClass="cdeu-button" text="Delete User" />
-                <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Edit User">
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" styleClass="cdeu-button" text="Exit" />
+            <Button fx:id="btnDeleteUser" mnemonicParsing="false" onAction="#handleDeleteUser" prefHeight="50.0" styleClass="cdeu-button" text="Delete User" />
+                <Button fx:id="btnEditUser" mnemonicParsing="false" onAction="#handleEditUser" prefHeight="50.0" styleClass="cdeu-button" text="Edit User">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Confirm">
+                <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#handleConfirm" prefHeight="50.0" styleClass="cdeu-button" text="Confirm">
                <HBox.margin>
                   <Insets right="50.0" />
                </HBox.margin></Button>
@@ -46,7 +46,7 @@
             <bottom>
                 <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
                     <children>
-                        <Label layoutX="156.0" layoutY="21.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                        <Label layoutX="150.0" layoutY="16.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="Event Master" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="16.0" />
                         <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
                             <image>
                                 <Image url="@../Images/EA.png" />

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
+<BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
    <bottom>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -57,7 +57,7 @@
             <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Admin" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
-                  <Label layoutX="156.0" layoutY="21.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="BasedTicket" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                  <Label layoutX="150.0" layoutY="16.0" prefHeight="66.0" prefWidth="350.0" styleClass="nav-bar-label" text="Event Master" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="16.0" />
                   <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
                      <image>
                         <Image url="@../Images/EA.png" />
@@ -73,7 +73,7 @@
          <children>
             <ListView fx:id="listVUsers" layoutX="382.0" layoutY="94.0" onMouseClicked="#clickOnUser" prefHeight="679.0" prefWidth="417.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="382.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="94.0" />
             <Label layoutX="382.0" layoutY="14.0" styleClass="events-label" text="Users" AnchorPane.leftAnchor="382.0" AnchorPane.topAnchor="14.0" />
-            <TextField fx:id="txtfSearch" layoutX="650.0" layoutY="69.0" onKeyPressed="#searchOnButtonPress" promptText="Search for user" AnchorPane.bottomAnchor="680.0" AnchorPane.leftAnchor="650.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="69.0" />
+            <TextField fx:id="txtfSearch" layoutX="650.0" layoutY="69.0" onKeyPressed="#searchOnButtonPress" prefHeight="35.0" prefWidth="200.0" promptText="Search for user" AnchorPane.bottomAnchor="680.0" AnchorPane.rightAnchor="201.0" />
          </children>
       </AnchorPane>
    </center>
