@@ -22,13 +22,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public User createUser(User user) throws Exception{
-        String tableName = "";
-        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
-            tableName = "Admins";
-        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
-            tableName = "Event_Coordinators";
-
-        String sql = "INSERT INTO " + tableName + " (PassWord, UserName, Mail, Name) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO User (PassWord, UserName, Mail, Name, UserType) VALUES (?,?,?,?,?);";
 
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -38,6 +32,8 @@ public class AdminDAO_DB implements IAdminDAO {
             statement.setString(2, user.getUserName());
             statement.setString(3, user.getMail());
             statement.setString(4, user.getName());
+            statement.setInt(5, user.getUserType());
+
             statement.executeUpdate();
 
             //Get the generated Id from the DB
@@ -65,15 +61,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public void deleteUser(User user) throws Exception {
-        String tableName = "";
-        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
-            tableName = "Admins";
-        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
-            tableName = "Event_Coordinators";
-
-
-        String sql = "DELETE FROM " + tableName + " WHERE Id = ?;";
-
+        String sql = "DELETE FROM User WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user.getUserID());
@@ -84,14 +72,11 @@ public class AdminDAO_DB implements IAdminDAO {
             e.printStackTrace();
             throw new Exception("Failed to remove " + user.getClass().getSimpleName(), e);
         }
-        if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
-            deleteFromWorkingOnEvent(user);
     }
 
     @Override
     public void assignEventToUser(User user, Event event) throws Exception {
         String sql = "INSERT INTO WorkingOnEvent (EventId, Event_CoordinatorId) VALUES (?, ?);";
-
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
@@ -105,9 +90,7 @@ public class AdminDAO_DB implements IAdminDAO {
     }
 
     private void deleteFromWorkingOnEvent(User user) throws Exception {
-
         String sql = "DELETE FROM WorkingOnEvent WHERE Event_CoordinatorId = ?;";
-
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user.getUserID());
@@ -123,13 +106,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public void updateUser(User user) throws Exception {
-        String tableName = "";
-        if (user.getClass().getSimpleName() == Admin.class.getSimpleName())
-            tableName = "Admins";
-        else if (user.getClass().getSimpleName() == Event_Coordinator.class.getSimpleName())
-            tableName = "Event_Coordinators";
-
-        String sql = "UPDATE " + tableName + " SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
+        String sql = "UPDATE User SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -147,17 +124,8 @@ public class AdminDAO_DB implements IAdminDAO {
     }
 
     @Override
-    public List<User> getAllUsers(Class userType) throws Exception {
-        if (userType == Admin.class){
-            return getUserList("Admins", Admin.class);
-        } else if (userType == Event_Coordinator.class) {
-            return getUserList("Event_Coordinators", Event_Coordinator.class);
-        }
-        return null;
-    }
-
-    private List<User> getUserList(String userType, Class classType) throws Exception {
-        String sql = "SELECT * FROM " + userType + ";";
+    public List<User> getAllUsers() throws Exception {
+        String sql = "SELECT * FROM User;";
 
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -171,10 +139,11 @@ public class AdminDAO_DB implements IAdminDAO {
                 String userName = resultSet.getString("UserName");
                 String mail = resultSet.getString("Mail");
                 String name = resultSet.getString("Name");
+                int userTypes = resultSet.getInt("UserType");
 
-                if (classType == Admin.class){
+                if (userTypes == 1){
                     userList.add(new Admin(id, passWord, userName, mail, name));
-                } else if (classType == Event_Coordinator.class) {
+                } else if (userTypes == 2) {
                     userList.add(new Event_Coordinator(id, passWord, userName, mail, name));
                 }
             }
@@ -188,7 +157,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public boolean checkUserName(String userName) throws Exception {
-        String sql = "SELECT UserName FROM (SELECT UserName FROM Admins UNION ALL SELECT UserName FROM Event_Coordinators) a WHERE UserName = ?;";
+        String sql = "SELECT UserName FROM User WHERE UserName = ?;";
 
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

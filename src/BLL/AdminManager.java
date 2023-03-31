@@ -28,8 +28,8 @@ public class AdminManager implements IAdminManager {
     }
 
     @Override
-    public List<User> getAllUsers(Class userType) throws Exception {
-        return databaseAcces.getAllUsers(userType);
+    public List<User> getAllUsers() throws Exception {
+        return databaseAcces.getAllUsers();
     }
     @Override
     public void updateUser(User user) throws Exception{
