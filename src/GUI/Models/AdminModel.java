@@ -1,6 +1,7 @@
 package GUI.Models;
 
 import BE.User;
+import BE.UserType;
 import BLL.AdminManager;
 import BLL.Interfaces.IAdminManager;
 import javafx.collections.FXCollections;
@@ -85,5 +86,9 @@ public class AdminModel {
     public void clearSearch() {
         userObservableList.clear();
         userObservableList.addAll(allUsers);
+    }
+
+    public List<UserType> getAllUserTypes() throws Exception{
+        return adminManager.getAllUserTypes();
     }
 }

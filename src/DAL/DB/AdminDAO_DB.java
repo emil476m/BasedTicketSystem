@@ -1,9 +1,6 @@
 package DAL.DB;
 
-import BE.Admin;
-import BE.Event;
-import BE.Event_Coordinator;
-import BE.User;
+import BE.*;
 import DAL.DatabaseConnector;
 import DAL.Interfaces.IAdminDAO;
 
@@ -152,6 +149,30 @@ public class AdminDAO_DB implements IAdminDAO {
         catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed to retrieve Users", e);
+        }
+    }
+
+    @Override
+    public List<UserType> getAllUserTypes() throws Exception {
+        String sql = "SELECT * FROM UserType;";
+
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            List<UserType> userTypeList = new ArrayList<>();
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                String type = resultSet.getString("Type");
+
+                userTypeList.add(new UserType(id, type));
+            }
+            return userTypeList;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to retrieve UserTypes", e);
         }
     }
 

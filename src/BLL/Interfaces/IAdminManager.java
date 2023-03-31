@@ -2,6 +2,7 @@ package BLL.Interfaces;
 
 import BE.Event;
 import BE.User;
+import BE.UserType;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface IAdminManager {
     boolean checkUserName(String userName) throws Exception;
 
     void assignEventToUser(User user, Event event) throws Exception;
+
+    List<UserType> getAllUserTypes() throws Exception;
 }

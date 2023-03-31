@@ -2,6 +2,7 @@ package DAL.Interfaces;
 
 import BE.Event;
 import BE.User;
+import BE.UserType;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface IAdminDAO {
     void updateUser(User user) throws Exception;
 
     List<User> getAllUsers() throws Exception;
+
+    List<UserType> getAllUserTypes() throws Exception;
 
     boolean checkUserName(String userName) throws Exception;
 
