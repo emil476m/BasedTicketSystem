@@ -19,7 +19,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public User createUser(User user) throws Exception{
-        String sql = "INSERT INTO User (PassWord, UserName, Mail, Name, UserType) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO [User] (PassWord, UserName, Mail, Name, UserType) VALUES (?,?,?,?,?);";
 
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
@@ -58,7 +58,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public void deleteUser(User user) throws Exception {
-        String sql = "DELETE FROM User WHERE Id = ?;";
+        String sql = "DELETE FROM [User] WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user.getUserID());
@@ -103,7 +103,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public void updateUser(User user) throws Exception {
-        String sql = "UPDATE User SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
+        String sql = "UPDATE [User] SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -122,7 +122,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public List<User> getAllUsers() throws Exception {
-        String sql = "SELECT * FROM User;";
+        String sql = "SELECT * FROM [User];";
 
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -178,7 +178,7 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public boolean checkUserName(String userName) throws Exception {
-        String sql = "SELECT UserName FROM User WHERE UserName = ?;";
+        String sql = "SELECT UserName FROM [User] WHERE UserName = ?;";
 
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

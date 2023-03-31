@@ -42,34 +42,26 @@ public class LoginViewController extends BaseController {
      * @param event
      */
     public void handleLogin(ActionEvent event) {
-        try{
+        try {
             String username = TxtUsername.getText();
             String password = TxtPassWord.getText();
-            getModelsHandler().getLoginModel().loginAction(username,password);
+            getModelsHandler().getLoginModel().loginAction(username, password);
             Admin admin = getModelsHandler().getLoginModel().getLoggedInAdmin();
             Event_Coordinator ec = getModelsHandler().getLoginModel().getLoggedinECoordinator();
-        if(admin != null)
-        {
-            openAdminView();
-            Stage stage = (Stage) BtnLogin.getScene().getWindow();
-            stage.close();
-        }
-        else if (ec != null)
-        {
-            openEventCoordinatorView();
-            Stage stage = (Stage) BtnLogin.getScene().getWindow();
-            stage.close();
-        }
-        else {
-            if (getModelsHandler().getLoginModel().getLoggedInAdmin() == null && getModelsHandler().getLoginModel().getLoggedinECoordinator() == null) {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Incorrect username or password, please try again");
-                alert.showAndWait();
+            if (admin != null) {
+                openAdminView();
+                Stage stage = (Stage) BtnLogin.getScene().getWindow();
+                stage.close();
+            } else if (ec != null) {
+                openEventCoordinatorView();
+                Stage stage = (Stage) BtnLogin.getScene().getWindow();
+                stage.close();
             }
-        }
         }
         catch (Exception e)
         {
-            exceptionHandler.displayError(e);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Incorrect username or password, please try again");
+            alert.showAndWait();
         }
     }
 
