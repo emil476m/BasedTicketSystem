@@ -51,4 +51,9 @@ public class AdminManager implements IAdminManager {
     public List<UserType> getAllUserTypes() throws Exception{
         return databaseAcces.getAllUserTypes();
     }
+
+    @Override
+    public void deleteEventRelations(Event event) throws Exception {
+        databaseAcces.deleteEventRelations(event);
+    }
 }

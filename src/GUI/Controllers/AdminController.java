@@ -1,18 +1,23 @@
 package GUI.Controllers;
 
+import BE.Event;
 import BE.User;
 import GUI.Models.ModelsHandler;
 import GUI.Util.ExceptionHandler;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -42,11 +47,15 @@ public class AdminController extends BaseController {
 
     private String lastSelectedItemType;
     private Alert alert;
+    private ObservableList<Event> eventObservableList;
 
     @Override
     public void setup() {
         try {
             getModelsHandler().getAdminModel().getAllUsers();
+            getModelsHandler().getEventCoordinatorModel().getAllEvents();
+            eventObservableList = getModelsHandler().getEventCoordinatorModel().getEventObservableList();
+            eventDisplayCard();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -165,6 +174,20 @@ public class AdminController extends BaseController {
         stage.showAndWait();
     }
 
+    public void eventDisplayCard(){
+        for (Event e : eventObservableList) {
+            menuGridPane.getChildren().addAll(createEventAnchorPane(e));
+        }
+
+    }
+    private AnchorPane createEventAnchorPane(Event event)
+    {
+        AnchorPane ev = new AnchorPane();
+        ev.getChildren().add(new ImageView());
+        ev.getChildren().add(new Label(event.getEventName()));
+        return ev;
+    }
+
     private void dragScreen(){
         borderPaneAdmin.setOnMousePressed(pressEvent -> {
             borderPaneAdmin.setOnMouseDragged(dragEvent -> {
@@ -188,4 +211,45 @@ public class AdminController extends BaseController {
     private void searchOnButtonPress(KeyEvent keyEvent) {
         search();
     }
+
+    public void handleGridClick(MouseEvent mouseEvent) {
+        /*AnchorPane ev = null;
+        Node node = (Node) mouseEvent.getSource();
+        Parent p = node.getParent();
+        if (menuGridPane.getChildren().contains(p))
+            System.out.println("node exist");
+        System.out.println("test");
+        System.out.println("node print: " + node);*/
+
+        /*while (p != menuGridPane) {
+            //node = p;
+            //p = p.getParent();
+            System.out.println("f");
+        }*/
+        //System.out.println("node print: " + node.getClass());
+
+        //ev = (AnchorPane) node;
+
+    }
+
+    /*private void testClickNodes(){
+        menuGridPane.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+            Node node = evt.getPickResult().getIntersectedNode();
+
+            while (node != null && node != menuGridPane){
+                node = node.getParent();
+            }
+
+            if (node instanceof AnchorPane){
+                evt.consume();
+
+                AnchorPane ev = (AnchorPane) node;
+
+                System.out.println("node to anchorPane " + ev);
+            }
+
+
+
+        });
+    }*/
 }

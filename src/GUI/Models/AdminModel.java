@@ -1,5 +1,6 @@
 package GUI.Models;
 
+import BE.Event;
 import BE.User;
 import BE.UserType;
 import BLL.AdminManager;
@@ -90,5 +91,14 @@ public class AdminModel {
 
     public List<UserType> getAllUserTypes() throws Exception{
         return adminManager.getAllUserTypes();
+    }
+
+    /**
+     * Deletes event and all its relations
+     * @param event
+     * @throws Exception
+     */
+    public void deleteEvent(Event event) throws Exception {
+        adminManager.deleteEventRelations(event);
     }
 }

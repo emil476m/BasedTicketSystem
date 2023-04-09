@@ -199,4 +199,54 @@ public class AdminDAO_DB implements IAdminDAO {
             throw new Exception("Failed to check userName", e);
         }
     }
+
+    @Override
+    public void deleteEventRelations(Event event) throws Exception {
+        deleteEventTickets(event);
+        deleteEventWorkingOnevent(event);
+        deleteEvent(event);
+    }
+
+    private void deleteEvent(Event event) throws Exception {
+        String sql = "DELETE FROM [Event] WHERE Id = ?;";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, event.getId());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove " + event.getClass().getSimpleName(), e);
+        }
+    }
+
+    private void deleteEventTickets(Event event) throws Exception {
+        String sql = "DELETE FROM [TicketsToEvent] WHERE EventId = ?;";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, event.getId());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove tickets from " + event.getClass().getSimpleName(), e);
+        }
+    }
+
+    private void deleteEventWorkingOnevent(Event event) throws Exception {
+        String sql = "DELETE FROM [WorkingOnEvent] WHERE EventId = ?;";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, event.getId());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove eventCoordinators from " + event.getClass().getSimpleName(), e);
+        }
+    }
+
 }

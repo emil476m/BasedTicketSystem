@@ -21,4 +21,6 @@ public interface IAdminManager {
     void assignEventToUser(User user, Event event) throws Exception;
 
     List<UserType> getAllUserTypes() throws Exception;
+
+    void deleteEventRelations(Event event) throws Exception;
 }

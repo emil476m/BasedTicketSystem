@@ -23,4 +23,5 @@ public interface IAdminDAO {
 
     boolean checkUserName(String userName) throws Exception;
 
+    void deleteEventRelations(Event event) throws Exception;
 }
