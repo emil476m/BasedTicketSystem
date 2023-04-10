@@ -36,11 +36,6 @@ public class Event {
         this.tickets = tickets;
         this.specialTickets = specialTickets;
     }
-    // Constructor to EventCard
-    public Event(String eventName, String image){
-        this.eventName = eventName;
-        this.image = image;
-    }
 
     public int getId() {
         return id;

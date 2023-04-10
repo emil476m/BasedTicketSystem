@@ -58,20 +58,22 @@ public class EventsController extends BaseController{
     private Button btnLogOut;
     @FXML
     private Button btnReturn;
-
     private Event openedEvent;
 
-    private Alert alert;
 
     @Override
     public void setup() {
         checkUserAndSetup();
-        setEventInfo();
+        try {
+            setEventInfo();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void checkUserAndSetup(){
         if(getModelsHandler().getLoginModel().getLoggedinECoordinator() != null){
-
+            setupEventCoordinator();
         }
         else if (getModelsHandler().getLoginModel().getLoggedInAdmin() != null){
             setupAdmin();
@@ -89,11 +91,18 @@ public class EventsController extends BaseController{
         btnPrintTicket.setText("Delete Event");
     }
 
-    private void setEventInfo(){
+    private void setupEventCoordinator(){
+        lblClass.setText("EventCoordinator");
+        btnAssignCoordinator.setVisible(false);
+        btnAssignCoordinator.setDisable(false);
+    }
+
+    private void setEventInfo() throws Exception {
         lblEventDate.setText(openedEvent.getEventDate().toString());
         lblEventName.setText(openedEvent.getEventName());
         lblEventLocation.setText(openedEvent.getEventLocation());
-        String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getId()).getName();
+        getModelsHandler().getAdminModel().getAllUsers();
+        String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
         if (name != null)
             lblEventCreator.setText(name);
     }

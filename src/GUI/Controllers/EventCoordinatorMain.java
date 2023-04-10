@@ -3,6 +3,7 @@ package GUI.Controllers;
 import BE.Event;
 import BE.Event_Coordinator;
 import GUI.Models.ModelsHandler;
+import GUI.Util.ExceptionHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,10 +12,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,9 +23,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class EventCoordinatorMain extends BaseController{
+public class EventCoordinatorMain extends BaseController {
     @FXML
-    private GridPane menuGridPane;
+    private ListView<Event> listVEvents;
     @FXML
     private TextField txtEventName;
     @FXML
@@ -34,13 +35,11 @@ public class EventCoordinatorMain extends BaseController{
     @FXML
     private TextField txtTicketAmount, txtSpecialTicketAmount, txtLocation;
     @FXML
-    private ImageView imgEvent;
-    @FXML
     private Button btnLogOut;
     @FXML
     private BorderPane borderPaneEventCoordinator;
     private ObservableList<Event> eventObservableList;
-
+    private String lastSelectedItemType;
     private Alert alert;
 
     public void handleCreateEvents(ActionEvent event) {
@@ -113,20 +112,6 @@ public class EventCoordinatorMain extends BaseController{
             return false;
     }
 
-    public void eventDisplayCard(){
-        for (Event e : eventObservableList) {
-            menuGridPane.getChildren().addAll(createEventAnchorPane(e));
-        }
-
-    }
-    private AnchorPane createEventAnchorPane(Event event)
-    {
-        AnchorPane ev = new AnchorPane();
-        ev.getChildren().add(new ImageView());
-        ev.getChildren().add(new Label(event.getEventName()));
-        return ev;
-    }
-
     public void handleOpen(ActionEvent event) {
         //checkSelectedItemType();
     }
@@ -178,11 +163,69 @@ public class EventCoordinatorMain extends BaseController{
     public void setup() {
         try {
             getModelsHandler().getEventCoordinatorModel().getAllEvents();
-            eventObservableList = getModelsHandler().getEventCoordinatorModel().getEventObservableList();
-            eventDisplayCard();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        listVEvents.setItems(getModelsHandler().getEventCoordinatorModel().getEventObservableList());
+        eventListViewListener();
         dragScreen();
     }
+
+    private void eventListViewListener(){
+        listVEvents.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (listVEvents.getSelectionModel().getSelectedItem() != null){
+
+            }
+        });
+    }
+    @FXML
+    public void clickOnEvents(MouseEvent mouseEvent) {
+        if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2)
+        {
+            lastSelectedItemType = "Event";
+            checkSelectedItemType();
+        }
+    }
+    private void checkSelectedItemType(){
+
+        if (listVEvents.getSelectionModel().getSelectedItem() != null && lastSelectedItemType.equals("Event")){
+            openEvent();
+        }
+    }
+
+    private Event getSelectedEvent(){
+        Event event = listVEvents.getSelectionModel().getSelectedItem();
+        if (event != null){
+            return event;
+        }
+        else
+            return null;
+    }
+
+    private void openEvent(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/EventsInfoView.fxml"));
+        Parent root = null;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Info", e));
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
+
+        EventsController controller = loader.getController();
+        controller.setModel(getModelsHandler());
+
+        controller.setOpenedEvent(getSelectedEvent());
+        controller.setup();
+
+        stage.showAndWait();
+    }
 }
+
