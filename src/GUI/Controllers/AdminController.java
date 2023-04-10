@@ -31,7 +31,7 @@ public class AdminController extends BaseController {
 
 
     @FXML
-    private GridPane menuGridPane;
+    private ListView<Event> listVEvents;
     @FXML
     private TextField txtfSearch;
     @FXML
@@ -47,19 +47,17 @@ public class AdminController extends BaseController {
 
     private String lastSelectedItemType;
     private Alert alert;
-    private ObservableList<Event> eventObservableList;
 
     @Override
     public void setup() {
         try {
             getModelsHandler().getAdminModel().getAllUsers();
             getModelsHandler().getEventCoordinatorModel().getAllEvents();
-            eventObservableList = getModelsHandler().getEventCoordinatorModel().getEventObservableList();
-            eventDisplayCard();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         listVUsers.setItems(getModelsHandler().getAdminModel().getUserObservableList());
+        listVEvents.setItems(getModelsHandler().getEventCoordinatorModel().getEventObservableList());
 
         userListViewListener();
         dragScreen();
@@ -122,25 +120,33 @@ public class AdminController extends BaseController {
     public void clickOnUser(MouseEvent mouseEvent) {
         if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2)
         {
+            lastSelectedItemType = "User";
             checkSelectedItemType();
         }
     }
 
     private void checkSelectedItemType(){
 
-        if (listVUsers.getSelectionModel().getSelectedItem() != null){
+        if (listVUsers.getSelectionModel().getSelectedItem() != null&& lastSelectedItemType.equals("User")){
             openUserInfo();
         }
-        /*else if ()*/
-        //TODO implement event list check HERE!
-
-
+        else if (listVEvents.getSelectionModel().getSelectedItem() != null && lastSelectedItemType.equals("Event"))
+            openEvent();
     }
 
     private User getSelectedUser(){
         User user = listVUsers.getSelectionModel().getSelectedItem();
         if (user != null){
             return user;
+        }
+        else
+            return null;
+    }
+
+    private Event getSelectedEvent(){
+        Event event = listVEvents.getSelectionModel().getSelectedItem();
+        if (event != null){
+            return event;
         }
         else
             return null;
@@ -174,20 +180,6 @@ public class AdminController extends BaseController {
         stage.showAndWait();
     }
 
-    public void eventDisplayCard(){
-        for (Event e : eventObservableList) {
-            menuGridPane.getChildren().addAll(createEventAnchorPane(e));
-        }
-
-    }
-    private AnchorPane createEventAnchorPane(Event event)
-    {
-        AnchorPane ev = new AnchorPane();
-        ev.getChildren().add(new ImageView());
-        ev.getChildren().add(new Label(event.getEventName()));
-        return ev;
-    }
-
     private void dragScreen(){
         borderPaneAdmin.setOnMousePressed(pressEvent -> {
             borderPaneAdmin.setOnMouseDragged(dragEvent -> {
@@ -212,44 +204,38 @@ public class AdminController extends BaseController {
         search();
     }
 
-    public void handleGridClick(MouseEvent mouseEvent) {
-        /*AnchorPane ev = null;
-        Node node = (Node) mouseEvent.getSource();
-        Parent p = node.getParent();
-        if (menuGridPane.getChildren().contains(p))
-            System.out.println("node exist");
-        System.out.println("test");
-        System.out.println("node print: " + node);*/
 
-        /*while (p != menuGridPane) {
-            //node = p;
-            //p = p.getParent();
-            System.out.println("f");
-        }*/
-        //System.out.println("node print: " + node.getClass());
-
-        //ev = (AnchorPane) node;
-
+    public void clickOnEvent(MouseEvent mouseEvent) {
+        if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2)
+        {
+            lastSelectedItemType = "Event";
+            checkSelectedItemType();
+        }
     }
 
-    /*private void testClickNodes(){
-        menuGridPane.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
-            Node node = evt.getPickResult().getIntersectedNode();
+    private void openEvent(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/EventsInfoView.fxml"));
+        Parent root = null;
 
-            while (node != null && node != menuGridPane){
-                node = node.getParent();
-            }
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Info", e));
+        }
 
-            if (node instanceof AnchorPane){
-                evt.consume();
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
 
-                AnchorPane ev = (AnchorPane) node;
+        EventsController controller = loader.getController();
+        controller.setModel(getModelsHandler());
 
-                System.out.println("node to anchorPane " + ev);
-            }
+        controller.setOpenedEvent(getSelectedEvent());
+        controller.setup();
 
-
-
-        });
-    }*/
+        stage.showAndWait();
+    }
 }

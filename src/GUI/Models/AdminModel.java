@@ -81,6 +81,14 @@ public class AdminModel {
         }
     }
 
+    public User getLocalUserFromId(int id){
+        for (User u: allUsers){
+            if (u.getUserID() == id)
+                return u;
+        }
+        return null;
+    }
+
     /**
      * Clears the search query of Users.
      */

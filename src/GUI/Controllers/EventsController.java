@@ -1,5 +1,6 @@
 package GUI.Controllers;
 
+import BE.Event;
 import BE.Event_Coordinator;
 import GUI.Models.ModelsHandler;
 import javafx.event.ActionEvent;
@@ -17,6 +18,14 @@ import javafx.stage.StageStyle;
 import java.util.Optional;
 
 public class EventsController extends BaseController{
+    @FXML
+    private Label lblTextName;
+    @FXML
+    private Label lblTextMail;
+    @FXML
+    private Label lblTextAmountSold;
+    @FXML
+    private Label lblTextTicketsLeft;
     @FXML
     private BorderPane borderPaneEvent;
     @FXML
@@ -50,47 +59,70 @@ public class EventsController extends BaseController{
     @FXML
     private Button btnReturn;
 
+    private Event openedEvent;
+
     private Alert alert;
 
     @Override
     public void setup() {
-
+        checkUserAndSetup();
+        setEventInfo();
     }
 
-    public void handleLogOut(ActionEvent event) {
-        try{
+    private void checkUserAndSetup(){
+        if(getModelsHandler().getLoginModel().getLoggedinECoordinator() != null){
 
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Error Message");
-            alert.setContentText("Are you sure want to logout?");
-            Optional<ButtonType> option = alert.showAndWait();
+        }
+        else if (getModelsHandler().getLoginModel().getLoggedInAdmin() != null){
+            setupAdmin();
+        }
+    }
 
-            if (option.get().equals(ButtonType.OK)){
-                // Link your login form and show it
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/LoginView.fxml"));
-                Parent root = loader.load();
+    private void setupAdmin(){
+        lblClass.setText("Admin");
+        txtCustomerName.setVisible(false);
+        txtCustomerName.setEditable(false);
+        txtCustomerEmail.setVisible(false);
+        txtCustomerEmail.setEditable(false);
+        lblTextName.setVisible(false);
+        lblTextMail.setVisible(false);
+        btnPrintTicket.setText("Delete Event");
+    }
 
-                Stage stage1 = new Stage();
-                Scene scene = new Scene(root);
+    private void setEventInfo(){
+        lblEventDate.setText(openedEvent.getEventDate().toString());
+        lblEventName.setText(openedEvent.getEventName());
+        lblEventLocation.setText(openedEvent.getEventLocation());
+        String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getId()).getName();
+        if (name != null)
+            lblEventCreator.setText(name);
+    }
 
-                BaseController controller = loader.getController();
-                controller.setModel(new ModelsHandler());
-                controller.setup();
+    public void setOpenedEvent(Event openedEvent) {
+        this.openedEvent = openedEvent;
+    }
 
-                stage1.setTitle("EventMaster");
-                stage1.initStyle(StageStyle.UNDECORATED);
-                stage1.getIcons().add(new Image("/GUI/Images/EA.png"));
-                stage1.setScene(scene);
-                stage1.show();
-
-                Stage stage = (Stage) btnLogOut.getScene().getWindow();
-                stage.close();
-            }
-
-        } catch (Exception e) {e.printStackTrace();}
+    public void handleLogOut() {
+        Stage stage = (Stage) btnLogOut.getScene().getWindow();
+        stage.close();
     }
 
     public void handlePrintTicket(ActionEvent event) {
+        try {
+            if (btnPrintTicket.getText().equals("Delete Event")) {
+                deleteEvent();
+            } else if (btnPrintTicket.getText().equals("Print")) {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteEvent() throws Exception {
+        getModelsHandler().getEventCoordinatorModel().removeEventFromLocal(openedEvent);
+        getModelsHandler().getAdminModel().deleteEvent(openedEvent);
+        handleLogOut();
     }
 
     public void handleAssignCoordinator(ActionEvent event) {
@@ -112,6 +144,4 @@ public class EventsController extends BaseController{
             });
         });
     }
-
-
 }

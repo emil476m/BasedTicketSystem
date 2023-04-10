@@ -4,16 +4,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 
 <BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
    <bottom>
@@ -71,21 +67,7 @@
       <AnchorPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="77.0" layoutY="39.0" styleClass="events-label" text="Events" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-            <ScrollPane hbarPolicy="NEVER" layoutX="110.0" layoutY="223.0" prefHeight="200.0" prefWidth="200.0" styleClass="ScrollPane" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-               <content>
-                  <GridPane fx:id="menuGridPane" onMouseClicked="#handleGridClick" prefHeight="669.0" prefWidth="440.0" vgap="20.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <padding>
-                        <Insets left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <ListView fx:id="listVEvents" layoutX="6.0" layoutY="93.0" onMouseClicked="#clickOnEvent" prefHeight="677.0" prefWidth="383.0" />
          </children>
       </AnchorPane>
    </right>

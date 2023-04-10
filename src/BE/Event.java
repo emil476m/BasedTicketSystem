@@ -101,4 +101,8 @@ public class Event {
         this.eventDate = eventDate;
     }
 
+    @Override
+    public String toString() {
+        return  id + "\t" + eventName + "\t" + eventDate;
+    }
 }

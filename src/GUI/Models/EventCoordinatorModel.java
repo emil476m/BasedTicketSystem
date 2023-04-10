@@ -37,4 +37,8 @@ public class EventCoordinatorModel {
         eventCoordinatorManager.UpdateEvent(updatedEvent);
         eventObservableList.add(updatedEvent);
     }
+
+    public void removeEventFromLocal(Event event) {
+        eventObservableList.remove(event);
+    }
 }
