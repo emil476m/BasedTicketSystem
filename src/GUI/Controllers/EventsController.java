@@ -5,51 +5,51 @@ import BE.Event_Coordinator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class EventsController extends BaseController{
-    @FXML
-    private Label lblTextName;
-    @FXML
-    private Label lblTextMail;
-    @FXML
-    private Label lblTextAmountSold;
-    @FXML
-    private Label lblTextTicketsLeft;
+
     @FXML
     private BorderPane borderPaneEvent;
-    @FXML
-    private Label lblClass;
+
     @FXML
     private Button btnAssignCoordinator;
-    @FXML
-    private TextField txtCustomerName;
-    @FXML
-    private TextField txtCustomerEmail;
+
     @FXML
     private Button btnPrintTicket;
-    @FXML
-    private Label lblTicketSold;
-    @FXML
-    private Label lblTicketLift;
-    @FXML
-    private ImageView imgEvent;
-    @FXML
-    private ListView<Event_Coordinator> lvAssignCoordinator;
-    @FXML
-    private Label lblEventName;
-    @FXML
-    private Label lblEventDate;
-    @FXML
-    private Label lblEventCreator;
-    @FXML
-    private Label lblEventLocation;
-    @FXML
-    private Button btnLogOut;
+
     @FXML
     private Button btnReturn;
+
+    @FXML
+    private Label lblClass;
+
+    @FXML
+    private TextField lblEventCreator;
+
+    @FXML
+    private DatePicker lblEventDate;
+
+    @FXML
+    private TextField lblEventLocation;
+
+    @FXML
+    private Label lblEventName;
+
+    @FXML
+    private TextArea txaEventDescription;
+
+    @FXML
+    private TextField lblTicketLift;
+
+    @FXML
+    private TextField lblTicketSold;
+
+    @FXML
+    private ListView<?> lvAssignCoordinator;
     private Event openedEvent;
 
 
@@ -80,12 +80,6 @@ public class EventsController extends BaseController{
 
     private void setupAdmin(){
         lblClass.setText("Admin");
-        txtCustomerName.setVisible(false);
-        txtCustomerName.setEditable(false);
-        txtCustomerEmail.setVisible(false);
-        txtCustomerEmail.setEditable(false);
-        lblTextName.setVisible(false);
-        lblTextMail.setVisible(false);
         btnPrintTicket.setText("Delete Event");
     }
 
@@ -96,10 +90,15 @@ public class EventsController extends BaseController{
     }
 
     private void setEventInfo() throws Exception {
-        lblEventDate.setText(openedEvent.getEventDate().toString());
+        lblEventDate.setValue(LocalDate.parse(openedEvent.getEventDate().toString()));
         lblEventName.setText(openedEvent.getEventName());
         lblEventLocation.setText(openedEvent.getEventLocation());
         getUsersForCheck();
+        lblTicketLift.getText();
+        lblTicketSold.getText();
+
+        //txaEventDescription.appendText(openedEvent.getEventDescription());
+
         String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
         if (name != null)
             lblEventCreator.setText(name);
@@ -109,10 +108,6 @@ public class EventsController extends BaseController{
         this.openedEvent = openedEvent;
     }
 
-    public void handleLogOut() {
-        Stage stage = (Stage) btnLogOut.getScene().getWindow();
-        stage.close();
-    }
 
     public void handlePrintTicket(ActionEvent event) {
         try {
@@ -129,7 +124,6 @@ public class EventsController extends BaseController{
     private void deleteEvent() throws Exception {
         getModelsHandler().getEventCoordinatorModel().removeEventFromLocal(openedEvent);
         getModelsHandler().getAdminModel().deleteEvent(openedEvent);
-        handleLogOut();
     }
 
     public void handleAssignCoordinator(ActionEvent event) {
