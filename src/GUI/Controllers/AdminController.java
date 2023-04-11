@@ -4,22 +4,17 @@ import BE.Event;
 import BE.User;
 import GUI.Models.ModelsHandler;
 import GUI.Util.ExceptionHandler;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -51,7 +46,7 @@ public class AdminController extends BaseController {
     @Override
     public void setup() {
         try {
-            getModelsHandler().getAdminModel().getAllUsers();
+            getModelsHandler().getAdminModel().retreiveAllUsers();
             getModelsHandler().getEventCoordinatorModel().getAllEvents();
         } catch (Exception e) {
             throw new RuntimeException(e);

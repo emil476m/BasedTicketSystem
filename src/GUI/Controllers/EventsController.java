@@ -2,20 +2,12 @@ package GUI.Controllers;
 
 import BE.Event;
 import BE.Event_Coordinator;
-import GUI.Models.ModelsHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.Optional;
 
 public class EventsController extends BaseController{
     @FXML
