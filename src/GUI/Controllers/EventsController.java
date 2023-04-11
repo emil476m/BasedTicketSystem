@@ -72,6 +72,12 @@ public class EventsController extends BaseController{
         }
     }
 
+    private void getUsersForCheck() throws Exception {
+        if (getModelsHandler().getAdminModel().getAllUsers().isEmpty() || getModelsHandler().getAdminModel().getAllUsers() == null){
+            getModelsHandler().getAdminModel().retreiveAllUsers();
+        }
+    }
+
     private void setupAdmin(){
         lblClass.setText("Admin");
         txtCustomerName.setVisible(false);
@@ -93,7 +99,7 @@ public class EventsController extends BaseController{
         lblEventDate.setText(openedEvent.getEventDate().toString());
         lblEventName.setText(openedEvent.getEventName());
         lblEventLocation.setText(openedEvent.getEventLocation());
-        getModelsHandler().getAdminModel().getAllUsers();
+        getUsersForCheck();
         String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
         if (name != null)
             lblEventCreator.setText(name);
