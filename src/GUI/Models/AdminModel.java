@@ -42,7 +42,11 @@ public class AdminModel {
         adminManager.deleteUser(user);
     }
 
-    public void getAllUsers() throws Exception{
+    public List<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public void retreiveAllUsers() throws Exception{
         List<User> eventCoordinatorList = adminManager.getAllUsers();
         userObservableList.addAll(eventCoordinatorList);
         allUsers.addAll(userObservableList);
