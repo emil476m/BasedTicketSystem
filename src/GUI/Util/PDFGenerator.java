@@ -37,6 +37,12 @@ public class PDFGenerator {
       document = new Document(pdfDocument);
     }
 
+    /**
+     * creates tickets and adds them to a pdf file
+     * @param ticket
+     * @param qrCodes
+     * @throws IOException
+     */
     public void createTicket(Ticket ticket, List<File> qrCodes) throws IOException {
         QRcodes = qrCodes;
         for (File f: QRcodes)

@@ -27,6 +27,17 @@ public class QrCodeGenerator {
 
     private List<File> QRCodes = new ArrayList<>();
 
+    /**
+     * creates a qrcode in a image file
+     * @param data
+     * @param path
+     * @param charSet
+     * @param map
+     * @param h
+     * @param w
+     * @throws WriterException
+     * @throws IOException
+     */
     public void generateQrCode(String data, String path, String charSet, Map map, int h, int w) throws WriterException, IOException
     {
         File file = new File(filePath);
@@ -37,7 +48,9 @@ public class QrCodeGenerator {
     }
 
 
-
+    /**
+     * creates the error correction map for the qrcodes
+     */
     public void createMap()
     {
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();

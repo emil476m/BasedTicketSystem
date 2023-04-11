@@ -12,6 +12,13 @@ public class TicketModel {
 
     List<File> qrcodes;
 
+    /**
+     * generates qrcodes for tickets
+     * @param amount
+     * @param ticket
+     * @throws IOException
+     * @throws WriterException
+     */
   public void generateQRCodes(int amount, Ticket ticket) throws IOException, WriterException {
       QrCodeGenerator qr = new QrCodeGenerator();
       for(int i = 0; i <= amount; i++)

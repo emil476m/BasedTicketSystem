@@ -13,6 +13,11 @@ import java.util.Properties;
 
 public class EmailSender {
 
+    /**
+     * creates the email and sends it to the costumer
+     * @param ticket
+     * @param file
+     */
     public void sendEmail(Ticket ticket, File file)
     {
         Properties properties = new Properties();
