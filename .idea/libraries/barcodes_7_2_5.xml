@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="barcodes-7.2.5">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/barcodes-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/commons-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/forms-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/io-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/kernel-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/layout-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/pdfa-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/pdftest-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/sign-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/styled-xml-parser-7.2.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/IText7Core/svg-7.2.5.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/Test" />
+      <root url="file://$PROJECT_DIR$/src" />
+    </SOURCES>
+  </library>
+</component>

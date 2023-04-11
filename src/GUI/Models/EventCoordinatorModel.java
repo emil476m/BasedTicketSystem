@@ -12,6 +12,7 @@ import java.util.List;
 
 public class EventCoordinatorModel {
 
+
     private IEvent_CoordinatorManager eventCoordinatorManager;
 
     private ObservableList<Event> eventObservableList;

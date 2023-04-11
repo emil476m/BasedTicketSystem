@@ -8,6 +8,7 @@ public class ModelsHandler {
     private AdminModel adminModel;
     private EventCoordinatorModel eventCoordinatorModel;
     private LoginModel loginModel;
+    private TicketModel ticketModel;
 
     private List<UserType> userTypeList;
 
@@ -15,6 +16,7 @@ public class ModelsHandler {
         adminModel = new AdminModel();
         loginModel = new LoginModel();
         eventCoordinatorModel = new EventCoordinatorModel();
+        ticketModel = new TicketModel();
         userTypeList = adminModel.getAllUserTypes();
     }
 
@@ -30,5 +32,9 @@ public class ModelsHandler {
 
     public List<UserType> getUserTypeList() {
         return userTypeList;
+    }
+
+    public TicketModel getTicketModel() {
+        return ticketModel;
     }
 }

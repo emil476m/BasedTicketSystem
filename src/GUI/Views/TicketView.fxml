@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane fx:id="borderPaneTicket" onMouseClicked="#dragScreen" prefHeight="1024.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.TicketViewController">
+    <top>
+        <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
+            <top>
+                <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="btnLogOut" layoutX="1372.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleLogOut" styleClass="log-out-btn" text="Log out" underline="true" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="btnReturn" layoutX="1367.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleReturn" styleClass="log-out-btn" text="Return" underline="true" AnchorPane.leftAnchor="20.0" />
+                    </children>
+                </AnchorPane>
+            </top>
+            <bottom>
+                <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="lblClass" layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Coordinator" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
+                        <Label layoutX="156.0" layoutY="21.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Master" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0" />
+                        <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
+                            <image>
+                                <Image url="@../Images/EA.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </bottom>
+        </BorderPane>
+    </top>
+   <bottom>
+      <AnchorPane prefHeight="524.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="620.0" layoutY="162.0" prefHeight="200.0" prefWidth="200.0" styleClass="pane-in-my-ass" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+               <children>
+                  <Label layoutX="60.0" layoutY="40.0" text="Name:" />
+                  <TextField fx:id="txtCustomerName" layoutX="60.0" layoutY="80.0" prefHeight="50.0" prefWidth="400.0" />
+                  <Label layoutX="60.0" layoutY="160.0" text="E-mail:" />
+                  <TextField fx:id="txtCustomerEmail" layoutX="60.0" layoutY="200.0" prefHeight="50.0" prefWidth="400.0" />
+                  <Button fx:id="btnSendTicket" layoutX="60.0" layoutY="300.0" minWidth="200.0" mnemonicParsing="false" onAction="#handleSendTicket" prefHeight="50.0" styleClass="cdeu-button" text="Send" />
+                  <Button fx:id="btnPrintTicket" layoutX="302.0" layoutY="300.0" minWidth="200.0" mnemonicParsing="false" onAction="#handlePrintTicket" prefHeight="50.0" styleClass="cdeu-button" text="Print" />
+                  <Label layoutX="680.0" layoutY="46.0" text="Ticket Type:" />
+                  <MenuButton layoutX="1078.0" layoutY="88.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Ticket Options">
+                    <items>
+                      <MenuItem fx:id="menuItemBeerTicket" mnemonicParsing="false" onAction="#handleBeerTicketType" text="Beer Ticket" />
+                      <MenuItem fx:id="menuItemVIPTicket" mnemonicParsing="false" onAction="#handleVIPTicketType" text="VIP Ticket" />
+                        <MenuItem fx:id="menuItemNormalTicket" mnemonicParsing="false" onAction="#handleNormalTicketType" text="Normal Ticket" />
+                    </items>
+                  </MenuButton>
+                  <TextField fx:id="txtfTicketType" layoutX="680.0" layoutY="89.0" prefHeight="50.0" prefWidth="400.0" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblEventName" layoutX="140.0" layoutY="73.0" styleClass="events-label" text="Default Event Name" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0" />
+            <Label layoutX="116.0" layoutY="121.0" text="Event Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
+            <Label layoutX="60.0" layoutY="110.0" text="Event Location" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
+            <Label fx:id="lblEventDate" layoutX="275.0" layoutY="92.0" text="00/00/0000" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="lblEventLocation" layoutX="210.0" layoutY="110.0" text="null" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="150.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
