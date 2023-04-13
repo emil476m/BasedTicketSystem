@@ -6,12 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class TicketViewController extends BaseController{
     @FXML
     private BorderPane borderPaneTicket;
     @FXML
-    private Button btnSendTicket,btnPrintTicket;
+    private Button btnSendTicket, btnPrintTicket, btnReturn;
     @FXML
     private TextField txtfTicketType;
     @FXML
@@ -57,5 +58,10 @@ public class TicketViewController extends BaseController{
         txtfTicketType.setEditable(true);
         txtfTicketType.setText(menuItemNormalTickettype.getText());
         txtfTicketType.setEditable(false);
+    }
+
+    public void handleReturn(ActionEvent event) {
+        Stage stage = (Stage) btnReturn.getScene().getWindow();
+        stage.close();
     }
 }

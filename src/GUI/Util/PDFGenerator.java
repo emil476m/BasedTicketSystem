@@ -56,7 +56,10 @@ public class PDFGenerator {
             float towColWidth[] = {towCol150, towCol};
             float fullWidth[] = {towCol190*3};
             Table table = new Table(towColWidth);
-            table.addCell("Eventname: " + ticket.getEventName() + "\n" + "Name: " + ticket.getCostumerName() + "\t" + "Email: " + ticket.getCostumerEmail() + "\n" + "Row: " + ticket.getRow() + "\t" + "Seat: " + ticket.getSeat() + "\t" + "Ticket Type: " + ticket.getTicketType() + "\n" + "Location of Event: " + ticket.getLocation() + "\t" + "Date: " + ticket.getEventDate()).setBorder(Border.NO_BORDER);
+            table.addCell("Eventname: " + ticket.getEventName() + "\n" + "Name: " + ticket.getCostumerName() +
+                    "\t" + "Email: " + ticket.getCostumerEmail() + "\n" + "Ticket Type: " + ticket.getTicketType() + "\n" + "Location of Event: "
+                    + ticket.getLocation() + "\t" + "Date: " + ticket.getEventDate()).setBorder(Border.NO_BORDER);
+
             table.addCell(qrcode).setBorder(Border.NO_BORDER);
             Border bb = new SolidBorder(color, 2f);
             Table devider = new Table(fullWidth);

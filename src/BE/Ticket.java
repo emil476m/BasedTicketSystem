@@ -7,33 +7,29 @@ public class Ticket {
     private String eventName;
     private String costumerName;
     private String costumerEmail;
-    private int row;
-    private int seat;
     private String ticketType;
     private String location;
     private LocalDate eventDate;
-
-    public Ticket(String eventName, String costumerName, String costumerEmail, int row, int seat, String ticketType , String location, LocalDate eventDate) {
+    private String ticketIssuedBy;
+    public Ticket(String eventName, String costumerName, String costumerEmail, String ticketType , String location, LocalDate eventDate) {
         this.eventName = eventName;
         this.costumerName = costumerName;
         this.costumerEmail = costumerEmail;
-        this.row = row;
-        this.seat = seat;
         this.ticketType = ticketType;
         this.location = location;
         this.eventDate = eventDate;
     }
 
-    public Ticket(int id, String eventName, String costumerName, String costumerEmail, int row, int seat, String ticketType , String location, LocalDate eventDate) {
+    public Ticket(int id, String eventName, String costumerName, String costumerEmail,
+                  String ticketType , String location, LocalDate eventDate, String ticketIssuedBy) {
         this.id = id;
         this.eventName = eventName;
         this.costumerName = costumerName;
         this.costumerEmail = costumerEmail;
-        this.row = row;
-        this.seat = seat;
         this.ticketType = ticketType;
         this.location = location;
         this.eventDate = eventDate;
+        this.ticketIssuedBy = ticketIssuedBy;
     }
 
     public int getId() {
@@ -50,14 +46,6 @@ public class Ticket {
 
     public String getCostumerEmail() {
         return costumerEmail;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getSeat() {
-        return seat;
     }
 
     public String getTicketType() {
