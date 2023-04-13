@@ -3,12 +3,13 @@ package GUI.Models;
 import BE.Admin;
 import BE.Event_Coordinator;
 import BE.User;
+import BLL.Interfaces.ILoginManager;
 import BLL.LoginManager;
 
 import java.io.IOException;
 
 public class LoginModel {
-    LoginManager loginManager;
+    ILoginManager loginManager;
     Admin loggedInAdmin;
 
     Event_Coordinator loggedinECoordinator;
