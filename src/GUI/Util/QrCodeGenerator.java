@@ -21,7 +21,7 @@ public class QrCodeGenerator {
 
     private int number = 0;
 
-    private String filePath = "QRCodeData//code" + number + ".png";
+    private String filePath;
 
     private String charSet = "UTF-8";
 
@@ -38,13 +38,17 @@ public class QrCodeGenerator {
      * @throws WriterException
      * @throws IOException
      */
-    public void generateQrCode(String data, String path, String charSet, Map map, int h, int w) throws WriterException, IOException
+    public void generateQrCode(String data, String charSet, Map map, int h, int w, int amount) throws WriterException, IOException
     {
+        for(int i = 1; i <=amount; i++)
+        {
+        filePath = "QRCodeData//code" + number + ".png";
         File file = new File(filePath);
         BitMatrix matrix = new MultiFormatWriter().encode(new String(data.getBytes(charSet), charSet), BarcodeFormat.QR_CODE,w,h);
-        MatrixToImageWriter.writeToFile(matrix,path.substring(path.indexOf(".")+1),file);
+        MatrixToImageWriter.writeToFile(matrix,filePath.substring(filePath.indexOf(".")+1),file);
         QRCodes.add(file);
         number++;
+        }
     }
 
 

@@ -70,11 +70,11 @@ public class TicketDAO_DB implements ITicketDAO {
      */
     @Override
     public Ticket craeteTicket(Ticket ticket, Event event, Event_Coordinator eventCoordinator) throws Exception {
-        String sql = "INSERT INTO Ticket(CostumerName,TicketType,Mail,TicketIssuedBy) VALUES(?,?,?,?);";
+        String sql = "INSERT INTO Ticket(Name,TicketType,Mail,TicketIssuedBy) VALUES(?,?,?,?);";
         String sql2 = "INSERT INTO TicketsToEvent(EventId,TicketId) VALUES(?,?);";
-        String sql3 = "UPDATE [Ticket] SET TicketAmount = ?, SpecialTicketAmount = ? WHERE id = ?;";
+        String sql3 = "UPDATE [Event] SET TicketAmount = ?, SpecialTicketAmount = ? WHERE id = ?;";
         try (Connection connection = dbConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS)){
+             PreparedStatement statement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)){
 
             connection.setAutoCommit(false);
 
@@ -82,9 +82,8 @@ public class TicketDAO_DB implements ITicketDAO {
             statement.setString(2, ticket.getTicketType());
             statement.setString(3, ticket.getCostumerEmail());
             statement.setInt(4, eventCoordinator.getUserID());
-            statement.executeQuery();
 
-            ResultSet rs = statement.getGeneratedKeys();
+            ResultSet rs = statement.executeQuery();
             int id = 0;
             if (rs.next())
             {
@@ -96,8 +95,8 @@ public class TicketDAO_DB implements ITicketDAO {
             PreparedStatement relationtable = connection.prepareStatement(sql2);
 
             relationtable.setInt(1, event.getId());
-            relationtable.setInt(2, ticket.getId());
-            relationtable.executeQuery();
+            relationtable.setInt(2, ticket1.getId());
+            relationtable.executeUpdate();
 
 
             PreparedStatement eventUpdate = connection.prepareStatement(sql3);

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="eclipse.jetty.orbit.javax.mail.glassfish" type="repository">
+    <properties maven-id="org.eclipse.jetty.orbit:javax.mail.glassfish:1.4.1.v201005082020" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/orbit/javax.mail.glassfish/1.4.1.v201005082020/javax.mail.glassfish-1.4.1.v201005082020.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/eclipse/jetty/orbit/javax.activation/1.1.0.v201105071233/javax.activation-1.1.0.v201105071233.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

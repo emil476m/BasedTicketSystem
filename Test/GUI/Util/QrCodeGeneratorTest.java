@@ -19,7 +19,7 @@ class QrCodeGeneratorTest {
 
         //act
         qrCodeGenerator.createMap();
-        qrCodeGenerator.generateQrCode("https://www.youtube.com/watch?v=qzYpgbP8RHA",qrCodeGenerator.getFilePath(),qrCodeGenerator.getCharSet(),qrCodeGenerator.getMap(),200,200);
+        qrCodeGenerator.generateQrCode("Hello",qrCodeGenerator.getCharSet(),qrCodeGenerator.getMap(),200,200, 1);
 
         //Assertion
         File notExpectedResult = null;

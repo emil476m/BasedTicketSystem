@@ -122,16 +122,17 @@ public class EventsController extends BaseController{
         try {
             if (btnSellTicket.getText().equals("Delete Event")) {
                 deleteEvent();
-            } else if (btnSellTicket.getText().equals("Print")) {
+            } else if (btnSellTicket.getText().equals("Sell ticket")) {
                 sellTicket();
             }
         } catch (Exception e) {
+            e.printStackTrace();
           ExceptionHandler.displayError(new Exception("Failed to do action pleas try again", e));
         }
     }
 
     private void sellTicket() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("src/GUI/Views/TicketView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/TicketView.fxml"));
         Parent root = null;
 
         try {

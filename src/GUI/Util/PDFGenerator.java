@@ -31,11 +31,7 @@ public class PDFGenerator {
     List<File> QRcodes = new ArrayList<>();
 
     public PDFGenerator() throws FileNotFoundException {
-      PdfWriter pdfWriter = new PdfWriter(path);
-      File file = new File(path);
-      PdfDocument pdfDocument = new PdfDocument(pdfWriter);
-      pdfDocument.setDefaultPageSize(PageSize.A4);
-      document = new Document(pdfDocument);
+
     }
 
     /**
@@ -44,8 +40,13 @@ public class PDFGenerator {
      * @param qrCodes
      * @throws IOException
      */
-    public File createTicket(Ticket ticket, List<File> qrCodes) throws IOException {
+    public void createTicket(Ticket ticket, List<File> qrCodes) throws IOException {
         QRcodes = qrCodes;
+        PdfWriter pdfWriter = new PdfWriter(path);
+        File file = new File(path);
+        PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+        pdfDocument.setDefaultPageSize(PageSize.A4);
+        document = new Document(pdfDocument);
         for (File f: QRcodes)
         {
             Color color = new DeviceRgb(0,159,227);
@@ -69,6 +70,5 @@ public class PDFGenerator {
             document.add(devider);
         }
         document.close();
-        return document;
     }
 }

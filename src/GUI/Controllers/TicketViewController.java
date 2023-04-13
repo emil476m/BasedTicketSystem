@@ -19,14 +19,12 @@ public class TicketViewController extends BaseController{
     @FXML
     private TextField txtfTicketType, txtCustomerName, txtCustomerEmail, txtfTicketAmount;
     @FXML
-    private MenuItem menuItemBeerTicketType,menuItemVIPTicketType,menuItemNormalTickettype;
+    private MenuItem menuItemBeerTicket,menuItemVIPTicket,menuItemNormalTicket;
     
     private Event event;
 
     @Override
     public void setup() {
-        btnSendTicket.setDisable(true);
-        btnPrintTicket.setDisable(true);
         txtfTicketType.setEditable(false);
     }
 
@@ -64,6 +62,7 @@ public class TicketViewController extends BaseController{
 
 
             } catch (Exception e) {
+                e.printStackTrace();
                 ExceptionHandler.displayError(new Exception("Failed to Send a Ticket please try again", e));
             }
         }
@@ -107,19 +106,19 @@ public class TicketViewController extends BaseController{
 
     public void handleBeerTicketType(ActionEvent actionEvent) {
         txtfTicketType.setEditable(true);
-        txtfTicketType.setText(menuItemBeerTicketType.getText());
+        txtfTicketType.setText(menuItemBeerTicket.getText());
         txtfTicketType.setEditable(false);
     }
 
     public void handleVIPTicketType(ActionEvent actionEvent) {
         txtfTicketType.setEditable(true);
-        txtfTicketType.setText(menuItemVIPTicketType.getText());
+        txtfTicketType.setText(menuItemVIPTicket.getText());
         txtfTicketType.setEditable(false);
     }
 
     public void handleNormalTicketType(ActionEvent actionEvent) {
         txtfTicketType.setEditable(true);
-        txtfTicketType.setText(menuItemNormalTickettype.getText());
+        txtfTicketType.setText(menuItemNormalTicket.getText());
         txtfTicketType.setEditable(false);
     }
 

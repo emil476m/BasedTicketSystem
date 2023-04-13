@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TicketModel {
@@ -22,21 +23,30 @@ public class TicketModel {
     private PDFGenerator pdfGenerator;
     private EmailSender emailSender;
 
+    private  List<File> qrcodes;
+
+    File file = new File("QRCodeData//Ticket.pdf");
+
     public TicketModel() throws IOException {
         ticketManager = new TicketManager();
         pdfGenerator = new PDFGenerator();
         emailSender = new EmailSender();
+        qrcodes = new ArrayList<>();
     }
 
     public void createTicket(Event event, Ticket ticket, Event_Coordinator eventCoordinator, int amount) throws Exception {
         Ticket ticket1 = null;
-
+        if(!qrcodes.isEmpty())
+        {
+            qrcodes.clear();
+        }
         for (int i = 0; i <= amount; i++) {
             ticket1 = ticketManager.craeteTicket(ticket,event, eventCoordinator);
             generateQRCodes(amount, ticket);
         }
         if (ticket1 != null){
-          //  emailSender.sendEmail(ticket, pdfGenerator.createTicket(ticket, qrcodes));
+            pdfGenerator.createTicket(ticket,qrcodes);
+            emailSender.sendEmail(ticket, file);
         }
     }
 
@@ -44,7 +54,6 @@ public class TicketModel {
 
     }
 
-    List<File> qrcodes;
 
     /**
      * generates qrcodes for tickets
@@ -55,10 +64,7 @@ public class TicketModel {
      */
   public void generateQRCodes(int amount, Ticket ticket) throws IOException, WriterException {
       QrCodeGenerator qr = new QrCodeGenerator();
-      for(int i = 0; i <= amount; i++)
-      {
-          qr.generateQrCode(ticketData(ticket), qr.getFilePath(), qr.getCharSet(), qr.getMap(),200,200);
-      }
+      qr.generateQrCode(ticketData(ticket), qr.getCharSet(), qr.getMap(),100,100, amount);
       qrcodes = qr.getQRCodes();
   }
 
