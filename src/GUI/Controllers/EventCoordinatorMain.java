@@ -3,6 +3,7 @@ package GUI.Controllers;
 import BE.Event;
 import BE.Event_Coordinator;
 import GUI.Models.ModelsHandler;
+import GUI.Util.AlertOpener;
 import GUI.Util.ExceptionHandler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -57,14 +58,21 @@ public class EventCoordinatorMain extends BaseController {
             Event_Coordinator newEC = null;
 
             try {
+                {
                     newEvent = new Event(name, date, location, creator, description, tickets, specialTickets);
                     newEC = getModelsHandler().getLoginModel().getLoggedinECoordinator();
 
-                getModelsHandler().getEventCoordinatorModel().createEvent(newEvent, newEC);
+                 getModelsHandler().getEventCoordinatorModel().createEvent(newEvent, newEC);
+                }
+
             } catch (Exception e) {
                 ExceptionHandler.displayError(new Exception("Failed to create event please try again", e));
             }
 
+        }
+        else
+        {
+            AlertOpener.validationError("please enter information into all available text fields");
         }
     }
 
