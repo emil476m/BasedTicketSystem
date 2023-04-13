@@ -93,7 +93,9 @@ public class EventsController extends BaseController{
     private void setupEventCoordinator(){
         lblClass.setText("EventCoordinator");
         btnAssignCoordinator.setVisible(false);
-        btnAssignCoordinator.setDisable(false);
+        btnRemoveCoordinator.setVisible(false);
+        btnAssignCoordinator.setDisable(true);
+        btnRemoveCoordinator.setDisable(true);
     }
 
     private void setEventInfo() throws Exception {
