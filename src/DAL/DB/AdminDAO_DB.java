@@ -191,6 +191,12 @@ public class AdminDAO_DB implements IAdminDAO {
                     userList.add(new Event_Coordinator(id, passWord, userName, mail, name));
                 }
             }
+            for (User u:userList){
+                if (u.getName().equals("NotAssigned") && u.getUserID() == 1){
+                    userList.remove(u);
+                    return userList;
+                }
+            }
             return userList;
         }
         catch (SQLException e) {

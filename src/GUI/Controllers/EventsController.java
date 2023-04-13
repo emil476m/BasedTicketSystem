@@ -112,10 +112,16 @@ public class EventsController extends BaseController{
 
         txaEventDescription.appendText(openedEvent.getEventDescription());
 
-        String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
-        creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
-        if (name != null)
-            txfEventCreator.setText(name);
+        if (openedEvent.getEventCreator() != 1){
+            String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
+            creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
+            if (name != null)
+                txfEventCreator.setText(name);
+        }
+        else if (openedEvent.getEventCreator() == 1){
+            txfEventCreator.setText("NotAssigned");
+        }
+
     }
 
     public void setOpenedEvent(Event openedEvent) {
