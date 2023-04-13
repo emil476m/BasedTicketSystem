@@ -2,17 +2,26 @@ package GUI.Controllers;
 
 import BE.Event;
 import BE.Event_Coordinator;
+import BE.User;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class EventsController extends BaseController{
 
+    public Button btnRemoveCoordinator;
     @FXML
     private BorderPane borderPaneEvent;
 
@@ -35,11 +44,10 @@ public class EventsController extends BaseController{
     private TextField txfTicketsLeft, txfEventLocation, txfEventCreator, txfSTicketsLeft;
 
     @FXML
-    private ListView<?> lvAssignCoordinator;
+    private ListView<User> lvAssignCoordinator;
     private Event openedEvent;
 
     private Event_Coordinator creator;
-
 
     @Override
     public void setup() {
@@ -89,6 +97,10 @@ public class EventsController extends BaseController{
     }
 
     private void setEventInfo() throws Exception {
+        getModelsHandler().getAdminModel().getCurrentEventEventCoordinators().clear();
+        getModelsHandler().getAdminModel().getCurrentEventEventCoordinators().addAll(getModelsHandler().getAdminModel().getUsersWorkingOnEvent(openedEvent));
+        lvAssignCoordinator.setItems(getModelsHandler().getAdminModel().getCurrentEventEventCoordinators());
+
         dpEventDate.setValue(LocalDate.parse(openedEvent.getEventDate().toString()));
         lblEventName.setText(openedEvent.getEventName());
         txfEventLocation.setText(openedEvent.getEventLocation());
@@ -126,16 +138,38 @@ public class EventsController extends BaseController{
     private void deleteEvent() throws Exception {
         getModelsHandler().getEventCoordinatorModel().removeEventFromLocal(openedEvent);
         getModelsHandler().getAdminModel().deleteEvent(openedEvent);
+        handleReturn();
     }
 
     public void handleAssignCoordinator(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/EventCoordinatorListView.fxml"));
+        Parent root = null;
 
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Coordinator List", e));
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
+
+        EventCoordinatorListController controller = loader.getController();
+        controller.setModel(getModelsHandler());
+        controller.setOpenedEvent(openedEvent);
+
+        controller.setup();
+
+        stage.showAndWait();
     }
 
-    public void handleReturn(ActionEvent event) {
+    public void handleReturn() {
         Stage stage = (Stage) btnReturn.getScene().getWindow();
         stage.close();
-
     }
 
     @FXML
@@ -168,6 +202,16 @@ public class EventsController extends BaseController{
         catch (Exception e)
         {
             ExceptionHandler.displayError(new Exception("Failed to update event please try again", e));
+        }
+    }
+
+    public void handleRemoveCoordinator(ActionEvent actionEvent) {
+        if (lvAssignCoordinator.getSelectionModel().getSelectedItem() != null){
+            try {
+                getModelsHandler().getAdminModel().removeUserFromEvent(lvAssignCoordinator.getSelectionModel().getSelectedItem(), openedEvent);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
