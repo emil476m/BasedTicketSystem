@@ -60,9 +60,8 @@ public class LoginViewController extends BaseController {
         }
         catch (Exception e)
         {
-            //Alert alert = new Alert(Alert.AlertType.WARNING, "Incorrect username or password, please try again");
-            //alert.showAndWait();
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Incorrect username or password, please try again");
+            alert.showAndWait();
         }
     }
 

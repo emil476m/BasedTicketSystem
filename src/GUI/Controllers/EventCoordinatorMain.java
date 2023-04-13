@@ -62,7 +62,7 @@ public class EventCoordinatorMain extends BaseController {
 
                 getModelsHandler().getEventCoordinatorModel().createEvent(newEvent, newEC);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                ExceptionHandler.displayError(new Exception("Failed to create event please try again", e));
             }
 
         }
@@ -146,7 +146,7 @@ public class EventCoordinatorMain extends BaseController {
                 stage.close();
             }
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {ExceptionHandler.displayError(new Exception("Failed to logout please try again", e));}
 
     }
     @FXML

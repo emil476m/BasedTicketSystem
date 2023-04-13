@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="borderPaneEvent" onMouseClicked="#dragScreen" prefHeight="800.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventsController">
+<BorderPane fx:id="borderPaneEvent" onMouseClicked="#dragScreen" prefHeight="800.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventsController">
     <top>
         <BorderPane prefHeight="150.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <top>
@@ -44,16 +44,17 @@
             <Label layoutX="116.0" layoutY="121.0" text="Event Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="60.0" layoutY="110.0" text="Event Location" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
             <Label layoutX="60.0" layoutY="160.0" text="Event Creator" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
-            <Label fx:id="lblTextAmountSold" layoutX="50.0" layoutY="255.0" text="Ticket amount sold" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="250.0" />
-            <Label fx:id="lblTextTicketsLeft" layoutX="48.0" layoutY="292.0" text="Ticket amount left" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0" />
-            <Button fx:id="btnPrintTicket" layoutX="50.0" layoutY="569.0" minWidth="200.0" mnemonicParsing="false" onAction="#handlePrintTicket" prefHeight="50.0" styleClass="cdeu-button" text="Print" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" />
+            <Label fx:id="lblTextTicketsLeft" layoutX="50.0" layoutY="242.0" text="Normal tickets left" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="242.0" />
+            <Button fx:id="btnSellTicket" layoutX="51.0" layoutY="573.4" minWidth="200.0" mnemonicParsing="false" onAction="#handleSellTicket" prefHeight="50.0" styleClass="cdeu-button" text="Sell ticket" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="51.0" />
             <Button fx:id="btnAssignCoordinator" layoutX="408.0" layoutY="270.0" minWidth="200.0" mnemonicParsing="false" onAction="#handleAssignCoordinator" prefHeight="50.0" styleClass="cdeu-button" text="Assign Coordinator" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="270.0" />
             <TextArea fx:id="txaEventDescription" layoutX="46.0" layoutY="415.0" prefHeight="200.0" prefWidth="900.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-            <TextField fx:id="lblEventLocation" layoutX="404.0" layoutY="153.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="150.0" />
-            <TextField fx:id="lblEventCreator" layoutX="404.0" layoutY="190.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0" />
-            <TextField fx:id="lblTicketSold" layoutX="404.0" layoutY="230.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="250.0" />
-            <TextField fx:id="lblTicketLift" layoutX="339.0" layoutY="309.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="300.0" />
-            <DatePicker fx:id="lblEventDate" layoutX="441.0" layoutY="100.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="100.0" />
+            <TextField fx:id="txfEventLocation" layoutX="404.0" layoutY="153.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="150.0" />
+            <TextField fx:id="txfEventCreator" layoutX="404.0" layoutY="190.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0" />
+            <TextField fx:id="txfTicketsLeft" layoutX="250.0" layoutY="244.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="244.0" />
+            <DatePicker fx:id="dpEventDate" layoutX="441.0" layoutY="100.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="100.0" />
+            <Button fx:id="btnEditEvent" layoutX="262.0" layoutY="573.0" minWidth="200.0" mnemonicParsing="false" onAction="#handleEditEvent" prefHeight="50.0" styleClass="cdeu-button" text="Edit" />
+            <Label fx:id="lblTextTicketsLeft1" layoutX="50.0" layoutY="280.0" text="Special tickets left" />
+            <TextField fx:id="txfSTicketsLeft" layoutX="250.0" layoutY="283.0" />
          </children>
       </AnchorPane>
    </center>

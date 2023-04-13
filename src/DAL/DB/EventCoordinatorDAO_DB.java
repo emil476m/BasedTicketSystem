@@ -99,14 +99,14 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
      */
     @Override
     public void UpdateEvent(Event event) throws Exception{
-        String sql = "UPDATE Events Name=?, TicketAmount=?, SpecialTicketAmount=?, EventDate=?, EventLocation=?, EventDescription=? WHERE Id=?";
+        String sql = "UPDATE Event SET EventName=?, TicketAmount=?, SpecialTicketAmount=?, EventDate=?, EventLocation=?, EventDescription=? WHERE Id=?";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql))
         {
             statement.setString(1,event.getEventName());
             statement.setInt(2,event.getTickets());
             statement.setInt(3,event.getSpecialTickets());
-            statement.setDate(4, (java.sql.Date.valueOf(LocalDate.toString())));
+            statement.setDate(4, (java.sql.Date.valueOf(event.getEventDate())));
             statement.setString(5,event.getEventLocation());
             statement.setString(6,event.getEventDescription());
             statement.setInt(7,event.getId());
