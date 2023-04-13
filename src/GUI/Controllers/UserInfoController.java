@@ -128,6 +128,7 @@ public class UserInfoController extends BaseController {
             try {
                 for (Event e: getModelsHandler().getEventCoordinatorModel().getEventObservableList()){
                     if (selectedUser.getUserID() == e.getEventCreator()){
+                        e.setEventCreator(1);
                         getModelsHandler().getEventCoordinatorModel().updateEvent(e, e);
                     }
                 }
