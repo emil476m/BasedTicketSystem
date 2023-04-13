@@ -2,6 +2,7 @@ package GUI.Controllers;
 
 import BE.Event;
 import BE.Event_Coordinator;
+import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,25 +17,13 @@ public class EventsController extends BaseController{
     private BorderPane borderPaneEvent;
 
     @FXML
-    private Button btnAssignCoordinator;
-
-    @FXML
-    private Button btnPrintTicket;
-
-    @FXML
-    private Button btnReturn;
+    private Button btnAssignCoordinator, btnEditEvent, btnSellTicket, btnReturn;
 
     @FXML
     private Label lblClass;
 
     @FXML
-    private TextField lblEventCreator;
-
-    @FXML
-    private DatePicker lblEventDate;
-
-    @FXML
-    private TextField lblEventLocation;
+    private DatePicker dpEventDate;
 
     @FXML
     private Label lblEventName;
@@ -43,14 +32,13 @@ public class EventsController extends BaseController{
     private TextArea txaEventDescription;
 
     @FXML
-    private TextField lblTicketLift;
-
-    @FXML
-    private TextField lblTicketSold;
+    private TextField txfTicketsLeft, txfEventLocation, txfEventCreator, txfSTicketsLeft;
 
     @FXML
     private ListView<?> lvAssignCoordinator;
     private Event openedEvent;
+
+    private Event_Coordinator creator;
 
 
     @Override
@@ -58,9 +46,20 @@ public class EventsController extends BaseController{
         checkUserAndSetup();
         try {
             setEventInfo();
+            disableElements();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            ExceptionHandler.displayError(new Exception("Failed on setup", e));
         }
+    }
+
+    private void disableElements()
+    {
+        txfTicketsLeft.setDisable(true);
+        txaEventDescription.setDisable(true);
+        txfEventCreator.setDisable(true);
+        txfEventLocation.setDisable(true);
+        dpEventDate.setDisable(true);
+        txfSTicketsLeft.setDisable(true);
     }
 
     private void checkUserAndSetup(){
@@ -80,7 +79,7 @@ public class EventsController extends BaseController{
 
     private void setupAdmin(){
         lblClass.setText("Admin");
-        btnPrintTicket.setText("Delete Event");
+        btnSellTicket.setText("Delete Event");
     }
 
     private void setupEventCoordinator(){
@@ -90,18 +89,21 @@ public class EventsController extends BaseController{
     }
 
     private void setEventInfo() throws Exception {
-        lblEventDate.setValue(LocalDate.parse(openedEvent.getEventDate().toString()));
+        dpEventDate.setValue(LocalDate.parse(openedEvent.getEventDate().toString()));
         lblEventName.setText(openedEvent.getEventName());
-        lblEventLocation.setText(openedEvent.getEventLocation());
+        txfEventLocation.setText(openedEvent.getEventLocation());
         getUsersForCheck();
-        lblTicketLift.getText();
-        lblTicketSold.getText();
+        String nt = ""+openedEvent.getTickets();
+        String st = ""+ openedEvent.getSpecialTickets();
+        txfTicketsLeft.setText(nt);
+        txfSTicketsLeft.setText(st);
 
-        //txaEventDescription.appendText(openedEvent.getEventDescription());
+        txaEventDescription.appendText(openedEvent.getEventDescription());
 
         String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
+        creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
         if (name != null)
-            lblEventCreator.setText(name);
+            txfEventCreator.setText(name);
     }
 
     public void setOpenedEvent(Event openedEvent) {
@@ -109,15 +111,15 @@ public class EventsController extends BaseController{
     }
 
 
-    public void handlePrintTicket(ActionEvent event) {
+    public void handleSellTicket(ActionEvent event) {
         try {
-            if (btnPrintTicket.getText().equals("Delete Event")) {
+            if (btnSellTicket.getText().equals("Delete Event")) {
                 deleteEvent();
-            } else if (btnPrintTicket.getText().equals("Print")) {
+            } else if (btnSellTicket.getText().equals("Print")) {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+          ExceptionHandler.displayError(new Exception("Failed to do action pleas try again", e));
         }
     }
 
@@ -144,5 +146,28 @@ public class EventsController extends BaseController{
                 borderPaneEvent.getScene().getWindow().setY(dragEvent.getScreenY() - pressEvent.getSceneY());
             });
         });
+    }
+
+    public void handleEditEvent(ActionEvent actionEvent) throws Exception {
+        try {
+            if (btnEditEvent.getText().equals("Edit")) {
+                txfTicketsLeft.setDisable(false);
+                txaEventDescription.setDisable(false);
+                txfEventLocation.setDisable(false);
+                dpEventDate.setDisable(false);
+                txfSTicketsLeft.setDisable(false);
+                btnEditEvent.setText("Confirm");
+            } else if (btnEditEvent.getText().equals("Confirm")) {
+                LocalDate date = dpEventDate.getValue();
+                Event event = new Event(lblEventName.getText(), date, txfEventLocation.getText(), creator.getUserID(), txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
+                getModelsHandler().getEventCoordinatorModel().UpdateEvent(event, openedEvent);
+                disableElements();
+                btnEditEvent.setText("Edit");
+            }
+        }
+        catch (Exception e)
+        {
+            ExceptionHandler.displayError(new Exception("Failed to update event please try again", e));
+        }
     }
 }

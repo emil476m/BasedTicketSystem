@@ -4,6 +4,7 @@ import BE.Admin;
 import BE.Event_Coordinator;
 import BE.User;
 import GUI.Util.AlertOpener;
+import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -123,7 +124,7 @@ public class UserInfoController extends BaseController {
             try {
                 getModelsHandler().getAdminModel().deleteUser(selectedUser);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                ExceptionHandler.displayError(new Exception("Failed to delete user",e));
             }
         }
         handleExit();
@@ -171,7 +172,7 @@ public class UserInfoController extends BaseController {
                 AlertOpener.validationError("Username is already taken!");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            ExceptionHandler.displayError(new Exception("Failed to create user please try again",e));
         }
     }
 
@@ -219,7 +220,7 @@ public class UserInfoController extends BaseController {
                     AlertOpener.validationError("username is already taken!");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            ExceptionHandler.displayError(new Exception("Failed to edit user please try again"));
         }
     }
 
