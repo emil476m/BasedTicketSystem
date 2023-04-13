@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
@@ -42,8 +41,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
                 String eventLocation = rs.getString("EventLocation");
                 String eventDescription = rs.getString("EventDescription");
                 int eventCreator = rs.getInt("EventCreator");
-                Event evnet = new Event(id,ticketAmount,specialticketAmount,name,eventDescription,eventLocation,date,eventCreator);
-                events.add(evnet);
+                Event event = new Event(id,name,date, eventLocation, eventCreator, eventDescription, ticketAmount, specialticketAmount);
+                events.add(event);
             }
             return events;
         }
@@ -81,8 +80,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
                 id = rs.getInt(1);
             }
 
-            Event event1 = new Event(id, event.getTickets(),event.getSpecialTickets(),event.getEventName()
-                    ,event.getEventDescription(),event.getEventLocation(), event.getEventDate(), event.getEventCreator());
+            Event event1 = new Event(id,event.getEventName()
+                    ,event.getEventDate(), event.getEventLocation(), event.getEventCreator(), event.getEventDescription(), event.getTickets(), event.getSpecialTickets());
             return event1;
         }
         catch (SQLException e)
@@ -98,8 +97,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
      * @param event
      */
     @Override
-    public void UpdateEvent(Event event) throws Exception{
-        String sql = "UPDATE Event SET EventName=?, TicketAmount=?, SpecialTicketAmount=?, EventDate=?, EventLocation=?, EventDescription=? WHERE Id=?";
+    public void updateEvent(Event event) throws Exception{
+        String sql = "UPDATE [Event] SET EventName=?, TicketAmount=?, SpecialTicketAmount=?, EventDate=?, EventLocation=?, EventDescription=?, EventCreator=? WHERE Id=?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql))
         {
@@ -109,7 +108,8 @@ public class EventCoordinatorDAO_DB implements IEvent_CoordinatorDAO {
             statement.setDate(4, (java.sql.Date.valueOf(event.getEventDate())));
             statement.setString(5,event.getEventLocation());
             statement.setString(6,event.getEventDescription());
-            statement.setInt(7,event.getId());
+            statement.setInt(7, event.getEventCreator());
+            statement.setInt(8,event.getId());
 
             statement.executeUpdate();
         }

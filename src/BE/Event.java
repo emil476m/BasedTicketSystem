@@ -1,7 +1,6 @@
 package BE;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Event {
     private int id;
@@ -11,12 +10,13 @@ public class Event {
     private String eventDescription;
     private String eventLocation;
     private LocalDate eventDate;
+
     private int eventCreator;
 
     private String image;
 
 
-    public Event(int id, int tickets, int specialTickets, String eventName, String eventDescription, String eventLocation, LocalDate eventDate, int eventCreator) {
+    public Event(int id, String eventName, LocalDate eventDate, String eventLocation, int eventCreator, String eventDescription, int tickets, int specialTickets) {
         this.id = id;
         this.tickets = tickets;
         this.specialTickets = specialTickets;
@@ -82,6 +82,10 @@ public class Event {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public void setEventCreator(int eventCreator) {
+        this.eventCreator = eventCreator;
     }
 
     public void setEventDescription(String eventDescription) {

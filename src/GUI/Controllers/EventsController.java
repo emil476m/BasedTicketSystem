@@ -120,6 +120,8 @@ public class EventsController extends BaseController{
         }
         else if (openedEvent.getEventCreator() == 1){
             txfEventCreator.setText("NotAssigned");
+            creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
+
         }
 
     }
@@ -199,14 +201,21 @@ public class EventsController extends BaseController{
                 btnEditEvent.setText("Confirm");
             } else if (btnEditEvent.getText().equals("Confirm")) {
                 LocalDate date = dpEventDate.getValue();
-                Event event = new Event(lblEventName.getText(), date, txfEventLocation.getText(), creator.getUserID(), txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
-                getModelsHandler().getEventCoordinatorModel().UpdateEvent(event, openedEvent);
+                Event event;
+                if (creator != null){
+                    event = new Event(openedEvent.getId() , lblEventName.getText(), date, txfEventLocation.getText(), creator.getUserID(), txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
+                }
+                else
+                    event = new Event(openedEvent.getId() , lblEventName.getText(), date, txfEventLocation.getText(), 1, txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
+                
+                getModelsHandler().getEventCoordinatorModel().updateEvent(event, openedEvent);
                 disableElements();
                 btnEditEvent.setText("Edit");
             }
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             ExceptionHandler.displayError(new Exception("Failed to update event please try again", e));
         }
     }
