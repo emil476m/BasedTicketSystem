@@ -1,18 +1,15 @@
 package DAL.DB;
 
-import BE.Admin;
-import BE.Event_Coordinator;
 import BE.User;
 import DAL.DatabaseConnector;
 import DAL.Interfaces.ILogInDAO;
 import DAL.Util.BCrypt;
-import GUI.Controllers.BaseController;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
-import java.sql.*;
-
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginDAO_DB implements ILogInDAO {
 private DatabaseConnector dbConnector;
@@ -50,6 +47,6 @@ private DatabaseConnector dbConnector;
             e.printStackTrace();
             throw new Exception("Failed to login");
         }
-        return user;
+        return null;
     }
 }
