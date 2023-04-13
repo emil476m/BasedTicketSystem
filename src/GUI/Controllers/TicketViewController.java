@@ -1,5 +1,8 @@
 package GUI.Controllers;
 
+import BE.Event;
+import BE.Ticket;
+import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,9 +17,11 @@ public class TicketViewController extends BaseController{
     @FXML
     private Button btnSendTicket, btnPrintTicket, btnReturn;
     @FXML
-    private TextField txtfTicketType;
+    private TextField txtfTicketType, txtCustomerName, txtCustomerEmail, txtfTicketAmount;
     @FXML
     private MenuItem menuItemBeerTicketType,menuItemVIPTicketType,menuItemNormalTickettype;
+    
+    private Event event;
 
     @Override
     public void setup() {
@@ -36,7 +41,65 @@ public class TicketViewController extends BaseController{
     }
 
     public void handleSendTicket(ActionEvent actionEvent) {
+        
+        if (checkTextFieldsNotNull()){
+            String name = txtCustomerName.getText();
+            String email = txtCustomerEmail.getText();
+            String type = txtfTicketType.getText();
+            int amount = Integer.parseInt(txtfTicketAmount.getText());
 
+            Ticket newTicket = null;
+
+            try {
+                newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
+
+                if (newTicket.getTicketType().equals("Beer Ticket")){
+                    event.setSpecialTickets(event.getSpecialTickets() - amount);
+                }
+                else{
+                    event.setTickets(event.getTickets() - amount);
+                }
+
+                getModelsHandler().getTicketModel().createTicket(event, newTicket, getModelsHandler().getLoginModel().getLoggedinECoordinator(), amount);
+
+
+            } catch (Exception e) {
+                ExceptionHandler.displayError(new Exception("Failed to Send a Ticket please try again", e));
+            }
+        }
+
+        
+        
+    }
+
+    private boolean checkTextFieldsNotNull() {
+        if (checktxtTicketName() && checktxtemail() && checktxtTicketType() && checktxtTicketAmount())
+            return true;
+        else
+            return false;
+    }
+
+    private boolean checktxtTicketType() {
+        if (!txtfTicketType.getText().isEmpty() && txtfTicketType.getText() != null) return true;
+        else
+            return false;
+    }
+
+    private boolean checktxtemail() {
+        if (!txtCustomerEmail.getText().isEmpty() && txtCustomerEmail.getText() != null) return true;
+        else
+            return false;
+    }
+
+    private boolean checktxtTicketName() {
+        if (!txtCustomerName.getText().isEmpty() && txtCustomerName.getText() != null) return true;
+        else
+            return false;
+    }
+    private boolean checktxtTicketAmount() {
+        if (!txtfTicketAmount.getText().isEmpty() && txtfTicketAmount.getText() != null) return true;
+        else
+            return false;
     }
 
     public void handlePrintTicket(ActionEvent actionEvent) {
@@ -63,5 +126,9 @@ public class TicketViewController extends BaseController{
     public void handleReturn(ActionEvent event) {
         Stage stage = (Stage) btnReturn.getScene().getWindow();
         stage.close();
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

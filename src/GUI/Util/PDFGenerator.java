@@ -32,6 +32,7 @@ public class PDFGenerator {
 
     public PDFGenerator() throws FileNotFoundException {
       PdfWriter pdfWriter = new PdfWriter(path);
+      File file = new File(path);
       PdfDocument pdfDocument = new PdfDocument(pdfWriter);
       pdfDocument.setDefaultPageSize(PageSize.A4);
       document = new Document(pdfDocument);
@@ -43,7 +44,7 @@ public class PDFGenerator {
      * @param qrCodes
      * @throws IOException
      */
-    public void createTicket(Ticket ticket, List<File> qrCodes) throws IOException {
+    public File createTicket(Ticket ticket, List<File> qrCodes) throws IOException {
         QRcodes = qrCodes;
         for (File f: QRcodes)
         {
@@ -68,5 +69,6 @@ public class PDFGenerator {
             document.add(devider);
         }
         document.close();
+        return document;
     }
 }

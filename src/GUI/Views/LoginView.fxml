@@ -13,13 +13,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Css/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.LoginViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Css/Login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.LoginViewController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="login-bg" BorderPane.alignment="CENTER">
          <children>
             <Pane layoutX="-81.0" layoutY="-76.0" prefHeight="598.0" prefWidth="390.0" rotate="10.0" styleClass="pane" stylesheets="@../Css/Login.css" />
-            <ImageView fitHeight="63.0" fitWidth="200.0" layoutX="50.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="200.0" layoutX="50.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0">
                <image>
                   <Image url="@../Images/EASV.png" />
                </image>
@@ -44,8 +45,14 @@
                </children>
             </GridPane>
             <Button fx:id="BtnClose" layoutX="497.0" layoutY="421.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="27.0" prefWidth="89.0" text="Close" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="497.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="421.0" />
-            <Label layoutX="25.0" layoutY="215.0" prefHeight="47.0" prefWidth="292.0" text="Make events easy" />
-            <Label layoutX="25.0" layoutY="200.0" prefHeight="42.0" prefWidth="202.0" text="Event Master" />
+            <Label layoutX="25.0" layoutY="215.0" text="Make events easy" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="40.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label layoutX="25.0" layoutY="200.0" text="Event Master" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="20.0">
+               <font>
+                  <Font size="40.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </center>

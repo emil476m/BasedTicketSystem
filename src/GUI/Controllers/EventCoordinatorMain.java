@@ -113,7 +113,7 @@ public class EventCoordinatorMain extends BaseController {
     }
 
     public void handleOpen(ActionEvent event) {
-        //checkSelectedItemType();
+        checkSelectedItemType();
     }
 
     public void handleLogOut(ActionEvent event) {
@@ -188,10 +188,9 @@ public class EventCoordinatorMain extends BaseController {
     }
     private void checkSelectedItemType(){
 
-        if (listVEvents.getSelectionModel().getSelectedItem() != null && lastSelectedItemType.equals("Event")){
+        if (listVEvents.getSelectionModel().getSelectedItem() != null && lastSelectedItemType.equals("Event"))
             openEvent();
         }
-    }
 
     private Event getSelectedEvent(){
         Event event = listVEvents.getSelectionModel().getSelectedItem();

@@ -19,7 +19,7 @@
 
 .label
 {
-    -fx-font-size: 16;
+    -fx-font-family: 'Russo One', sans-serif;;
     -fx-text-background-color: #009FE3;
 }
 

@@ -5,10 +5,17 @@ import BE.Event_Coordinator;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class EventsController extends BaseController{
@@ -116,11 +123,37 @@ public class EventsController extends BaseController{
             if (btnSellTicket.getText().equals("Delete Event")) {
                 deleteEvent();
             } else if (btnSellTicket.getText().equals("Print")) {
-
+                sellTicket();
             }
         } catch (Exception e) {
           ExceptionHandler.displayError(new Exception("Failed to do action pleas try again", e));
         }
+    }
+
+    private void sellTicket() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("src/GUI/Views/TicketView.fxml"));
+        Parent root = null;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Info", e));
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
+
+        TicketViewController controller = loader.getController();
+        controller.setModel(getModelsHandler());
+
+        controller.setEvent(openedEvent);
+        controller.setup();
+
+        stage.showAndWait();
     }
 
     private void deleteEvent() throws Exception {
