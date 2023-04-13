@@ -3,6 +3,7 @@ package DAL.DB;
 import BE.*;
 import DAL.DatabaseConnector;
 import DAL.Interfaces.IAdminDAO;
+import DAL.Util.BCrypt;
 
 import java.io.IOException;
 import java.sql.*;
@@ -20,12 +21,13 @@ public class AdminDAO_DB implements IAdminDAO {
     @Override
     public User createUser(User user) throws Exception{
         String sql = "INSERT INTO [User] (PassWord, UserName, Mail, Name, UserType) VALUES (?,?,?,?,?);";
-
+        String salt = BCrypt.gensalt(12);
+        String hashPw = BCrypt.hashpw(user.getPassWord(),salt);
         try(Connection connection = dbConnector.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
 
-            statement.setString(1, user.getPassWord());
+            statement.setString(1, hashPw);
             statement.setString(2, user.getUserName());
             statement.setString(3, user.getMail());
             statement.setString(4, user.getName());
@@ -104,10 +106,12 @@ public class AdminDAO_DB implements IAdminDAO {
     @Override
     public void updateUser(User user) throws Exception {
         String sql = "UPDATE [User] SET PassWord = ?, Mail = ?, Name = ? WHERE Id = ?;";
+        String salt = BCrypt.gensalt(12);
+        String hashPw = BCrypt.hashpw(user.getPassWord(),salt);
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(1, user.getPassWord());
+            statement.setString(1, hashPw);
             statement.setString(2, user.getMail());
             statement.setString(3, user.getName());
             statement.setInt(4, user.getUserID());

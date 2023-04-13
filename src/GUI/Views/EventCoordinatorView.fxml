@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" prefHeight="1024.0" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
+<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,15 +26,6 @@
             <Label layoutX="500.0" layoutY="269.0" text="Event Descrirption" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="60.0" />
             <TextField fx:id="txtTicketAmount" layoutX="60.0" layoutY="310.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="400.0" />
             <Label layoutX="50.0" layoutY="357.0" text="Ticket Amoumt" />
-            <HBox alignment="CENTER" layoutX="71.0" layoutY="534.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Button fx:id="btnCreateEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" styleClass="cdeu-button" text="Create Events" />
-                  <Button fx:id="btnOpen" minWidth="200.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" styleClass="cdeu-button" text="Open" />
-               </children>
-               <padding>
-                  <Insets left="50.0" />
-               </padding>
-            </HBox>
             <TextField fx:id="txtSpecialTicketAmount" layoutX="60.0" layoutY="410.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0" />
             <Label layoutX="60.0" layoutY="367.0" text="Special Ticket Amoumt" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="460.0" />
             <DatePicker fx:id="txtDate" layoutX="424.0" layoutY="425.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
@@ -53,7 +44,7 @@
          <bottom>
             <AnchorPane prefHeight="100.0" styleClass="nav-bar-bottom" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Coordinator" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0" />
+                  <Label layoutX="1096.0" layoutY="40.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Coordinator" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="16.0" />
                   <Label layoutX="155.0" layoutY="16.0" prefHeight="54.0" styleClass="nav-bar-label" text="Event Master" AnchorPane.leftAnchor="155.0" AnchorPane.topAnchor="16.0" />
                   <ImageView fitHeight="53.0" fitWidth="114.0" layoutX="42.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="nav-bar-image" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
                      <image>
@@ -73,4 +64,15 @@
          </children>
       </AnchorPane>
    </right>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnCreateEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" styleClass="cdeu-button" text="Create Events" />
+            <Button fx:id="btnOpen" minWidth="200.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" styleClass="cdeu-button" text="Open" />
+         </children>
+         <padding>
+            <Insets left="50.0" />
+         </padding>
+      </HBox>
+   </bottom>
 </BorderPane>

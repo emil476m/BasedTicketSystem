@@ -3,6 +3,8 @@
 {
     -fx-font-family: 'Russo One', sans-serif;;
     -fx-background-color: #d0d3d4;
+    -fx-border-color: BLACK;
+    -fx-border-width: 1px;
 }
 .cdeu-button
 {
