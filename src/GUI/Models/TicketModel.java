@@ -5,14 +5,13 @@ import BE.Event_Coordinator;
 import BE.Ticket;
 import BLL.Interfaces.ITicketManager;
 import BLL.TicketManager;
-import GUI.Util.EmailSender;
 import GUI.Util.PDFGenerator;
 import GUI.Util.QrCodeGenerator;
 import com.google.zxing.WriterException;
-import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class TicketModel {
     private ITicketManager ticketManager;
 
     private PDFGenerator pdfGenerator;
-    private EmailSender emailSender;
 
     private  List<File> qrcodes;
 
@@ -30,7 +28,6 @@ public class TicketModel {
     public TicketModel() throws IOException {
         ticketManager = new TicketManager();
         pdfGenerator = new PDFGenerator();
-        emailSender = new EmailSender();
         qrcodes = new ArrayList<>();
     }
 
@@ -46,7 +43,6 @@ public class TicketModel {
         }
         if (ticket1 != null){
             pdfGenerator.createTicket(ticket,qrcodes);
-            emailSender.sendEmail(ticket, file);
         }
     }
 
@@ -73,4 +69,13 @@ public class TicketModel {
       String data ="Eventname: " + ticket.getEventName() + "\n" + "Name: " + ticket.getCostumerName() + "\t" + "Email: " + ticket.getCostumerEmail() + "\n" + "Ticket Type: " + ticket.getTicketType() +  "\n" + "Location of Event: " + ticket.getLocation() + "\t" + "Date: " + ticket.getEventDate();
       return data;
   }
+
+    public Path getFile() {
+        return file.toPath();
+    }
+
+    public File getPDF()
+    {
+        return file;
+    }
 }

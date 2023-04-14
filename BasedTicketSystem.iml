@@ -9,7 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
-    <orderEntry type="library" name="core-3.3.0" level="project" />
     <orderEntry type="library" name="javase-3.3.0" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library name="JUnit5.8.1">
@@ -46,7 +45,11 @@
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="itextpdf.commons" level="project" />
-    <orderEntry type="library" name="slf4j.jcl.over" level="project" />
-    <orderEntry type="library" name="eclipse.jetty.orbit.javax.mail.glassfish" level="project" />
+    <orderEntry type="library" name="slf4j.jdk14" level="project" />
+    <orderEntry type="library" name="guicedee.services.jakarta.mail" level="project" />
+    <orderEntry type="library" name="guicedee.services.jakarta.activation" level="project" />
+    <orderEntry type="library" name="jakarta.mail.api" level="project" />
+    <orderEntry type="library" name="javax.mail.api" level="project" />
+    <orderEntry type="library" name="sun.mail.javax" level="project" />
   </component>
 </module>

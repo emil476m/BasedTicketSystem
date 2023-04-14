@@ -2,14 +2,22 @@ package GUI.Controllers;
 
 import BE.Event;
 import BE.Ticket;
+import GUI.Util.AlertOpener;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class TicketViewController extends BaseController{
     @FXML
@@ -49,7 +57,9 @@ public class TicketViewController extends BaseController{
             Ticket newTicket = null;
 
             try {
-                newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This is not implemented");
+                alert.showAndWait();
+              /*  newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
 
                 if (newTicket.getTicketType().equals("Beer Ticket")){
                     event.setSpecialTickets(event.getSpecialTickets() - amount);
@@ -59,8 +69,7 @@ public class TicketViewController extends BaseController{
                 }
 
                 getModelsHandler().getTicketModel().createTicket(event, newTicket, getModelsHandler().getLoginModel().getLoggedinECoordinator(), amount);
-
-
+                */
             } catch (Exception e) {
                 e.printStackTrace();
                 ExceptionHandler.displayError(new Exception("Failed to Send a Ticket please try again", e));
@@ -102,6 +111,39 @@ public class TicketViewController extends BaseController{
     }
 
     public void handlePrintTicket(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save tickets");
+        fileChooser.setInitialFileName("ticket");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(".pdf", "*.pdf"));
+        {
+            try
+            {
+                String name = txtCustomerName.getText();
+                String email = txtCustomerEmail.getText();
+                String type = txtfTicketType.getText();
+                int amount = Integer.parseInt(txtfTicketAmount.getText());
+
+                Ticket newTicket = null;
+                newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
+
+                if (newTicket.getTicketType().equals("Beer Ticket")){
+                    event.setSpecialTickets(event.getSpecialTickets() - amount);
+                }
+                else{
+                    event.setTickets(event.getTickets() - amount);
+                }
+                getModelsHandler().getTicketModel().createTicket(event,newTicket,getModelsHandler().getLoginModel().getLoggedinECoordinator(),amount);
+                if(getModelsHandler().getTicketModel().getPDF() != null)
+                {
+                    File file = fileChooser.showSaveDialog(btnPrintTicket.getScene().getWindow());
+                    Files.copy(getModelsHandler().getTicketModel().getFile(), file.toPath());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void handleBeerTicketType(ActionEvent actionEvent) {
