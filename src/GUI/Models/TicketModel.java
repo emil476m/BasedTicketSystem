@@ -38,7 +38,14 @@ public class TicketModel {
             qrcodes.clear();
         }
         for (int i = 0; i <= amount; i++) {
+            if(ticket.getEventDate() != null)
+            {
             ticket1 = ticketManager.craeteTicket(ticket,event, eventCoordinator);
+            }
+            else
+            {
+                ticket1 = ticketManager.craeteTicketWithoutEvent(ticket,eventCoordinator);
+            }
             generateQRCodes(amount, ticket);
         }
         if (ticket1 != null){

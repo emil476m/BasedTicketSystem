@@ -234,5 +234,30 @@ public class EventCoordinatorMain extends BaseController {
 
         stage.showAndWait();
     }
+
+    public void handleCreateTickets(ActionEvent actionEvent) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/TicketView.fxml"));
+        Parent root = null;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Info", e));
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
+
+        TicketViewController controller = loader.getController();
+        controller.setModel(getModelsHandler());
+
+        controller.setup();
+
+        stage.showAndWait();
+    }
 }
 

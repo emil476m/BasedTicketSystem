@@ -6,10 +6,7 @@ import GUI.Util.AlertOpener;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,6 +17,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class TicketViewController extends BaseController{
+    public Label lblEventName;
+    public Label lblEventDate;
+    public Label lblEventLocation;
     @FXML
     private BorderPane borderPaneTicket;
     @FXML
@@ -34,6 +34,19 @@ public class TicketViewController extends BaseController{
     @Override
     public void setup() {
         txtfTicketType.setEditable(false);
+        if(event != null)
+        {
+            lblEventName.setText(event.getEventName());
+            lblEventDate.setText(""+event.getEventDate());
+            lblEventLocation.setText(event.getEventLocation());
+        }
+        else
+        {
+            lblEventName.setText("sell Special ticket");
+            lblEventDate.setVisible(false);
+            lblEventLocation.setVisible(false);
+        }
+
     }
 
     @FXML
@@ -118,30 +131,47 @@ public class TicketViewController extends BaseController{
         {
             try
             {
-                String name = txtCustomerName.getText();
-                String email = txtCustomerEmail.getText();
-                String type = txtfTicketType.getText();
-                int amount = Integer.parseInt(txtfTicketAmount.getText());
-
-                Ticket newTicket = null;
-                newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
-
-                if (newTicket.getTicketType().equals("Beer Ticket")){
-                    event.setSpecialTickets(event.getSpecialTickets() - amount);
-                }
-                else{
-                    event.setTickets(event.getTickets() - amount);
-                }
-                getModelsHandler().getTicketModel().createTicket(event,newTicket,getModelsHandler().getLoginModel().getLoggedinECoordinator(),amount);
-                if(getModelsHandler().getTicketModel().getPDF() != null)
+                if(event == null)
                 {
+                    txtCustomerName.setText(" ");
+                    txtCustomerEmail.setText(" ");
+                }
+                if(checkTextFieldsNotNull())
+                {
+                    String name = txtCustomerName.getText();
+                    String email = txtCustomerEmail.getText();
+                    String type = txtfTicketType.getText();
+                    int amount = Integer.parseInt(txtfTicketAmount.getText());
+
+                    Ticket newTicket = null;
+                    if(event != null)
+                    {
+                        newTicket = new Ticket(event.getEventName(), name, email, type, event.getEventLocation(), event.getEventDate());
+                    }
+                    else
+                    {
+                        newTicket = new Ticket(" ",name,email,type," ",null);
+                    }
+                    if(event != null){
+                        if (newTicket.getTicketType().equals("Beer Ticket")){
+                        event.setSpecialTickets(event.getSpecialTickets() - amount);
+                        }
+                        else{
+                            event.setTickets(event.getTickets() - amount);
+                        }
+                    }
+                    getModelsHandler().getTicketModel().createTicket(event,newTicket,getModelsHandler().getLoginModel().getLoggedinECoordinator(),amount);
+                    if(getModelsHandler().getTicketModel().getPDF() != null)
+                    {
                     File file = fileChooser.showSaveDialog(btnPrintTicket.getScene().getWindow());
                     Files.copy(getModelsHandler().getTicketModel().getFile(), file.toPath());
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+                    }
+            }}
+            catch (IOException e) {
+                ExceptionHandler.displayError(e);
+            }
+            catch (Exception e) {
+                ExceptionHandler.displayError(e);
             }
         }
     }

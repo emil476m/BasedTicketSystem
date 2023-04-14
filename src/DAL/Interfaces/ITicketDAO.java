@@ -21,6 +21,13 @@ public interface ITicketDAO {
      */
     Ticket craeteTicket(Ticket ticket,Event event, Event_Coordinator eventCoordinator) throws Exception;
 
-
+    /**
+     * creates a ticket without the event
+     * @param ticket
+     * @param eventCoordinator
+     * @return
+     * @throws Exception
+     */
+    Ticket craeteTicketWithoutEvent(Ticket ticket, Event_Coordinator eventCoordinator) throws Exception;
 
 }

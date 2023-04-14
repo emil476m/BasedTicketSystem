@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
+<BorderPane fx:id="borderPaneEventCoordinator" onMouseClicked="#dragScreen" stylesheets="@../Css/EventCordinatorStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.EventCoordinatorMain">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,6 +69,7 @@
          <children>
             <Button fx:id="btnCreateEvents" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateEvents" prefHeight="50.0" styleClass="cdeu-button" text="Create Events" />
             <Button fx:id="btnOpen" minWidth="200.0" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" styleClass="cdeu-button" text="Open" />
+            <Button fx:id="btnCreateTickets" layoutX="530.0" layoutY="35.0" minWidth="200.0" mnemonicParsing="false" onAction="#handleCreateTickets" prefHeight="50.0" styleClass="cdeu-button" text="Sell special tickets" />
          </children>
          <padding>
             <Insets left="50.0" />

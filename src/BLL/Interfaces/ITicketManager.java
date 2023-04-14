@@ -20,4 +20,6 @@ public interface ITicketManager {
      * @throws Exception
      */
     Ticket craeteTicket(Ticket ticket, Event event, Event_Coordinator eventCoordinator) throws Exception;
+
+    Ticket craeteTicketWithoutEvent(Ticket ticket, Event_Coordinator eventCoordinator) throws Exception;
 }

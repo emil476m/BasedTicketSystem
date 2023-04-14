@@ -115,4 +115,29 @@ public class TicketDAO_DB implements ITicketDAO {
             return null;
         }
     }
+
+    @Override
+    public Ticket craeteTicketWithoutEvent(Ticket ticket, Event_Coordinator eventCoordinator) throws Exception {
+        String sql = "INSERT INTO Ticket(Name,TicketType,Mail,TicketIssuedBy) VALUES(?,?,?,?);";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            connection.setAutoCommit(false);
+
+            statement.setString(1, ticket.getCostumerName());
+            statement.setString(2, ticket.getTicketType());
+            statement.setString(3, ticket.getCostumerEmail());
+            statement.setInt(4, eventCoordinator.getUserID());
+
+            ResultSet rs = statement.executeQuery();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            Ticket ticket1 = new Ticket(id, ticket.getEventName(), ticket.getCostumerName(), ticket.getCostumerEmail(),
+                    ticket.getTicketType(), ticket.getLocation(), ticket.getEventDate(), eventCoordinator.getName());
+            connection.commit();
+            return ticket1;
+        }
+    }
 }

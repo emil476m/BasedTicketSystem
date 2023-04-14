@@ -27,4 +27,9 @@ public class TicketManager implements ITicketManager {
     public Ticket craeteTicket(Ticket ticket, Event event, Event_Coordinator eventCoordinator) throws Exception {
         return ticketDAO.craeteTicket(ticket, event, eventCoordinator);
     }
+
+    @Override
+    public Ticket craeteTicketWithoutEvent(Ticket ticket, Event_Coordinator eventCoordinator) throws Exception {
+        return ticketDAO.craeteTicketWithoutEvent(ticket,eventCoordinator);
+    }
 }
