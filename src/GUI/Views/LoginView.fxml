@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Css/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.LoginViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleEnter" prefHeight="400.0" prefWidth="600.0" stylesheets="@../Css/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.LoginViewController">
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="login-bg" BorderPane.alignment="CENTER">
          <children>
@@ -35,12 +35,12 @@
               </rowConstraints>
                <children>
                   <TextField fx:id="TxtUsername" promptText="Username" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
+                  <PasswordField fx:id="TxtPassWord" promptText="Password" GridPane.rowIndex="1" />
                   <Button fx:id="BtnLogin" mnemonicParsing="false" onAction="#handleLogin" prefHeight="26.0" prefWidth="230.0" text="Login" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.vgrow="NEVER">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <PasswordField fx:id="TxtPassWord" promptText="Password" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <Button fx:id="BtnClose" layoutX="497.0" layoutY="421.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="27.0" prefWidth="89.0" text="Close" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="497.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="421.0" />

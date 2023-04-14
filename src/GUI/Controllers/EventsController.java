@@ -51,12 +51,14 @@ public class EventsController extends BaseController{
 
     @Override
     public void setup() {
-        checkUserAndSetup();
         try {
+            checkUserAndSetup();
             setEventInfo();
             disableElements();
+            restricAccess();
         } catch (Exception e) {
             ExceptionHandler.displayError(new Exception("Failed on setup", e));
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +72,7 @@ public class EventsController extends BaseController{
         txfSTicketsLeft.setDisable(true);
     }
 
-    private void checkUserAndSetup(){
+    private void checkUserAndSetup() throws Exception {
         if(getModelsHandler().getLoginModel().getLoggedinECoordinator() != null){
             setupEventCoordinator();
         }
@@ -90,12 +92,30 @@ public class EventsController extends BaseController{
         btnSellTicket.setText("Delete Event");
     }
 
-    private void setupEventCoordinator(){
+    private void setupEventCoordinator() throws Exception {
+        if (getModelsHandler().getAdminModel().getUserObservableList().isEmpty() || getModelsHandler().getAdminModel().getUserObservableList() == null)
+            getModelsHandler().getAdminModel().retreiveAllUsers();
         lblClass.setText("EventCoordinator");
         btnAssignCoordinator.setVisible(false);
         btnRemoveCoordinator.setVisible(false);
         btnAssignCoordinator.setDisable(true);
         btnRemoveCoordinator.setDisable(true);
+    }
+
+    private void restricAccess() {
+        if (getModelsHandler().getLoginModel().getLoggedinECoordinator() != null) {
+            boolean userHasAccess = false;
+            int loggedInUserId = getModelsHandler().getLoginModel().getLoggedinECoordinator().getUserID();
+            for (User u : getModelsHandler().getAdminModel().getCurrentEventEventCoordinators()) {
+                if (u.getUserID() == loggedInUserId) {
+                    userHasAccess = true;
+                }
+            }
+            if (!userHasAccess){
+                btnEditEvent.setDisable(true);
+                btnSellTicket.setDisable(true);
+            }
+        }
     }
 
     private void setEventInfo() throws Exception {
@@ -111,7 +131,6 @@ public class EventsController extends BaseController{
         String st = ""+ openedEvent.getSpecialTickets();
         txfTicketsLeft.setText(nt);
         txfSTicketsLeft.setText(st);
-
         txaEventDescription.appendText(openedEvent.getEventDescription());
 
         if (openedEvent.getEventCreator() != 1){
@@ -192,7 +211,7 @@ public class EventsController extends BaseController{
         });
     }
 
-    public void handleEditEvent(ActionEvent actionEvent) throws Exception {
+    public void handleEditEvent(ActionEvent actionEvent) {
         try {
             if (btnEditEvent.getText().equals("Edit")) {
                 txfTicketsLeft.setDisable(false);

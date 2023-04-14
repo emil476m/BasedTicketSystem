@@ -65,6 +65,8 @@ public class AdminModel {
 
     public void retreiveAllUsers() throws Exception{
         List<User> eventCoordinatorList = adminManager.getAllUsers();
+        userObservableList.clear();
+        allUsers.clear();
         userObservableList.addAll(eventCoordinatorList);
         allUsers.addAll(userObservableList);
     }
@@ -133,7 +135,8 @@ public class AdminModel {
 
     public List<User> getUsersWorkingOnEvent(Event event) throws Exception{
         List<User> allUsersOnEvent = new ArrayList<>();
-        for (Integer i:adminManager.getUsersWorkingOnEvent(event)){
+        List<Integer> allUsersId = adminManager.getUsersWorkingOnEvent(event);
+        for (Integer i:allUsersId){
             allUsersOnEvent.add(getLocalUserFromId(i));
         }
         return allUsersOnEvent;
