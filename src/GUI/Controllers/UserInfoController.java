@@ -1,13 +1,17 @@
 package GUI.Controllers;
 
 import BE.Admin;
+import BE.Event;
 import BE.Event_Coordinator;
 import BE.User;
 import GUI.Util.AlertOpener;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -122,8 +126,15 @@ public class UserInfoController extends BaseController {
     public void handleDeleteUser(ActionEvent actionEvent) {
         if (selectedUser != null){
             try {
+                for (Event e: getModelsHandler().getEventCoordinatorModel().getEventObservableList()){
+                    if (selectedUser.getUserID() == e.getEventCreator()){
+                        e.setEventCreator(1);
+                        getModelsHandler().getEventCoordinatorModel().updateEvent(e, e);
+                    }
+                }
                 getModelsHandler().getAdminModel().deleteUser(selectedUser);
             } catch (Exception e) {
+                e.printStackTrace();
                 ExceptionHandler.displayError(new Exception("Failed to delete user",e));
             }
         }

@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,9 +41,9 @@ public class LoginViewController extends BaseController {
 
     /**
      * handles the login action
-     * @param event
      */
-    public void handleLogin(ActionEvent event) {
+    @FXML
+    public void handleLogin() {
         try {
             String username = TxtUsername.getText();
             String password = TxtPassWord.getText();
@@ -105,5 +107,12 @@ public class LoginViewController extends BaseController {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.getIcons().add(new Image("/GUI/Images/EA.png"));
         stage.show();
+    }
+
+    @FXML
+    public void handleEnter(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)){
+            handleLogin();
+        }
     }
 }

@@ -42,8 +42,8 @@ public class Event_CoordinatorManager implements IEvent_CoordinatorManager {
      * @throws Exception
      */
     @Override
-    public void UpdateEvent(Event event) throws Exception {
-        eventCoordinatorDAO.UpdateEvent(event);
+    public void updateEvent(Event event) throws Exception {
+        eventCoordinatorDAO.updateEvent(event);
     }
 
     /**

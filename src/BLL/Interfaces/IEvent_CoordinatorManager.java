@@ -23,7 +23,7 @@ public interface IEvent_CoordinatorManager {
      * updates an event to the database to get updated
      * @param event
      */
-    void UpdateEvent(Event event) throws Exception;
+    void updateEvent(Event event) throws Exception;
 
     /**
      * deletes an event to the database to be deleted

@@ -2,6 +2,7 @@ package GUI.Controllers;
 
 import BE.Event;
 import BE.Event_Coordinator;
+import BE.User;
 import GUI.Util.ExceptionHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import java.time.LocalDate;
 
 public class EventsController extends BaseController{
 
+    public Button btnRemoveCoordinator;
     @FXML
     private BorderPane borderPaneEvent;
 
@@ -42,20 +44,21 @@ public class EventsController extends BaseController{
     private TextField txfTicketsLeft, txfEventLocation, txfEventCreator, txfSTicketsLeft;
 
     @FXML
-    private ListView<?> lvAssignCoordinator;
+    private ListView<User> lvAssignCoordinator;
     private Event openedEvent;
 
     private Event_Coordinator creator;
 
-
     @Override
     public void setup() {
-        checkUserAndSetup();
         try {
+            checkUserAndSetup();
             setEventInfo();
             disableElements();
+            restricAccess();
         } catch (Exception e) {
             ExceptionHandler.displayError(new Exception("Failed on setup", e));
+            e.printStackTrace();
         }
     }
 
@@ -69,7 +72,7 @@ public class EventsController extends BaseController{
         txfSTicketsLeft.setDisable(true);
     }
 
-    private void checkUserAndSetup(){
+    private void checkUserAndSetup() throws Exception {
         if(getModelsHandler().getLoginModel().getLoggedinECoordinator() != null){
             setupEventCoordinator();
         }
@@ -89,13 +92,37 @@ public class EventsController extends BaseController{
         btnSellTicket.setText("Delete Event");
     }
 
-    private void setupEventCoordinator(){
+    private void setupEventCoordinator() throws Exception {
+        if (getModelsHandler().getAdminModel().getUserObservableList().isEmpty() || getModelsHandler().getAdminModel().getUserObservableList() == null)
+            getModelsHandler().getAdminModel().retreiveAllUsers();
         lblClass.setText("EventCoordinator");
         btnAssignCoordinator.setVisible(false);
-        btnAssignCoordinator.setDisable(false);
+        btnRemoveCoordinator.setVisible(false);
+        btnAssignCoordinator.setDisable(true);
+        btnRemoveCoordinator.setDisable(true);
+    }
+
+    private void restricAccess() {
+        if (getModelsHandler().getLoginModel().getLoggedinECoordinator() != null) {
+            boolean userHasAccess = false;
+            int loggedInUserId = getModelsHandler().getLoginModel().getLoggedinECoordinator().getUserID();
+            for (User u : getModelsHandler().getAdminModel().getCurrentEventEventCoordinators()) {
+                if (u.getUserID() == loggedInUserId) {
+                    userHasAccess = true;
+                }
+            }
+            if (!userHasAccess){
+                btnEditEvent.setDisable(true);
+                btnSellTicket.setDisable(true);
+            }
+        }
     }
 
     private void setEventInfo() throws Exception {
+        getModelsHandler().getAdminModel().getCurrentEventEventCoordinators().clear();
+        getModelsHandler().getAdminModel().getCurrentEventEventCoordinators().addAll(getModelsHandler().getAdminModel().getUsersWorkingOnEvent(openedEvent));
+        lvAssignCoordinator.setItems(getModelsHandler().getAdminModel().getCurrentEventEventCoordinators());
+
         dpEventDate.setValue(LocalDate.parse(openedEvent.getEventDate().toString()));
         lblEventName.setText(openedEvent.getEventName());
         txfEventLocation.setText(openedEvent.getEventLocation());
@@ -104,13 +131,20 @@ public class EventsController extends BaseController{
         String st = ""+ openedEvent.getSpecialTickets();
         txfTicketsLeft.setText(nt);
         txfSTicketsLeft.setText(st);
-
         txaEventDescription.appendText(openedEvent.getEventDescription());
 
-        String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
-        creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
-        if (name != null)
-            txfEventCreator.setText(name);
+        if (openedEvent.getEventCreator() != 1){
+            String name = getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator()).getName();
+            creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
+            if (name != null)
+                txfEventCreator.setText(name);
+        }
+        else if (openedEvent.getEventCreator() == 1){
+            txfEventCreator.setText("NotAssigned");
+            creator = (Event_Coordinator) getModelsHandler().getAdminModel().getLocalUserFromId(openedEvent.getEventCreator());
+
+        }
+
     }
 
     public void setOpenedEvent(Event openedEvent) {
@@ -160,16 +194,38 @@ public class EventsController extends BaseController{
     private void deleteEvent() throws Exception {
         getModelsHandler().getEventCoordinatorModel().removeEventFromLocal(openedEvent);
         getModelsHandler().getAdminModel().deleteEvent(openedEvent);
+        handleReturn();
     }
 
     public void handleAssignCoordinator(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Views/EventCoordinatorListView.fxml"));
+        Parent root = null;
 
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            ExceptionHandler.displayError(new Exception("Failed to open Event Coordinator List", e));
+        }
+
+        Stage stage = new Stage();
+        stage.setTitle("");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.getIcons().add(new Image("/GUI/Images/EA.png"));
+
+        EventCoordinatorListController controller = loader.getController();
+        controller.setModel(getModelsHandler());
+        controller.setOpenedEvent(openedEvent);
+
+        controller.setup();
+
+        stage.showAndWait();
     }
 
-    public void handleReturn(ActionEvent event) {
+    public void handleReturn() {
         Stage stage = (Stage) btnReturn.getScene().getWindow();
         stage.close();
-
     }
 
     @FXML
@@ -182,7 +238,7 @@ public class EventsController extends BaseController{
         });
     }
 
-    public void handleEditEvent(ActionEvent actionEvent) throws Exception {
+    public void handleEditEvent(ActionEvent actionEvent) {
         try {
             if (btnEditEvent.getText().equals("Edit")) {
                 txfTicketsLeft.setDisable(false);
@@ -193,15 +249,32 @@ public class EventsController extends BaseController{
                 btnEditEvent.setText("Confirm");
             } else if (btnEditEvent.getText().equals("Confirm")) {
                 LocalDate date = dpEventDate.getValue();
-                Event event = new Event(lblEventName.getText(), date, txfEventLocation.getText(), creator.getUserID(), txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
-                getModelsHandler().getEventCoordinatorModel().UpdateEvent(event, openedEvent);
+                Event event;
+                if (creator != null){
+                    event = new Event(openedEvent.getId() , lblEventName.getText(), date, txfEventLocation.getText(), creator.getUserID(), txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
+                }
+                else
+                    event = new Event(openedEvent.getId() , lblEventName.getText(), date, txfEventLocation.getText(), 1, txaEventDescription.getText(), Integer.parseInt(txfTicketsLeft.getText()), Integer.parseInt(txfSTicketsLeft.getText()));
+                
+                getModelsHandler().getEventCoordinatorModel().updateEvent(event, openedEvent);
                 disableElements();
                 btnEditEvent.setText("Edit");
             }
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             ExceptionHandler.displayError(new Exception("Failed to update event please try again", e));
+        }
+    }
+
+    public void handleRemoveCoordinator(ActionEvent actionEvent) {
+        if (lvAssignCoordinator.getSelectionModel().getSelectedItem() != null){
+            try {
+                getModelsHandler().getAdminModel().removeUserFromEvent(lvAssignCoordinator.getSelectionModel().getSelectedItem(), openedEvent);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

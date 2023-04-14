@@ -31,6 +31,12 @@
     -fx-font-size: 48;
 }
 
+.border-pane
+{
+    -fx-border-color: BLACK;
+    -fx-border-width: 2px;
+}
+
 .log-out-btn
 {
     -fx-background-color: transparent;

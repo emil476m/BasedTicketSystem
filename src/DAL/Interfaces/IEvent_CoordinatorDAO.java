@@ -24,7 +24,7 @@ public interface IEvent_CoordinatorDAO {
      * updates an event in the database
      * @param event
      */
-    void UpdateEvent(Event event) throws Exception;
+    void updateEvent(Event event) throws Exception;
 
     /**
      * deletes an event form the database

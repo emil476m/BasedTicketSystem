@@ -60,6 +60,8 @@ public class AdminDAO_DB implements IAdminDAO {
 
     @Override
     public void deleteUser(User user) throws Exception {
+        deleteUserRelation(user);
+
         String sql = "DELETE FROM [User] WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -70,6 +72,45 @@ public class AdminDAO_DB implements IAdminDAO {
         catch (SQLException e) {
             e.printStackTrace();
             throw new Exception("Failed to remove " + user.getClass().getSimpleName(), e);
+        }
+    }
+
+    private void deleteUserRelation(User user) throws Exception {
+        String sql = "DELETE FROM WorkingOnEvent WHERE Event_CoordinatorId = ?;";
+        try (Connection connection = dbConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, user.getUserID());
+
+            statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to remove " + user.getClass().getSimpleName(), e);
+        }
+    }
+
+    @Override
+    public List<Integer> getUsersWorkingOnEvent(Event event) throws Exception {
+        String sql = "SELECT * FROM WorkingOnEvent WHERE EventId = ?;";
+        try(Connection connection = dbConnector.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+
+
+            List<Integer> userIdList = new ArrayList<>();
+
+            statement.setInt(1, event.getId());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt("Event_CoordinatorId");
+
+                userIdList.add(id);
+            }
+            return userIdList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new Exception("Failed to create Event_Coordinator relations", e);
         }
     }
 
@@ -88,11 +129,13 @@ public class AdminDAO_DB implements IAdminDAO {
         }
     }
 
-    private void deleteFromWorkingOnEvent(User user) throws Exception {
-        String sql = "DELETE FROM WorkingOnEvent WHERE Event_CoordinatorId = ?;";
+    @Override
+    public void deleteFromWorkingOnEvent(User user, Event event) throws Exception {
+        String sql = "DELETE FROM WorkingOnEvent WHERE Event_CoordinatorId = ? AND EventId = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, user.getUserID());
+            statement.setInt(2, event.getId());
 
             statement.executeUpdate();
         }
@@ -146,6 +189,12 @@ public class AdminDAO_DB implements IAdminDAO {
                     userList.add(new Admin(id, passWord, userName, mail, name));
                 } else if (userTypes == 2) {
                     userList.add(new Event_Coordinator(id, passWord, userName, mail, name));
+                }
+            }
+            for (User u:userList){
+                if (u.getName().equals("NotAssigned") && u.getUserID() == 1){
+                    userList.remove(u);
+                    return userList;
                 }
             }
             return userList;

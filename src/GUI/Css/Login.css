@@ -33,6 +33,13 @@
 {
     -fx-text-fill: #071E22;
 }
+
+.border-pane
+{
+    -fx-border-color: BLACK;
+    -fx-border-width: 2px;
+}
+
 .password-field
 {
     -fx-text-fill: #071E22;

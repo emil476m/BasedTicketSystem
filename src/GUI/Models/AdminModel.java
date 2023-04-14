@@ -20,10 +20,17 @@ public class AdminModel {
 
     private ObservableList<User> userObservableList;
 
+    private ObservableList<User> currentEventEventCoordinators;
+
+    public ObservableList<User> getCurrentEventEventCoordinators() {
+        return currentEventEventCoordinators;
+    }
+
     public AdminModel() throws IOException {
         adminManager = new AdminManager();
         allUsers = new ArrayList<>();
         userObservableList = FXCollections.observableArrayList();
+        currentEventEventCoordinators = FXCollections.observableArrayList();
     }
 
     public ObservableList<User> getUserObservableList() {
@@ -46,8 +53,20 @@ public class AdminModel {
         return allUsers;
     }
 
+    public void removeUserFromEvent(User user, Event event) throws Exception {
+        adminManager.deleteFromWorkingOnEvent(user, event);
+        currentEventEventCoordinators.remove(user);
+    }
+
+    public void assignEventToUser(User user, Event event) throws Exception {
+        adminManager.assignEventToUser(user, event);
+        currentEventEventCoordinators.add(user);
+    }
+
     public void retreiveAllUsers() throws Exception{
         List<User> eventCoordinatorList = adminManager.getAllUsers();
+        userObservableList.clear();
+        allUsers.clear();
         userObservableList.addAll(eventCoordinatorList);
         allUsers.addAll(userObservableList);
     }
@@ -112,5 +131,14 @@ public class AdminModel {
      */
     public void deleteEvent(Event event) throws Exception {
         adminManager.deleteEventRelations(event);
+    }
+
+    public List<User> getUsersWorkingOnEvent(Event event) throws Exception{
+        List<User> allUsersOnEvent = new ArrayList<>();
+        List<Integer> allUsersId = adminManager.getUsersWorkingOnEvent(event);
+        for (Integer i:allUsersId){
+            allUsersOnEvent.add(getLocalUserFromId(i));
+        }
+        return allUsersOnEvent;
     }
 }

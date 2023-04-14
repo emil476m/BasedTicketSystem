@@ -13,7 +13,11 @@ public interface IAdminDAO {
 
     public void deleteUser(User user) throws Exception;
 
+    List<Integer> getUsersWorkingOnEvent(Event event) throws Exception;
+
     void assignEventToUser(User user, Event event) throws Exception;
+
+    void deleteFromWorkingOnEvent(User user, Event event) throws Exception;
 
     void updateUser(User user) throws Exception;
 

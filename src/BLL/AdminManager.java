@@ -56,4 +56,14 @@ public class AdminManager implements IAdminManager {
     public void deleteEventRelations(Event event) throws Exception {
         databaseAcces.deleteEventRelations(event);
     }
+
+    @Override
+    public void deleteFromWorkingOnEvent(User user, Event event) throws Exception{
+        databaseAcces.deleteFromWorkingOnEvent(user, event);
+    }
+
+    @Override
+    public List<Integer> getUsersWorkingOnEvent(Event event) throws Exception{
+        return databaseAcces.getUsersWorkingOnEvent(event);
+    }
 }

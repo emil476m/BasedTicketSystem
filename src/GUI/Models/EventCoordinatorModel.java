@@ -33,9 +33,9 @@ public class EventCoordinatorModel {
         List<Event> eventList = eventCoordinatorManager.getAllevents();
         eventObservableList.addAll(eventList);
     }
-    public void UpdateEvent(Event updatedEvent, Event oldEvent) throws Exception {
+    public void updateEvent(Event updatedEvent, Event oldEvent) throws Exception {
         eventObservableList.remove(oldEvent);
-        eventCoordinatorManager.UpdateEvent(updatedEvent);
+        eventCoordinatorManager.updateEvent(updatedEvent);
         eventObservableList.add(updatedEvent);
     }
 

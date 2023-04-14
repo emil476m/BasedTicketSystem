@@ -113,9 +113,9 @@ public class AdminController extends BaseController {
 
     @FXML
     public void clickOnUser(MouseEvent mouseEvent) {
+        lastSelectedItemType = "User";
         if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2)
         {
-            lastSelectedItemType = "User";
             checkSelectedItemType();
         }
     }
@@ -201,9 +201,9 @@ public class AdminController extends BaseController {
 
 
     public void clickOnEvent(MouseEvent mouseEvent) {
+        lastSelectedItemType = "Event";
         if(mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.getClickCount() == 2)
         {
-            lastSelectedItemType = "Event";
             checkSelectedItemType();
         }
     }

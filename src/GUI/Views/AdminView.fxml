@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="borderPaneAdmin" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
+<BorderPane fx:id="borderPaneAdmin" prefHeight="917.0" prefWidth="1047.0" stylesheets="@../Css/AdminStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controllers.AdminController">
    <bottom>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -23,7 +23,7 @@
          <children>
             <Button fx:id="btnCreateUser" mnemonicParsing="false" onAction="#handleCreateUser" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Create Users">
                <HBox.margin>
-                  <Insets left="440.0" />
+                  <Insets left="240.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="btnOpen" mnemonicParsing="false" onAction="#handleOpen" prefHeight="50.0" prefWidth="200.0" styleClass="cdeu-button" text="Open" />
@@ -31,7 +31,7 @@
       </HBox>
    </bottom>
    <top>
-      <BorderPane prefHeight="150.0" prefWidth="1440.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="150.0" prefWidth="1364.0" BorderPane.alignment="CENTER">
          <top>
             <AnchorPane prefHeight="50.0" styleClass="nav-bar-top" BorderPane.alignment="CENTER">
                <children>
@@ -55,19 +55,19 @@
       </BorderPane>
    </top>
    <center>
-      <AnchorPane prefHeight="774.0" prefWidth="494.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="667.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="listVUsers" layoutX="382.0" layoutY="94.0" onMouseClicked="#clickOnUser" prefHeight="679.0" prefWidth="417.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="382.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="94.0" />
-            <Label layoutX="382.0" layoutY="14.0" styleClass="events-label" text="Users" AnchorPane.leftAnchor="382.0" AnchorPane.topAnchor="14.0" />
-            <TextField fx:id="txtfSearch" layoutX="650.0" layoutY="69.0" onKeyPressed="#searchOnButtonPress" prefHeight="35.0" prefWidth="200.0" promptText="Search for user" AnchorPane.bottomAnchor="680.0" AnchorPane.rightAnchor="201.0" />
+            <ListView fx:id="listVUsers" layoutX="382.0" layoutY="94.0" onMouseClicked="#clickOnUser" prefHeight="600.0" prefWidth="417.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="115.0" />
+            <Label layoutX="103.0" layoutY="25.0" styleClass="events-label" text="Users" AnchorPane.bottomAnchor="596.0" AnchorPane.rightAnchor="388.0" />
+            <TextField fx:id="txtfSearch" layoutX="295.0" layoutY="49.0" onKeyPressed="#searchOnButtonPress" prefHeight="35.0" prefWidth="200.0" promptText="Search for user" AnchorPane.bottomAnchor="601.0" AnchorPane.rightAnchor="115.0" />
          </children>
       </AnchorPane>
    </center>
    <right>
       <AnchorPane prefHeight="200.0" prefWidth="440.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="77.0" layoutY="39.0" styleClass="events-label" text="Events" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
-            <ListView fx:id="listVEvents" layoutX="6.0" layoutY="93.0" onMouseClicked="#clickOnEvent" prefHeight="677.0" prefWidth="383.0" />
+            <Label layoutX="77.0" layoutY="39.0" styleClass="events-label" text="Events" AnchorPane.bottomAnchor="596.0" AnchorPane.leftAnchor="10.0" />
+            <ListView fx:id="listVEvents" layoutX="14.0" layoutY="90.0" onMouseClicked="#clickOnEvent" prefHeight="600.0" prefWidth="365.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" />
          </children>
       </AnchorPane>
    </right>
