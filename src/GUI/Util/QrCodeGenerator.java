@@ -38,7 +38,7 @@ public class QrCodeGenerator {
      */
     public void generateQrCode(String data, String charSet, Map map, int h, int w, int amount) throws WriterException, IOException
     {
-        for(int i = 1; i <=amount; i++)
+        for(int i = 0; i < amount; i++)
         {
         filePath = "QRCodeData//code" + number + ".png";
         File file = new File(filePath);
