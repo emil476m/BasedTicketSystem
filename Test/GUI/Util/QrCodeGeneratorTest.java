@@ -23,7 +23,7 @@ class QrCodeGeneratorTest {
 
         //Assertion
         File notExpectedResult = null;
-        File actualResult = new File("QRCodeData//code.png");
+        File actualResult = new File(qrCodeGenerator.getQRCodes().get(0).getPath());
 
         Assertions.assertNotEquals(notExpectedResult, actualResult);
     }

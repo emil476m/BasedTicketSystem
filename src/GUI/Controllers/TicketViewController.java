@@ -124,6 +124,7 @@ public class TicketViewController extends BaseController{
     }
 
     public void handlePrintTicket(ActionEvent actionEvent) {
+        try{
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save tickets");
         fileChooser.setInitialFileName("ticket");
@@ -173,6 +174,10 @@ public class TicketViewController extends BaseController{
             catch (Exception e) {
                 ExceptionHandler.displayError(e);
             }
+        }
+        } catch (Exception e)
+        {
+            AlertOpener.confirm("something went wrong", "please make sure that all text fields are filled");
         }
     }
 

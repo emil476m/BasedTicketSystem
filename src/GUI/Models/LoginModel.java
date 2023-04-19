@@ -18,8 +18,8 @@ public class LoginModel {
         loginManager = new LoginManager();
     }
 
-    /**
-     * takes in two strings and gets either an Admin object or an Event_Coordinator object in return.
+    /**object
+     * takes in two strings and gets either an Admin object or an Event_Coordinator  in return.
      * @param Username
      * @param Password
      * @throws Exception

@@ -52,7 +52,7 @@ public class TicketModel {
     }
 
     public void getAllTicket() throws Exception {
-
+        ticketManager.getAllTicket();
     }
 
 
