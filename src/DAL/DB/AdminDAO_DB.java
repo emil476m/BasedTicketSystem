@@ -253,20 +253,20 @@ public class AdminDAO_DB implements IAdminDAO {
         }
     }
 
-    @Override
-    public void deleteEventRelations(Event event) throws Exception {
-        deleteEventTickets(event);
-        deleteEventWorkingOnevent(event);
-        deleteEvent(event);
-    }
+    private List<Integer>  getTicketIdFromEventId(Event event) throws Exception {
+        String sql = "SELECT [TicketId] FROM [TicketsToEvent] WHERE EventId = ?;";
+        List<Integer> ticketIdList = new ArrayList<>();
 
-    private void deleteEvent(Event event) throws Exception {
-        String sql = "DELETE FROM [Event] WHERE Id = ?;";
         try (Connection connection = dbConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, event.getId());
+            ResultSet resultSet = statement.executeQuery();
 
-            statement.executeUpdate();
+            while (resultSet.next()) {
+                int ticketId = resultSet.getInt("TicketId");
+                ticketIdList.add(ticketId);
+            }
+            return ticketIdList;
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -274,31 +274,35 @@ public class AdminDAO_DB implements IAdminDAO {
         }
     }
 
-    private void deleteEventTickets(Event event) throws Exception {
-        String sql = "DELETE FROM [TicketsToEvent] WHERE EventId = ?;";
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, event.getId());
+    @Override
+    public void deleteEventRelations(Event event) throws Exception{
+        String sql = "DELETE FROM [Event] WHERE Id = ?;";
+        String sqlTickets = "DELETE FROM [Ticket] WHERE Id = ?;";
+        String sqlWorkingOn = "DELETE FROM [WorkingOnEvent] WHERE EventId = ?;";
+        List<Integer> ticketIdList = getTicketIdFromEventId(event);
+        try (Connection connection = dbConnector.getConnection();) {
+            connection.setAutoCommit(false);
 
+            PreparedStatement workingOnTable = connection.prepareStatement(sqlWorkingOn);
+            workingOnTable.setInt(1, event.getId());
+            workingOnTable.executeUpdate();
+
+            PreparedStatement ticketTable = connection.prepareStatement(sqlTickets);
+            for (int i:ticketIdList){
+                ticketTable.setInt(1,i);
+                ticketTable.addBatch();
+            }
+            ticketTable.executeBatch();
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, event.getId());
             statement.executeUpdate();
+
+            connection.commit();
         }
         catch (SQLException e) {
             e.printStackTrace();
-            throw new Exception("Failed to remove tickets from " + event.getClass().getSimpleName(), e);
-        }
-    }
-
-    private void deleteEventWorkingOnevent(Event event) throws Exception {
-        String sql = "DELETE FROM [WorkingOnEvent] WHERE EventId = ?;";
-        try (Connection connection = dbConnector.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, event.getId());
-
-            statement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new Exception("Failed to remove eventCoordinators from " + event.getClass().getSimpleName(), e);
+            throw new Exception("Failed to remove " + event.getClass().getSimpleName(), e);
         }
     }
 
