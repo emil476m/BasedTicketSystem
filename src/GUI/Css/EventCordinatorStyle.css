@@ -18,6 +18,19 @@
 {
     -fx-background-color: #009FE3;
 }
+.aig-button
+{
+    -fx-background-color: #FBB92C;
+    -fx-font-family: 'Russo One', sans-serif;;
+    -fx-text-fill: #071E22;
+    -fx-font-size: 15;
+    -fx-border-radius: 25px;
+}
+.aig-button:hover
+{
+    -fx-background-color: #009FE3;
+}
+
 .label
 {
     -fx-font-family: 'Russo One', sans-serif;;
