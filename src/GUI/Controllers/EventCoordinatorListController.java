@@ -3,6 +3,7 @@ package GUI.Controllers;
 import BE.Event;
 import BE.Event_Coordinator;
 import BE.User;
+import GUI.Util.ExceptionHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -86,7 +87,7 @@ public class EventCoordinatorListController extends BaseController{
             }
             handleExit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            ExceptionHandler.displayError(new Exception("Failed to do confirm action", e));
         }
 
     }

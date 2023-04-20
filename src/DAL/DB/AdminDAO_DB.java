@@ -279,7 +279,10 @@ public class AdminDAO_DB implements IAdminDAO {
         String sql = "DELETE FROM [Event] WHERE Id = ?;";
         String sqlTickets = "DELETE FROM [Ticket] WHERE Id = ?;";
         String sqlWorkingOn = "DELETE FROM [WorkingOnEvent] WHERE EventId = ?;";
+
+        //Retrieves a list of ticket Ids from the database for the relevant event.
         List<Integer> ticketIdList = getTicketIdFromEventId(event);
+
         try (Connection connection = dbConnector.getConnection();) {
             connection.setAutoCommit(false);
 

@@ -134,7 +134,6 @@ public class UserInfoController extends BaseController {
                 }
                 getModelsHandler().getAdminModel().deleteUser(selectedUser);
             } catch (Exception e) {
-                e.printStackTrace();
                 ExceptionHandler.displayError(new Exception("Failed to delete user",e));
             }
         }

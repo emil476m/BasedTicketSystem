@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -84,7 +83,6 @@ public class TicketViewController extends BaseController{
                 getModelsHandler().getTicketModel().createTicket(event, newTicket, getModelsHandler().getLoginModel().getLoggedinECoordinator(), amount);
                 */
             } catch (Exception e) {
-                e.printStackTrace();
                 ExceptionHandler.displayError(new Exception("Failed to Send a Ticket please try again", e));
             }
         }

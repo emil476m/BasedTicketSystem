@@ -57,8 +57,7 @@ public class EventsController extends BaseController{
             disableElements();
             restricAccess();
         } catch (Exception e) {
-            ExceptionHandler.displayError(new Exception("Failed on setup", e));
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -160,7 +159,6 @@ public class EventsController extends BaseController{
                 sellTicket();
             }
         } catch (Exception e) {
-            e.printStackTrace();
           ExceptionHandler.displayError(new Exception("Failed to do action pleas try again", e));
         }
     }
@@ -273,7 +271,7 @@ public class EventsController extends BaseController{
             try {
                 getModelsHandler().getAdminModel().removeUserFromEvent(lvAssignCoordinator.getSelectionModel().getSelectedItem(), openedEvent);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                ExceptionHandler.displayError(new Exception("Failed to remove event coordinator", e));
             }
         }
     }

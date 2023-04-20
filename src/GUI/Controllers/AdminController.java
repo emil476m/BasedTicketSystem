@@ -102,7 +102,9 @@ public class AdminController extends BaseController {
                 stage.close();
             }
 
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {
+            ExceptionHandler.displayError(new Exception("Failed to logout", e));
+        }
 
     }
 
